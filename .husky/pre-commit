@@ -1,1 +1,4 @@
+#!/bin/sh
+echo "🔍 Husky pre-commit hook running..."
 npx lint-staged
+echo "✅ All done. If there were changes, they’re staged now."
