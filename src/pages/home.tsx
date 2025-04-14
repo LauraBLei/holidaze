@@ -7,8 +7,7 @@ export const HomePage = () => {
 
 
 
-        
-      </h2>
-    </div>
+       </h2>
+     </div>
   );
 };

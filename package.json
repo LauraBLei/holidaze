@@ -34,12 +34,12 @@
     "vite": "^6.2.0"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "echo '🔧 Running Prettier...' && prettier --write \"{files}\"",
-      "echo '🧹 Running ESLint...' && eslint --fix \"{files}\""
+    "**/*.{ts,tsx,js,jsx}": [
+      "echo '🔧 Running Prettier...' && prettier --write",
+      "echo '🧹 Running ESLint...' && eslint --fix"
     ],
-    "*.html": [
-      "echo '🎨 Formatting HTML with Prettier...' && prettier --write \"{files}\""
+    "**/*.html": [
+      "echo '🎨 Formatting HTML with Prettier...' && prettier --write"
     ]
   }
 }
