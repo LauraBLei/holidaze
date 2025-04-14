@@ -36,12 +36,11 @@
     "vite": "^6.2.0"
   },
   "lint-staged": {
-    "**/*.{ts,tsx,js,jsx}": [
-      "prettier --write",
-      "echo '🧹 Running ESLint...' && eslint --fix"
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write"
     ],
-    "**/*.html": [
-      "echo '🎨 Formatting HTML with Prettier...' && prettier --write"
+    "*.html": [
+      "prettier --write"
     ]
   }
 }
