@@ -35,11 +35,11 @@
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
-      "echo '🔧 Running Prettier...' && prettier --write",
-      "echo '🧹 Running ESLint...' && eslint --fix"
+      "echo '🔧 Running Prettier...' && prettier --write \"{files}\"",
+      "echo '🧹 Running ESLint...' && eslint --fix \"{files}\""
     ],
     "**/*.html": [
-      "echo '🎨 Formatting HTML with Prettier...' && prettier --write"
+      "echo '🎨 Formatting HTML with Prettier...' && prettier --write \"{files}\""
     ]
   }
 }
