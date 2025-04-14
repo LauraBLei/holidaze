@@ -1,4 +1,4 @@
-import { Amenities, Media, User, Venue } from "./common";
+import { Amenities, Media, User, Venue } from './common';
 
 export type ProfileData = {
   name: string;
