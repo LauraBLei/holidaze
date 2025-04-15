@@ -1,7 +1,9 @@
+import LoadingVenuePage from "../Components/loading/loadingVenuePage";
+
 export const VenuePage = () => {
   return (
-    <div>
-      <h1>Venue Page</h1>
+    <div className="flex justify-center items-center">
+      <LoadingVenuePage />
     </div>
   );
 };
