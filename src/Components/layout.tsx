@@ -4,7 +4,7 @@ export const Layout = () => {
   return (
     <>
       <header></header>
-      <main className='w-full'>
+      <main className='flex flex-col justify-center items-center'>
         {' '}
         <Outlet />
       </main>
