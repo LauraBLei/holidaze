@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Layout } from './components/layout';
+import { Layout } from './Components/layout';
 import { HomePage } from './pages/home';
 import { VenuePage } from './pages/venue';
 import { ProfilePage } from './pages/profile';
 import { ManagerPage } from './pages/manager';
 import { EditPage } from './pages/edit';
 import { CreatePage } from './pages/create';
+import './index.css';
+import './fonts.css';
 
 function App() {
   return (
