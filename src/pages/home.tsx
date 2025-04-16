@@ -3,7 +3,7 @@ import LoadingVenueCard from "../Components/loading/loadingVenueCard";
 
 export const HomePage = () => {
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <h1>Home Page</h1>
       <h2>Test commit hook </h2>
       <LoadingVenueCard />
