@@ -1,4 +1,4 @@
-import { FaRegStar, FaRegStarHalf, FaStar } from 'react-icons/fa';
+import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from 'react-icons/io';
 
 /**
  * Props for the StarRating component.
@@ -36,22 +36,38 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
   const emptyStars = maxStars - fullStars - (hasHalfStar ? 1 : 0);
 
   return (
-    <div className="flex gap-1 text-[#F5F5F5]">
+    <div className="flex gap-1 text-black">
       {/* Full Stars */}
       {Array(fullStars)
         .fill(0)
         .map((_, i) => (
-          <FaStar key={`full-${i}`} fill="currentColor" stroke="currentColor" />
+          <IoIosStar
+            className="w-[18px] md:w-[25px] h-auto"
+            key={`full-${i}`}
+            fill="currentColor"
+            stroke="currentColor"
+          />
         ))}
 
       {/* Half Star */}
-      {hasHalfStar && <FaRegStarHalf key="half" fill="currentColor" stroke="currentColor" />}
+      {hasHalfStar && (
+        <IoIosStarHalf
+          className="w-[18px] md:w-[25px] h-auto"
+          key="half"
+          fill="currentColor"
+          stroke="currentColor"
+        />
+      )}
 
       {/* Empty Stars */}
       {Array(emptyStars)
         .fill(0)
         .map((_, i) => (
-          <FaRegStar key={`empty-${i}`} stroke="currentColor" />
+          <IoIosStarOutline
+            className="w-[18px] md:w-[25px] h-auto"
+            key={`empty-${i}`}
+            stroke="currentColor"
+          />
         ))}
     </div>
   );
