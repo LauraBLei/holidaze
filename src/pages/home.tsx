@@ -3,12 +3,12 @@ import LoadingVenueCard from "../Components/loading/loadingVenueCard";
 
 export const HomePage = () => {
   return (
-    <div className="flex flex-col items-center">
+    <>
       <h1>Home Page</h1>
       <h2>Test commit hook </h2>
       <LoadingVenueCard />
 
       <h2>Test terminal log when commit</h2>
-    </div>
+    </>
   );
 };
