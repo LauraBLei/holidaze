@@ -1,6 +1,6 @@
 export default function LoadingVenuePage () {
     return (
-        <section className="flex flex-col w-full animate-pulse md:max-w-[1250px] md:flex-row" aria-hidden="true">
+        <section className="flex flex-col animate-pulse w-full md:max-w-[1250px] md:flex-row" aria-hidden="true">
             <div className="imageAndPriceWrapper flex flex-col gap-16">
                  <div className="imageContainer flex flex-col gap-5">
                 <div className="mainImage w-full h-[440px] bg-[#C4C4C4] rounded-xl md:max-w-[530px]"></div>
