@@ -1,4 +1,5 @@
-import { BiStar } from 'react-icons/bi';
+import { IoIosStar } from 'react-icons/io';
+import loadingImage from '/loading-image.png';
 
 interface VenueCardProps {
   image: string;
@@ -19,18 +20,20 @@ export const VenueCard: React.FC<VenueCardProps> = ({
 }) => {
   return (
     <article className="flex flex-col  md:max-w-[280px] w-full gap-[20px] animate-pulse">
-      <img className="cardImage h-[200px] bg-[#C4C4C4] rounded-xl" src={image} alt={imageAlt} />
-      <div className="title-rating-container flex justify-between">
-        <h3 className="bg-[#C4C4C4] h-[27px] w-[60%] rounded text-base font-bold"> {title} </h3>
-        <div className="flex ratingWrapper">
-          <BiStar />
+      <img
+        className="cardImage h-[200px]  rounded-xl object-cover"
+        src={image ? image : loadingImage}
+        alt={imageAlt}
+      />
+      <div className="title-rating-container flex justify-between items-center">
+        <h3 className=" h-[27px] w-[60%] rounded text-base font-bold"> {title} </h3>
+        <div className="flex ratingWrapper gap-2 items-center">
+          <IoIosStar fill="#000000" stroke="#000000" />
           <p className="text-xs">{rating}</p>
         </div>
       </div>
-      <p className="bg-[#C4C4C4] w-full h-[50px] rounded text-sm">{description}</p>
-      <div className="bg-[#C4C4C4] w-[35%] h-[27px] rounded text-sm font-bold">
-        {price}$ / night
-      </div>
+      <p className=" w-full rounded text-sm line-clamp-3">{description}</p>
+      <div className=" w-[35%] h-[27px] rounded text-sm font-bold">{price}$ / night</div>
     </article>
   );
 };
