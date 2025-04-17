@@ -1,6 +1,8 @@
+import LoadingVenueCard from './loadingVenueCard';
+
 export default function LoadingProfilePage() {
   return (
-    <div className="skeletonLoaders animate-pulse w-screen flex flex-col items-center gap-5">
+    <div className="skeletonLoaders animate-pulse w-screen flex flex-col items-center gap-14 md:gap-20 lg:gap-24">
       <div className="max-w-[1440px] w-full flex flex-col  items-center md:items-start">
         <div className="skeleton-banner bg-[#C4C4C4] w-full h-[250px] md:h-[360px]"></div>
         <div className="flex flex-col md:flex-row items-center w-full gap-5 md:gap-0">
@@ -13,6 +15,16 @@ export default function LoadingProfilePage() {
               <div className="bg-[#C4C4C4] h-5 w-40 rounded"></div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="w-full flex justify-center items-center">
+        <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5 bg-amber-300">
+          <LoadingVenueCard />
+          <LoadingVenueCard />
+          <LoadingVenueCard />
+          <LoadingVenueCard />
+          <LoadingVenueCard />
+          <LoadingVenueCard />
         </div>
       </div>
     </div>
