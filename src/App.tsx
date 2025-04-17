@@ -6,6 +6,8 @@ import { ProfilePage } from './pages/profile';
 import { ManagerPage } from './pages/manager';
 import { EditPage } from './pages/edit';
 import { CreatePage } from './pages/create';
+import './index.css';
+import './fonts.css';
 
 function App() {
   return (
