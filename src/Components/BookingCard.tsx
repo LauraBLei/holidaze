@@ -1,7 +1,7 @@
 import { IoIosStar } from 'react-icons/io';
 import loadingImage from '/loading-image.png';
 
-interface VenueCardProps {
+interface BookingCardProps {
   image: string;
   imageAlt: string;
   title: string;
@@ -12,7 +12,7 @@ interface VenueCardProps {
   price: number;
 }
 
-export const BookingCard: React.FC<VenueCardProps> = ({
+export const BookingCard: React.FC<BookingCardProps> = ({
   image,
   imageAlt,
   title,
