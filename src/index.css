@@ -1,1 +1,27 @@
 @import 'tailwindcss';
+
+@theme {
+  --color-brand-grey: #bebebe;
+  --color-brand-orange: #ffb641;
+  --font-primary: 'Inter', 'ui-sans-serif', 'system-ui';
+}
+
+.button {
+  @apply bg-brand-orange font-primary w-[250px] md:w-[300px] rounded-xl py-2.5 md:py-3 scale-95 hover:scale-100 hover:shadow-md cursor-pointer active:scale-95 text-lg md:text-xl;
+}
+
+.transition {
+  @apply transition ease-in-out duration-300 transform;
+}
+
+.headlineOne {
+  @apply font-primary text-lg font-semibold md:font-light  md:text-3xl;
+}
+
+.headlineTwo {
+  @apply font-primary text-base md:text-2xl;
+}
+
+.text {
+  @apply font-primary text-xs md:text-base;
+}
