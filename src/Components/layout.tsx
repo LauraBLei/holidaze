@@ -2,13 +2,13 @@ import { Outlet } from 'react-router-dom';
 
 export const Layout = () => {
   return (
-    <div>
+    <>
       <header></header>
-      <main>
+      <main className='flex flex-col justify-center items-center w-full'>
         {' '}
         <Outlet />
       </main>
       <footer></footer>
-    </div>
+    </>
   );
 };

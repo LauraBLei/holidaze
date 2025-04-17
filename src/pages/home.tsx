@@ -1,9 +1,14 @@
+import LoadingVenueCard from "../Components/loading/loadingVenueCard";
+
+
 export const HomePage = () => {
   return (
-    <div>
+
+    <>
       <h1 className="headlineOne">Home Page</h1>
       <h2 className="headlineTwo">Test commit hook </h2>
       <h2 className="font-primary">Test terminal log when commit</h2>
+        <LoadingVenueCard />
       <p className="text">
         {' '}
         Towering six meters above the Tessungåe river that runs down from the great plateau of
@@ -18,6 +23,6 @@ export const HomePage = () => {
         constellations above. You'll surely sleep soundly here at the treehouse!{' '}
       </p>
       <button className="button transition">Button</button>
-    </div>
+    </>
   );
 };
