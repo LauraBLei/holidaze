@@ -1,10 +1,23 @@
+import { GalleryComponent } from '../Components/gallery';
 import LoadingVenueCard from '../Components/loading/loadingVenueCard';
 
 export const HomePage = () => {
+  const Test = [
+    { url: 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg', alt: 'dogOne' },
+    {
+      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSER-pd5O-l8AQf4LD2cyqpEPYFVcA4iFehA&s',
+      alt: 'dogTwo',
+    },
+    {
+      url: 'https://cdn.royalcanin-weshare-online.io/HiJiPmYBaxEApS7LmAfe/v1/ed7a-how-to-buy-a-puppy-article-dog',
+      alt: 'dogThree',
+    },
+  ];
   return (
     <>
       <h1 className="headlineOne">Home Page</h1>
       <h2 className="headlineTwo">Test commit hook </h2>
+      <GalleryComponent media={Test} />
       <h2 className="font-primary">Test terminal log when commit</h2>
       <LoadingVenueCard />
       <p className="text">
