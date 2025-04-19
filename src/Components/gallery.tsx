@@ -12,11 +12,11 @@ export const GalleryComponent: React.FC<GalleryType> = ({ media }) => {
     <div className="max-w-[530px]  w-full h-full">
       <div
         id="activeImageContainer"
-        className="w-full h-full aspect-[530/440]  rounded-[10px] overflow-hidden mb-6"
+        className="w-full h-full aspect-[530/440]  rounded-[10px] overflow-hidden mb-3 md:mb-6"
       >
         <img className="object-cover w-full h-full " src={activeImage.url} alt={activeImage.alt} />
       </div>
-      <div id="extraImageContainer" className="flex w-full gap-x-12 gap-y-6  flex-wrap">
+      <div id="extraImageContainer" className="flex w-full  gap-5 md:gap-x-12 gap-y-3  flex-wrap">
         {media.map((image) => {
           const isActive = image.url === activeImage.url;
           return (
