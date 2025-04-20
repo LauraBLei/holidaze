@@ -1,4 +1,5 @@
 import { GalleryComponent } from '../Components/gallery';
+import { VenueCard } from '../Components/VenueCard';
 
 export const HomePage = () => {
   const Test = [
