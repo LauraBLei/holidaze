@@ -19,7 +19,7 @@ export const VenueCard: React.FC<VenueCardProps> = ({
   price,
 }) => {
   return (
-    <article className="flex flex-col  md:max-w-[280px] w-full gap-[20px] animate-pulse">
+    <article className="flex flex-col  md:max-w-[280px] w-full gap-[20px]">
       <img
         className="cardImage h-[200px]  rounded-xl object-cover"
         src={image ? image : loadingImage}
