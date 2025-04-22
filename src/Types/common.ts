@@ -7,12 +7,14 @@ export type Venue = {
   id: string;
   name: string;
   description: string;
-  media: Media;
+  media: Media[];
   location: Location;
   owner: User;
   count: {
     bookings: number;
   };
+  price: number;
+  rating: number;
 };
 
 export type Location = {
