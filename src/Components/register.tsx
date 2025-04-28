@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CommonContext } from '../Types/context';
 
 export const RegisterModal = () => {
   const [isVenueManager, setIsVenueManager] = useState(false);
+  const { registerOpen, OpenLogin } = useContext(CommonContext);
   return (
     <>
-      <section className="w-screen h-screen bg-black/50 flex justify-center items-center">
+      <section className={`absolute z-50 ${registerOpen ? 'block' : 'hidden'}`}>
         <div>
           <h1>Register an account</h1>
           <form action="">
@@ -33,6 +35,7 @@ export const RegisterModal = () => {
             Error
           </div>
         </div>
+        <button onClick={() => OpenLogin()}>Login</button>
       </section>
     </>
   );

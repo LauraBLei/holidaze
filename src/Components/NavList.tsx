@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { BiSolidCalendarStar } from 'react-icons/bi';
 import { BsHouseAddFill } from 'react-icons/bs';
 import { IoPerson } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { LoginModal } from './login';
+import { CommonContext } from '../Types/context';
 
 interface NavListProps {
   className: string;
@@ -11,7 +11,7 @@ interface NavListProps {
 }
 
 export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
-  const [LoginOpen, setLoginOpen] = useState<boolean>(false);
+  const { OpenLogin } = useContext(CommonContext);
   return (
     <ul className={className}>
       <li className="flex items-center gap-1 cursor-pointer" onClick={onClick}>
@@ -32,14 +32,9 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           Profile
         </Link>
       </li>
-      <li className="flex items-center gap-1 cursor-pointer" onClick={() => setLoginOpen(true)}>
-        login
+      <li className="flex items-center gap-1 cursor-pointer" onClick={() => OpenLogin()}>
+        <span className="text-sm md:text-base font-bold">Login</span>
       </li>
-      <div
-        className={`absolute top-0 flex items-center justify-center w-svh h-svh z-50 bg-black/50 text-white ${LoginOpen ? 'block' : 'hidden'}`}
-      >
-        <LoginModal />
-      </div>
     </ul>
   );
 };
