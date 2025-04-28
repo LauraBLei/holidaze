@@ -15,10 +15,10 @@ export const RegisterModal = () => {
             <div id="Slider" className="w-full  mx-auto">
               <input type="hidden" name="isVenueManager" value={isVenueManager.toString()} />
 
-              <div className="relative flex rounded-full p-1  w-full">
+              <div className="relative flex rounded-full  justify-between  w-full">
                 <div
                   id="movingSlider"
-                  className={`absolute top-1 left-1 w-1/2 h-full rounded-xl border-brand-grey border-2 bg-white shadow-md transition-transform duration-300 ${
+                  className={`absolute top-0 left-0 w-1/2 h-full rounded-xl  bg-brand-orange shadow-md transition ${
                     isVenueManager ? 'translate-x-full' : ''
                   }`}
                 />
@@ -26,10 +26,10 @@ export const RegisterModal = () => {
                 <button
                   type="button"
                   onClick={() => setIsVenueManager(false)}
-                  className={`flex-1 z-10 py-3.5 px-14 font-medium text-xl  ${
+                  className={`flex-1 z-10 py-3.5  font-medium text-xl  ${
                     !isVenueManager
                       ? 'text-black cursor-auto'
-                      : 'text-brand-grey whitespace-nowrap cursor-pointer'
+                      : 'text-black whitespace-nowrap cursor-pointer'
                   }`}
                 >
                   Customer
@@ -39,10 +39,10 @@ export const RegisterModal = () => {
                 <button
                   type="button"
                   onClick={() => setIsVenueManager(true)}
-                  className={`flex-1 z-10 py-3.5 px-14 font-medium text-xl text-black whitespace-nowrap ${
+                  className={`flex-1 z-10 py-3.5  font-medium text-xl text-black whitespace-nowrap ${
                     isVenueManager
                       ? 'text-black cursor-auto'
-                      : 'text-brand-grey whitespace-nowrap cursor-pointer'
+                      : 'text-black whitespace-nowrap cursor-pointer'
                   } `}
                 >
                   Venue Manager
@@ -52,28 +52,16 @@ export const RegisterModal = () => {
             <div id="error messages" className="hidden">
               <span>Register Successful</span>
             </div>
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              required
-              className="w-full p-3 rounded-xl border border-brand-grey  "
-            />
+            <input type="text" name="name" placeholder="Name" required className="input " />
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              required
-              className="w-full p-3 rounded-xl border border-brand-grey "
-            />
+            <input type="email" name="email" placeholder="Email" required className="input " />
 
             <input
               type="password"
               name="password"
               placeholder="Password"
               required
-              className="w-full p-3 rounded-xl border border-brand-grey "
+              className="input"
             />
 
             <input
@@ -81,7 +69,7 @@ export const RegisterModal = () => {
               name="confirmPassword"
               placeholder="Confirm Password"
               required
-              className="w-full p-3 rounded-xl border border-brand-grey "
+              className="input"
             />
 
             <button type="submit" className="button transition ">
