@@ -1,0 +1,35 @@
+import { API } from '../endpoints';
+
+export default async function HandleLogin(formdata: FormData) {
+  const body = {
+    email: formdata.get('email'),
+    password: formdata.get('password'),
+  };
+  try {
+    const response = await fetch(API.AUTH_LOGIN, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    console.log(response);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Login successful:', data);
+
+    if (response.ok) {
+      localStorage.setItem('User', JSON.stringify(data.data));
+    }
+
+    return data.data;
+  } catch (error) {
+    console.error('Login failed:', error);
+    throw error;
+  }
+}

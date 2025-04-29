@@ -3,6 +3,7 @@ import { Venue } from '../Types/common';
 import { IoIosStar } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
+
 interface VenueCardProps {
   venue: Venue;
 }

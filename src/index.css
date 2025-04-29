@@ -25,3 +25,7 @@
 .text {
   @apply font-primary text-xs md:text-base;
 }
+
+.input {
+  @apply w-full p-3 rounded-xl border border-brand-grey;
+}

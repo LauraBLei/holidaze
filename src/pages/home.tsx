@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { ReadVenues } from '../API/venues/read';
-
 import { VenueCard } from '../Components/VenueCard';
 import { Venue } from '../Types/common';
 import { Search } from '../Components/Search';
