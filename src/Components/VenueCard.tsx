@@ -8,8 +8,6 @@ interface VenueCardProps {
 }
 
 export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
-  console.log('venue', venue);
-
   return (
     <Link to={`/venues?id=$${venue.id}`}>
       <article className="flex flex-col  md:max-w-[280px] w-full gap-[20px]">

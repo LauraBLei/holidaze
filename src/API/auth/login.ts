@@ -14,14 +14,11 @@ export default async function HandleLogin(formdata: FormData) {
       body: JSON.stringify(body),
     });
 
-    console.log(response);
-
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log('Login successful:', data);
 
     if (response.ok) {
       localStorage.setItem('User', JSON.stringify(data.data));

@@ -21,8 +21,6 @@ export const HandleRegister = async ({ name, email, password, isVenueManager }: 
       body: JSON.stringify(body),
     });
 
-    console.log(response);
-
     if (!response.ok) {
       const errorData = await response.json();
 

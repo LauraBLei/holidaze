@@ -10,7 +10,6 @@ export const ReadVenues = async (setVenues: (input: Venue[]) => void) => {
     });
     if (response.ok) {
       const venues = await response.json();
-      console.log('api', venues);
 
       setVenues(venues.data);
     }
