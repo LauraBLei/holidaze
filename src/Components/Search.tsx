@@ -25,7 +25,7 @@ export const Search: React.FC<InputProps> = ({ id, onSearch }: InputProps): JSX.
   return (
     <form
       role="search"
-      className="py-10 w-full flex justify-center items-center"
+      className="pt-10 mb-16 w-full flex justify-center items-center"
       onSubmit={(e) => e.preventDefault()}
     >
       <div className="max-w-[650px] w-full relative">
