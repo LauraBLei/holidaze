@@ -17,3 +17,19 @@ export const ReadVenues = async (setVenues: (input: Venue[]) => void) => {
     console.log(error);
   }
 };
+
+export const ReadVenue = async (id: string, setVenue: (input: Venue) => void) => {
+  const queryStrings = '?&_owner=true&_bookings=true';
+  try {
+    const response = await fetch(API.VENUES + '/' + id + queryStrings, {
+      method: 'GET',
+      headers: headers(),
+    });
+    if (response.ok) {
+      const venue = await response.json();
+      setVenue(venue.data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
