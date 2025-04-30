@@ -8,7 +8,6 @@ import { EditPage } from './pages/edit';
 import { CreatePage } from './pages/create';
 import './index.css';
 import './fonts.css';
-import { DataProvider } from './context/common';
 
 function App() {
   return (
@@ -17,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path="/venues/:id" element={<VenuePage />} />
+            <Route path="/venues" element={<VenuePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/manager" element={<ManagerPage />} />
             <Route path="/edit" element={<EditPage />} />

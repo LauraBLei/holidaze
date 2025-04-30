@@ -3,7 +3,6 @@ import { Venue } from '../Types/common';
 import { IoIosStar } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
-
 interface VenueCardProps {
   venue: Venue;
 }
@@ -12,7 +11,7 @@ export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   console.log('venue', venue);
 
   return (
-    <Link to={`/venues/${venue.id}`}>
+    <Link to={`/venues?id=$${venue.id}`}>
       <article className="flex flex-col  md:max-w-[280px] w-full gap-[20px]">
         <img
           className="cardImage h-[200px]  rounded-xl object-cover"
