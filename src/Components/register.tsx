@@ -4,13 +4,21 @@ import { handleRegisterSubmit } from '../UI/auth/register';
 
 export const RegisterModal = () => {
   const [isVenueManager, setIsVenueManager] = useState(false);
-  const { registerOpen, OpenLogin } = useContext(CommonContext);
+  const { registerOpen, OpenLogin, setRegisterOpen } = useContext(CommonContext);
   return (
     <section
-      className={`absolute z-50 bg-black/50 h-svh w-full flex items-center justify-center p-0 m-0 ${registerOpen ? 'block' : 'hidden'}`}
+      className={`absolute z-50 bg-black/50 h-screen w-full flex items-center justify-center p-0 m-0 ${registerOpen ? 'block' : 'hidden'}`}
     >
-      <div className="bg-white w-full md:max-w-[750px] max-h-[750px] h-full flex flex-col  items-center rounded-xl">
-        <h1 className="headlineOne my-16">Register an account</h1>
+      <div className="bg-white w-full md:max-w-[750px] max-h-[750px] h-auto py-10 px-5 flex flex-col  items-center rounded-xl">
+        <div className="w-full flex justify-end px-5">
+          <p
+            onClick={() => setRegisterOpen(false)}
+            className="font-bold font-primary text-2xl hover:scale-100 scale-90 transition cursor-pointer"
+          >
+            X
+          </p>
+        </div>
+        <h1 className="headlineOne mb-16 mt-3">Register an account</h1>
         <form
           className="w-full flex flex-col gap-4 max-w-[425px] items-center"
           onSubmit={(e) => {
