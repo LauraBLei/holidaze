@@ -5,6 +5,7 @@ import { handleRegisterSubmit } from '../UI/auth/register';
 export const RegisterModal = () => {
   const [isVenueManager, setIsVenueManager] = useState(false);
   const { registerOpen, OpenLogin, setRegisterOpen } = useContext(CommonContext);
+
   return (
     <section
       className={`absolute z-50 bg-black/50 h-screen w-full flex items-center justify-center p-0 m-0 ${registerOpen ? 'block' : 'hidden'}`}
@@ -77,8 +78,18 @@ export const RegisterModal = () => {
             <p id="catchError" className="w-full p-3 rounded-xl bg-error-red hidden">
               Something went wrong trying to register, try again later
             </p>
+            <p id="wrongEmailPattern" className="w-full p-3 rounded-xl bg-error-red hidden">
+              Email must end with @noroff.no / @stud.noroff.no
+            </p>
           </div>
-          <input type="text" name="name" placeholder="Name" required className="input " />
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            required
+            className="input "
+            maxLength={20}
+          />
 
           <input type="email" name="email" placeholder="Email" required className="input " />
 
