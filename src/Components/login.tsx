@@ -34,7 +34,7 @@ export const LoginModal = () => {
           </button>
         </form>
         <button
-          className="transition scale-95 hover:scale-100 cursor-pointer"
+          className="transition scale-95 hover:scale-100 cursor-pointer mt-4 font-primary"
           onClick={() => OpenRegister()}
         >
           Register
