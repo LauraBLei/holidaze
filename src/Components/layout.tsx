@@ -7,11 +7,11 @@ import { RegisterModal } from './register.tsx';
 export const Layout = () => {
   return (
     <>
+      <RegisterModal />
+      <LoginModal />
       <Header />
       <main className="flex flex-col justify-center items-center w-full">
         <Outlet />
-        <LoginModal />
-        <RegisterModal />
       </main>
       <Footer />
     </>

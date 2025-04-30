@@ -18,6 +18,7 @@ export const DataProvider = ({ children }: ContextProviderProps) => {
     setLoginOpen(true);
     setRegisterOpen(false);
   };
+
   return (
     <CommonContext.Provider
       value={{

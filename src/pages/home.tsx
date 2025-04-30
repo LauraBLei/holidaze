@@ -13,9 +13,11 @@ export const HomePage = () => {
   return (
     <>
       <h1 className="headlineOne">Home Page</h1>
-      {venues.map((venue) => {
-        return <VenueCard venue={venue} key={venue.id} />;
-      })}
+      <div className="flex flex-wrap max-h-[1000px]">
+        {venues.map((venue) => {
+          return <VenueCard venue={venue} key={venue.id} />;
+        })}
+      </div>
     </>
   );
 };
