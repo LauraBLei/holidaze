@@ -41,7 +41,7 @@ export const RegisterModal = () => {
               <button
                 type="button"
                 onClick={() => setIsVenueManager(false)}
-                className={`flex-1 z-10 py-3.5  font-medium text-xl  ${
+                className={`flex-1 z-10 py-2 md:py-3.5  font-medium text-base md:text-xl  ${
                   !isVenueManager
                     ? 'text-black cursor-auto'
                     : 'text-black whitespace-nowrap cursor-pointer'
@@ -54,7 +54,7 @@ export const RegisterModal = () => {
               <button
                 type="button"
                 onClick={() => setIsVenueManager(true)}
-                className={`flex-1 z-10 py-3.5  font-medium text-xl text-black whitespace-nowrap ${
+                className={`flex-1 z-10 py-2 md:py-3.5  font-medium text-base md:text-xl whitespace-nowrap ${
                   isVenueManager
                     ? 'text-black cursor-auto'
                     : 'text-black whitespace-nowrap cursor-pointer'
