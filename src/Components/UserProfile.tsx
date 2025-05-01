@@ -53,7 +53,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
                   <BiSolidCalendarStar className="text-lg md:text-2xl" />
                 ) : null}
               </div>
-              <p className="text-base md:text-lg rounded">
+              <p className="text-base md:text-lg rounded italic">
                 {profile.bio ? profile.bio : 'This user has no bio yet'}
               </p>
             </div>
@@ -61,21 +61,19 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         </div>
       </div>
       <div className="w-full flex justify-center items-center flex-col">
-        {venues ? <h2 className="font-bold text-lg md:text-2xl ">Venues By User </h2> : null}
+        {venues.length > 0 ? (
+          <h2 className="font-bold text-lg md:text-2xl ">Venues By User </h2>
+        ) : null}
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
-          {venues.length > 0 ? (
-            venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
-          ) : (
-            <p>No venues found.</p>
-          )}
+          {venues.length > 0
+            ? venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
+            : null}
         </div>
-        {bookings ? <h2 className="font-bold text-lg md:text-2xl ">Bookings </h2> : null}
+        {bookings.length > 0 ? <h2 className="font-bold text-lg md:text-2xl ">Bookings </h2> : null}
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
-          {bookings.length > 0 ? (
-            bookings.map((booking) => <VenueCard key={booking.venue.id} venue={booking.venue} />)
-          ) : (
-            <p>No bookings found.</p>
-          )}
+          {bookings.length > 0
+            ? bookings.map((booking) => <VenueCard key={booking.venue.id} venue={booking.venue} />)
+            : null}
         </div>
       </div>
     </div>
