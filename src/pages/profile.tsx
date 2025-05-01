@@ -1,13 +1,23 @@
 import fetchProfile from '../API/profile/fetchProfile';
 import LoadingProfilePage from '../Components/loading/LoadingProfilePage';
 import { BuildUser } from '../Components/UserProfile';
-
-const profile = await fetchProfile();
+import React from 'react';
 
 export const ProfilePage = () => {
-  return (
-    <div className="w-full">
-      {profile ? <BuildUser profile={profile} /> : <LoadingProfilePage />}
-    </div>
-  );
+  const [page, setPage] = React.useState(<LoadingProfilePage />);
+
+  React.useEffect(() => {
+    const loadProfile = async () => {
+      const data = await fetchProfile();
+      if (data) {
+        setPage(<BuildUser profile={data} />);
+      } else {
+        setPage(<p>404. Error loading profile.</p>);
+      }
+    };
+
+    loadProfile();
+  }, []);
+
+  return <div className="w-full">{page}</div>;
 };
