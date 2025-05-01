@@ -17,6 +17,13 @@ export type Venue = {
   rating: number;
 };
 
+export type Booking = {
+  id: string;
+  dateFrom: string;
+  dateTo: string;
+  venue: Venue;
+};
+
 export type Location = {
   address: string;
   city: string;
@@ -33,6 +40,15 @@ export type User = {
   bio: string;
   avatar: Media;
   banner: Media;
+};
+
+export type Profile = {
+  name: string;
+  bio: string;
+  avatar: Media;
+  banner: Media;
+  venues: Venue[];
+  venueManager: boolean;
 };
 
 export type Amenities = {
