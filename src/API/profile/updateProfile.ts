@@ -15,6 +15,7 @@ export async function HandleUpdateProfile(formdata: FormData) {
       url: formdata?.get('banner') || storedBanner,
       alt: '',
     },
+    venueManager: formdata.get('venueManager') === 'true',
   };
 
   console.log(payload);
@@ -32,7 +33,7 @@ export async function HandleUpdateProfile(formdata: FormData) {
   const data = await response.json();
 
   if (!response.ok) {
-    const errorData = await response.json();
+    const errorData = data;
     throw new Error(`Failed to update profile: ${errorData.message}`);
   }
 
