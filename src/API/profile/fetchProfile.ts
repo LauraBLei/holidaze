@@ -1,15 +1,12 @@
 import { API } from '../endpoints';
+import { accessToken } from '../../Constants/constants';
 
 export default async function fetchProfile() {
   const urlSearch = new URLSearchParams(window.location.search);
-  const profileId = urlSearch.get('username');
-
-  const storedUser = localStorage.getItem('User');
-  const userData = JSON.parse(storedUser);
-  const accessToken = userData.accessToken;
+  const profileName = urlSearch.get('username');
 
   try {
-    const response = await fetch(`${API.PROFILES}/${profileId}`, {
+    const response = await fetch(`${API.PROFILES}/${profileName}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${accessToken}`,

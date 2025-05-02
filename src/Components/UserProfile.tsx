@@ -5,14 +5,21 @@ import { Venue } from '../Types/common';
 import { Booking } from '../Types/common';
 import { VenueCard } from './VenueCard';
 import { BiSolidCalendarStar } from 'react-icons/bi';
+import { FaUserEdit } from 'react-icons/fa';
+import { UpdateProfileModal } from './updateProfile';
 
 interface BuildUserProps {
   profile: Profile;
 }
 
+const storedUser = localStorage.getItem('User');
+const storedUserData = JSON.parse(storedUser || '{}');
+const storedUserName = storedUserData.name;
+
 export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,10 +36,8 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
     fetchData();
   }, []);
 
-  console.log(venues);
-
   return (
-    <div className="skeletonLoaders w-screen flex flex-col items-center gap-14 md:gap-20 lg:gap-24">
+    <div className="w-screen flex flex-col items-center gap-14 md:gap-20 lg:gap-24">
       <div className="max-w-[1440px] w-full flex flex-col items-center md:items-start">
         <img
           src={profile.banner.url}
@@ -47,11 +52,28 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
           />
           <div className="skeleton-bio flex flex-col justify-center w-full">
             <div className="flex flex-col gap-4 justify-center mx-5">
-              <div className="flex items-center gap-2.5">
-                <h1 className="text-lg md:text-2xl rounded">{profile.name}</h1>
-                {profile.venueManager ? (
-                  <BiSolidCalendarStar className="text-lg md:text-2xl" />
-                ) : null}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <h1 className="text-lg md:text-2xl rounded">{profile.name}</h1>
+                  {profile.venueManager ? (
+                    <BiSolidCalendarStar className="text-lg md:text-2xl" />
+                  ) : null}
+                </div>
+                {profile.name === storedUserName && (
+                  <div
+                    onClick={() => setShowUpdateModal(true)}
+                    className="edit-container items-center flex gap-2.5 cursor-pointer"
+                  >
+                    <p>Edit User</p>
+                    <FaUserEdit className="text-lg md:text-2xl" />
+                  </div>
+                )}
+
+                {/* Mount modal component */}
+                <UpdateProfileModal
+                  isOpen={showUpdateModal}
+                  onClose={() => setShowUpdateModal(false)}
+                />
               </div>
               <p className="text-base md:text-lg rounded italic">
                 {profile.bio ? profile.bio : 'This user has no bio yet'}
