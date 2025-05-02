@@ -12,6 +12,7 @@ import { Description } from '../Components/textCrop';
 import { FaParking, FaTimes } from 'react-icons/fa';
 import { GiKnifeFork } from 'react-icons/gi';
 import { BookingForm } from '../Components/booking';
+import { MdDeleteForever, MdEdit } from 'react-icons/md';
 
 export const VenuePage = () => {
   const [searchParams] = useSearchParams();
@@ -54,8 +55,13 @@ export const VenuePage = () => {
         <div className="flex justify-between items-center flex-wrap gap-10">
           <h1 className="headlineOne">{venue.name}</h1>
           <div className="flex gap-5 md:gap-10 font-bold">
-            <Link to="/edit">Edit</Link>
-            <button>Delete</button>
+            <Link to="/edit" className="flex gap-2 items-center">
+              <span>Edit Venue</span>
+              <MdEdit />
+            </Link>
+            <button className="flex gap-2 items-center">
+              <span>Delete Venue</span> <MdDeleteForever />
+            </button>
           </div>
         </div>
         <p>{venue.maxGuests} Guests</p>
