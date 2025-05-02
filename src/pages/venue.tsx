@@ -31,7 +31,7 @@ export const VenuePage = () => {
   console.log(venue);
 
   return (
-    <div className="font-primary w-full h-full px-5 flex flex-wrap md:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px]">
+    <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px]">
       <div className="max-w-[700px]">
         <GalleryComponent media={venue.media} />
         <div className="my-10">

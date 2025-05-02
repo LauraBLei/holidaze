@@ -33,12 +33,9 @@ export const BookingForm = ({ maxGuests, bookings, onSubmit }: BookingFormProps)
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-center gap-4 w-full text-xs font-primary min-w-[300px]"
-    >
-      <div className="flex gap-5 w-full">
-        <label className="flex flex-col flex-1/2 input w-full">
+    <form onSubmit={handleSubmit} className="flex flex-col w-full gap-5 items-center">
+      <div className="w-full flex flex-col md:flex-row gap-5">
+        <label className="input flex flex-col flex-1/2 text-xs">
           CHECK-IN
           <DatePicker
             selected={checkIn}
@@ -53,7 +50,7 @@ export const BookingForm = ({ maxGuests, bookings, onSubmit }: BookingFormProps)
           />
         </label>
 
-        <label className="flex flex-col flex-1/2 w-full input text-xs">
+        <label className="input flex flex-col flex-1/2 text-xs">
           CHECK-OUT
           <DatePicker
             selected={checkOut}
@@ -69,7 +66,7 @@ export const BookingForm = ({ maxGuests, bookings, onSubmit }: BookingFormProps)
         </label>
       </div>
 
-      <label className="flex flex-col w-full input text-xs">
+      <label className="input flex flex-col text-xs">
         GUESTS
         <select
           value={guests}

@@ -15,7 +15,7 @@ body {
 }
 
 .button {
-  @apply bg-brand-orange font-primary w-[250px] md:w-[300px] rounded-xl py-2.5 md:py-3 scale-95 hover:scale-100 hover:shadow-md cursor-pointer active:scale-95 text-lg md:text-xl;
+  @apply bg-brand-orange font-primary w-full md:w-[300px] rounded-xl py-2.5 md:py-3 scale-95 hover:scale-100 hover:shadow-md cursor-pointer active:scale-95 text-lg md:text-xl;
 }
 
 .transition {
