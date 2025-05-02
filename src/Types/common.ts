@@ -1,3 +1,5 @@
+import { BookingData } from './API';
+
 export type Media = {
   url: string;
   alt: string;
@@ -15,6 +17,9 @@ export type Venue = {
   };
   price: number;
   rating: number;
+  maxGuests: number;
+  meta: Meta;
+  bookings: BookingData[];
 };
 
 export type Booking = {
@@ -42,18 +47,11 @@ export type User = {
   banner: Media;
 };
 
-export type Profile = {
-  name: string;
-  bio: string;
-  avatar: Media;
-  banner: Media;
-  venues: Venue[];
-  venueManager: boolean;
+export type Amenities = {
+  breakfast: boolean;
+  parking: boolean;
+  pets: boolean;
+  wifi: boolean;
 };
 
-export type Amenities = {
-  wifi: boolean;
-  parking: boolean;
-  breakfast: boolean;
-  pets: boolean;
-};
+

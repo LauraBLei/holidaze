@@ -9,7 +9,7 @@ export const GalleryComponent: React.FC<GalleryType> = ({ media }) => {
   const [activeImage, setActiveImage] = useState<Media>(media[0]);
 
   return (
-    <div className="max-w-[530px]  w-full h-full">
+    <div className="w-full h-auto">
       <div
         id="activeImageContainer"
         className="w-full h-full aspect-[530/440]  rounded-[10px] overflow-hidden mb-3 md:mb-6"
