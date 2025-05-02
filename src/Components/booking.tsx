@@ -1,6 +1,7 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from 'react';
+import { userInfo } from '../utilities/localstorage';
 
 interface Booking {
   dateFrom: string;
@@ -17,6 +18,7 @@ export const BookingForm = ({ maxGuests, bookings, onSubmit }: BookingFormProps)
   const [checkIn, setCheckIn] = useState<Date | null>(null);
   const [checkOut, setCheckOut] = useState<Date | null>(null);
   const [guests, setGuests] = useState(1);
+  const user = userInfo();
 
   // Create a list of all blocked date ranges
   const excludeDateIntervals = bookings.map((b) => ({
@@ -81,7 +83,7 @@ export const BookingForm = ({ maxGuests, bookings, onSubmit }: BookingFormProps)
         </select>
       </label>
 
-      <button type="submit" className="button mt-4">
+      <button type="submit" className={`button mt-4 ${user ? 'block' : 'hidden'}`}>
         Book now
       </button>
     </form>

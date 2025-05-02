@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import LoadingVenuePage from '../Components/loading/loadingVenuePage';
 
 import { Link, useSearchParams } from 'react-router-dom';
@@ -13,14 +13,14 @@ import { FaParking, FaTimes } from 'react-icons/fa';
 import { GiKnifeFork } from 'react-icons/gi';
 import { BookingForm } from '../Components/booking';
 import { MdDeleteForever, MdEdit } from 'react-icons/md';
+import { CommonContext } from '../Types/context';
 
 export const VenuePage = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id') ?? ``;
   const [venue, setVenue] = useState<Venue>();
   const user = userInfo();
-  console.log('id', id);
-  console.log(user);
+  const { OpenLogin } = useContext(CommonContext);
 
   useEffect(() => {
     ReadVenue(id, setVenue);
@@ -33,7 +33,7 @@ export const VenuePage = () => {
 
   return (
     <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px]">
-      <div className="max-w-[700px]">
+      <div className="max-w-[700px] mb-5 md:mb-10">
         <GalleryComponent media={venue.media} />
         <div className="my-10">
           <p className="text-2xl">{venue.price} NOK</p>
@@ -49,24 +49,38 @@ export const VenuePage = () => {
               console.log(checkIn, checkout, guests);
             }}
           />
+          <div className={`text-center my-10 ${!user ? 'block' : 'hidden'}`}>
+            <button className="headlineTwo" onClick={() => OpenLogin()}>
+              Login or register to book this venue!
+            </button>
+          </div>
         </div>
       </div>
       <div className="flex flex-col gap-2 w-full md:max-w-[700px] md:min-w-[350px] px-2">
         <div className="flex justify-between items-center flex-wrap gap-10">
           <h1 className="headlineOne">{venue.name}</h1>
-          <div className="flex gap-5 md:gap-10 font-bold">
-            <Link to="/edit" className="flex gap-2 items-center">
+
+          <div
+            className={`flex gap-5 md:gap-10 font-bold ${user && user.name === venue.owner.name ? 'block' : 'hidden'}`}
+          >
+            <Link
+              to="/edit"
+              className="flex gap-2 items-center scale-95 hover:scale-100 transition"
+            >
               <span>Edit Venue</span>
               <MdEdit />
             </Link>
-            <button className="flex gap-2 items-center">
+            <button className="flex gap-2 items-center cursor-pointer scale-95 hover:scale-100 transition">
               <span>Delete Venue</span> <MdDeleteForever />
             </button>
           </div>
         </div>
         <p>{venue.maxGuests} Guests</p>
         <StarRating rating={venue.rating} />
-        <div className="flex items-center gap-2 border-y-2 border-brand-grey py-2">
+        <Link
+          to="/profile"
+          className="flex items-center gap-2 border-y-2 border-brand-grey py-2 cursor-pointer"
+        >
           <div className="w-[41px] h-[41px] rounded-full overflow-hidden">
             <img
               className="object-cover w-full h-full"
@@ -75,7 +89,7 @@ export const VenuePage = () => {
             />
           </div>
           <p>{venue.owner.name}</p>
-        </div>
+        </Link>
         <div className="flex gap-2 items-center border-b-2 border-brand-grey py-3">
           <FaLocationDot className="w-[25px] h-full" />
           <p>
