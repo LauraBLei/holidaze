@@ -4,6 +4,7 @@ import { BsHouseAddFill } from 'react-icons/bs';
 import { IoPerson } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { CommonContext } from '../Types/context';
+import { storedName } from '../Constants/constants';
 
 interface NavListProps {
   className: string;
@@ -28,7 +29,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
       </li>
       <li className="flex items-center gap-1 cursor-pointer" onClick={onClick}>
         <IoPerson className="text-lg md:text-2xl" />
-        <Link to="/profile" className="text-sm md:text-base font-bold ">
+        <Link to={`/profile?username=${storedName}`} className="text-sm md:text-base font-bold ">
           Profile
         </Link>
       </li>
