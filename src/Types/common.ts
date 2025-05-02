@@ -22,6 +22,13 @@ export type Venue = {
   bookings: BookingData[];
 };
 
+export type Booking = {
+  id: string;
+  dateFrom: string;
+  dateTo: string;
+  venue: Venue;
+};
+
 export type Location = {
   address: string;
   city: string;
@@ -40,9 +47,11 @@ export type User = {
   banner: Media;
 };
 
-export type Meta = {
+export type Amenities = {
   breakfast: boolean;
   parking: boolean;
   pets: boolean;
   wifi: boolean;
 };
+
+
