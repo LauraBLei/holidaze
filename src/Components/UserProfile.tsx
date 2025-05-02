@@ -36,14 +36,14 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
       <div className="max-w-[1440px] w-full flex flex-col items-center md:items-start">
         <img
           src={profile.banner.url}
-          className="skeleton-banner bg-[#C4C4C4] w-full h-[250px] md:h-[360px]"
+          className="skeleton-banner bg-[#C4C4C4] w-full h-[250px] md:h-[360px] object-cover"
           alt={profile.banner.alt}
         />
         <div className="flex flex-col md:flex-row items-center w-full gap-5 md:gap-0">
           <img
             src={profile.avatar.url}
             alt={profile.avatar.alt}
-            className="skeleton-avatar flex items-center justify-center overflow-hidden rounded-full w-full h-[136px] max-w-[136px] md:h-[170px] md:max-w-[170px] lg:h-[236px] lg:max-w-[236px] mt-[-68px] md:mt-[-85px] lg:mt-[-125px] md:ml-[50px] lg:ml-[75px]"
+            className="skeleton-avatar flex items-center object-cover justify-center overflow-hidden rounded-full w-full h-[136px] max-w-[136px] md:h-[170px] md:max-w-[170px] lg:h-[236px] lg:max-w-[236px] mt-[-68px] md:mt-[-85px] lg:mt-[-125px] md:ml-[50px] lg:ml-[75px]"
           />
           <div className="skeleton-bio flex flex-col justify-center w-full">
             <div className="flex flex-col gap-4 justify-center mx-5">
