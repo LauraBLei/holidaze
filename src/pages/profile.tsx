@@ -12,7 +12,11 @@ export const ProfilePage = () => {
       if (data) {
         setPage(<BuildUser profile={data} />);
       } else {
-        setPage(<p>404. Error loading profile.</p>);
+        setPage(
+          <p className="font-bold text-2xl items-center flex justify-center text-center">
+            404. Error loading profile.
+          </p>,
+        );
       }
     };
 
