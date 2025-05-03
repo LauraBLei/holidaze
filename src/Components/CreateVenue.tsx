@@ -1,47 +1,16 @@
-import { InputHTMLAttributes, TextareaHTMLAttributes, useState } from 'react';
+import { useState } from 'react';
 import { FaDog, FaParking } from 'react-icons/fa';
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { PiForkKnifeBold, PiPlusCircle } from 'react-icons/pi';
-import { InputType, Media } from '../Types/common';
+import { Media } from '../Types/common';
 import { handleCreateVenueSubmit } from '../UI/venue/create';
 import { GalleryComponent } from './gallery';
+import { InputField } from './InputField';
 
-const title = 'text-3xl pb-2 border-b border-brand-grey mb-8';
-
-const InputField = ({ id, labelText, icon, onButtonClick, textarea, ...rest }: InputType) => (
-  <div className="w-full">
-    {labelText && id && (
-      <label htmlFor={id} className="text-base">
-        {labelText}
-      </label>
-    )}
-    <div className="relative mt-1">
-      {textarea ? (
-        <textarea
-          id={id}
-          {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
-          className="w-full h-36 border border-brand-grey p-3 rounded-xl focus:border-0 focus:outline-brand-grey"
-        />
-      ) : (
-        <input
-          id={id}
-          {...(rest as InputHTMLAttributes<HTMLInputElement>)}
-          className="input focus:border-0 focus:outline-1 focus:outline-brand-grey"
-        />
-      )}
-
-      {icon && (
-        <button
-          type="button"
-          onClick={onButtonClick}
-          className="w-12 p-3 flex items-center justify-center absolute top-0 right-0 bg-brand-orange border border-l-0 rounded-r-xl border-brand-grey cursor-pointer"
-        >
-          {icon}
-        </button>
-      )}
-    </div>
-  </div>
-);
+const title = 'text-xl md:text-2xl lg:text-3xl pb-2 border-b border-brand-grey mb-2 md:mb-8';
+const amenitiesLabel = 'grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer';
+const amenitiesCheckbox =
+  'w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black';
 
 export const CreateVenueForm = () => {
   const [media, setMedia] = useState<Media[]>([]);
@@ -75,13 +44,14 @@ export const CreateVenueForm = () => {
   };
 
   return (
-    <div className="max-w-[1000px] w-full h-full flex flex-col justify-center">
-      <form className="mx-5 flex flex-col gap-28" onSubmit={handleSubmit}>
-        <div className="h-full flex flex-col gap-4">
+    <div className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary">
+      <form className="mx-5 flex flex-col mb-10 gap-12 md:gap-28" onSubmit={handleSubmit}>
+        <div className="h-full flex flex-col gap-4 mt-10">
           {media.length > 0 && (
             <GalleryComponent media={media} onRemoveImage={handleRemoveImage} isEditable={true} />
           )}
         </div>
+
         {/* Basic info */}
         <div className="flex flex-col gap-4">
           <h2 className={title}>Basic info</h2>
@@ -98,7 +68,7 @@ export const CreateVenueForm = () => {
             onButtonClick={handleAddImage}
           />
           {imageLimitReached && (
-            <div className="bg-error-red text-black p-5 rounded-xl mb-4">
+            <div className="bg-error-red text-black p-3 rounded-xl mb-4">
               You can only add up to 8 images.
             </div>
           )}
@@ -205,10 +175,7 @@ export const CreateVenueForm = () => {
           <h2 className={title}>Amenities</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="flex w-full p-2 rounded">
-              <label
-                htmlFor="pets"
-                className="grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer"
-              >
+              <label htmlFor="pets" className={amenitiesLabel}>
                 <div className="flex items-center gap-2">
                   <FaDog size={24} />
                   <span className="text-base">Pets</span>
@@ -216,7 +183,7 @@ export const CreateVenueForm = () => {
 
                 <div className="relative">
                   <input type="checkbox" id="pets" name="pets" className="sr-only peer" />
-                  <span className="w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black">
+                  <span className={amenitiesCheckbox}>
                     <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
                   </span>
                 </div>
@@ -224,10 +191,7 @@ export const CreateVenueForm = () => {
             </div>
 
             <div className="flex w-full p-2 rounded">
-              <label
-                htmlFor="parking"
-                className="grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer"
-              >
+              <label htmlFor="parking" className={amenitiesLabel}>
                 <div className="flex items-center gap-2">
                   <FaParking size={24} />
                   <span className="text-base">Parking</span>
@@ -235,7 +199,7 @@ export const CreateVenueForm = () => {
 
                 <div className="relative">
                   <input type="checkbox" id="parking" name="parking" className="sr-only peer" />
-                  <span className="w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black">
+                  <span className={amenitiesCheckbox}>
                     <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
                   </span>
                 </div>
@@ -243,10 +207,7 @@ export const CreateVenueForm = () => {
             </div>
 
             <div className="flex w-full p-2 rounded">
-              <label
-                htmlFor="breakfast"
-                className="grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer"
-              >
+              <label htmlFor="breakfast" className={amenitiesLabel}>
                 <div className="flex items-center gap-2">
                   <PiForkKnifeBold size={24} />
                   <span className="text-base">Breakfast</span>
@@ -254,7 +215,7 @@ export const CreateVenueForm = () => {
 
                 <div className="relative">
                   <input type="checkbox" id="breakfast" name="breakfast" className="sr-only peer" />
-                  <span className="w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black">
+                  <span className={amenitiesCheckbox}>
                     <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
                   </span>
                 </div>
@@ -262,10 +223,7 @@ export const CreateVenueForm = () => {
             </div>
 
             <div className="flex w-full p-2 rounded">
-              <label
-                htmlFor="wifi"
-                className="grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer"
-              >
+              <label htmlFor="wifi" className={amenitiesLabel}>
                 <div className="flex items-center gap-2">
                   <FaParking size={24} />
                   <span className="text-base">Free Wifi</span>
@@ -273,7 +231,7 @@ export const CreateVenueForm = () => {
 
                 <div className="relative">
                   <input type="checkbox" id="wifi" name="wifi" className="sr-only peer" />
-                  <span className="w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black">
+                  <span className={amenitiesCheckbox}>
                     <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
                   </span>
                 </div>
