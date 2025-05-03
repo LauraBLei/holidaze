@@ -43,12 +43,6 @@ const InputField = ({ id, labelText, icon, onButtonClick, textarea, ...rest }: I
 );
 
 export const CreateVenueForm = () => {
-  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.currentTarget);
-  //   handleCreateVenueSubmit(formData);
-  // };
-
   return (
     <div className="max-w-[1000px] w-full h-full flex flex-col justify-center">
       <form
