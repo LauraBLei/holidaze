@@ -1,9 +1,10 @@
-import { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import { InputHTMLAttributes, TextareaHTMLAttributes, useState } from 'react';
 // import { FaDog, FaParking } from 'react-icons/fa';
 // import { IoCheckmarkSharp } from 'react-icons/io5';
-// import { PiForkKnifeBold, PiPlusCircle } from 'react-icons/pi';
-import { InputType } from '../Types/common';
+import { PiPlusCircle } from 'react-icons/pi';
+import { InputType, Media } from '../Types/common';
 import { handleCreateVenueSubmit } from '../UI/venue/create';
+import { GalleryComponent } from './gallery';
 
 const title = 'text-3xl pb-2 border-b border-brand-grey mb-8';
 
@@ -43,27 +44,64 @@ const InputField = ({ id, labelText, icon, onButtonClick, textarea, ...rest }: I
 );
 
 export const CreateVenueForm = () => {
+  const [media, setMedia] = useState<Media[]>([]);
+  const [imageInput, setImageInput] = useState('');
+  const [imageLimitReached, setImageLimitReached] = useState(false);
+
+  const handleRemoveImage = (url: string) => {
+    setMedia((prev) => prev.filter((image) => image.url !== url));
+  };
+
+  const handleAddImage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!imageInput.trim()) return;
+
+    if (media.length >= 8) {
+      setImageLimitReached(true);
+      setTimeout(() => {
+        setImageLimitReached(false);
+      }, 5000);
+      return;
+    }
+
+    setMedia((prev) => [...prev, { url: imageInput.trim(), alt: 'venue image' }]);
+    setImageInput('');
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formdata = new FormData(e.currentTarget as HTMLFormElement);
+    handleCreateVenueSubmit(formdata, media);
+  };
+
   return (
     <div className="max-w-[1000px] w-full h-full flex flex-col justify-center">
-      <form
-        className="mx-5 flex flex-col gap-28"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formdata = new FormData(e.currentTarget);
-          handleCreateVenueSubmit(formdata);
-        }}
-      >
+      <form className="mx-5 flex flex-col gap-28" onSubmit={handleSubmit}>
+        <div className="h-full flex flex-col gap-4">
+          {media.length > 0 && (
+            <GalleryComponent media={media} onRemoveImage={handleRemoveImage} isEditable={true} />
+          )}
+        </div>
         {/* Basic info */}
         <div className="flex flex-col gap-4">
           <h2 className={title}>Basic info</h2>
 
-          {/* <InputField
+          <InputField
             id="image"
+            name="image"
             labelText="URL - Media"
             type="url"
+            value={imageInput}
             placeholder="https://example.com/image.jpg"
             icon={<PiPlusCircle size={24} />}
-          /> */}
+            onChange={(e) => setImageInput(e.target.value)}
+            onButtonClick={handleAddImage}
+          />
+          {imageLimitReached && (
+            <div className="bg-error-red text-black p-5 rounded-xl mb-4">
+              You can only add up to 8 images.
+            </div>
+          )}
 
           <InputField
             id="name"
@@ -82,7 +120,6 @@ export const CreateVenueForm = () => {
             textarea
           />
         </div>
-
         {/* Pricing & Guests */}
         <div className="flex flex-col gap-4">
           <h2 className={title}>Pricing & Guests</h2>
@@ -121,7 +158,6 @@ export const CreateVenueForm = () => {
             /> */}
           </div>
         </div>
-
         {/* Location */}
         {/* <div className="flex flex-col gap-4">
           <h2 className={title}>Location</h2>
@@ -159,7 +195,6 @@ export const CreateVenueForm = () => {
             />
           </div>
         </div> */}
-
         {/* Amenities */}
         {/* <div className="flex flex-col gap-4">
           <h2 className={title}>Amenities</h2>
