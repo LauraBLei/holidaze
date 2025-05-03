@@ -50,5 +50,5 @@ export type InputType = {
   textarea?: boolean;
   icon?: React.ReactNode;
   name?: string;
-  onButtonClick?: () => void;
+  onButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 } & InputHTMLAttributes<HTMLInputElement>;
