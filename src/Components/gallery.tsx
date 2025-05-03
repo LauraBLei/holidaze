@@ -34,7 +34,7 @@ export const GalleryComponent: React.FC<GalleryType> = ({ media, isEditable, onR
             <button
               type="button"
               onClick={() => handleRemoveImage(activeImage.url)}
-              className="absolute top-1 right-1 h-8 w-8 flex justify-center items-center text-black bg-error-red rounded-bl-xl"
+              className="absolute cursor-pointer hover:animate-pulse top-1 right-1 h-8 w-8 flex justify-center items-center text-black bg-error-red rounded-bl-xl"
               style={{ transform: 'translate(20%, -20%)' }}
             >
               <BiX size={24} />
@@ -64,7 +64,7 @@ export const GalleryComponent: React.FC<GalleryType> = ({ media, isEditable, onR
                     e.stopPropagation();
                     handleRemoveImage(image.url);
                   }}
-                  className="absolute top-1 right-1 h-8 w-8 flex justify-center items-center text-black bg-error-red rounded-bl-xl"
+                  className="absolute cursor-pointer hover:animate-pulse top-1 right-1 h-8 w-8 flex justify-center items-center text-black bg-error-red rounded-bl-xl"
                   style={{ transform: 'translate(20%, -20%)' }}
                 >
                   <BiX size={24} />
