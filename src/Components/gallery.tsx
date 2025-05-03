@@ -4,8 +4,8 @@ import { BiX } from 'react-icons/bi';
 
 interface GalleryType {
   media: Media[];
-  isEditable: boolean;
-  onRemoveImage: (url: string) => void;
+  isEditable?: boolean;
+  onRemoveImage?: (url: string) => void;
 }
 
 // ![NOTE] This is a updated gallery component with remove image functionality for creating/updating venues. The older one is commented out below.
@@ -18,7 +18,7 @@ export const GalleryComponent: React.FC<GalleryType> = ({ media, isEditable, onR
     if (updatedMedia.length > 0) {
       setActiveImage(updatedMedia[0]);
     }
-    onRemoveImage(url);
+    onRemoveImage?.(url);
   };
 
   return (
@@ -44,7 +44,7 @@ export const GalleryComponent: React.FC<GalleryType> = ({ media, isEditable, onR
       )}
 
       <div id="extraImageContainer" className="flex w-full gap-5 md:gap-x-12 gap-y-3 flex-wrap">
-        {media.slice(1).map((image) => {
+        {media.map((image) => {
           const isActive = image.url === activeImage.url;
           return (
             <div

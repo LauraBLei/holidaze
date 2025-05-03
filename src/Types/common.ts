@@ -1,5 +1,7 @@
 import { InputHTMLAttributes } from 'react';
 
+import { BookingData } from './API';
+
 export type Media = {
   url: string;
   alt: string;
@@ -17,6 +19,16 @@ export type Venue = {
   };
   price: number;
   rating: number;
+  maxGuests: number;
+  meta: Meta;
+  bookings: BookingData[];
+};
+
+export type Booking = {
+  id: string;
+  dateFrom: string;
+  dateTo: string;
+  venue: Venue;
 };
 
 export type Location = {
@@ -37,11 +49,11 @@ export type User = {
   banner: Media;
 };
 
-export type Amenities = {
-  wifi: boolean;
-  parking: boolean;
+export type Meta = {
   breakfast: boolean;
+  parking: boolean;
   pets: boolean;
+  wifi: boolean;
 };
 
 export type InputType = {

@@ -1,4 +1,4 @@
-import { Amenities, Media, User, Venue } from './common';
+import { Meta, Media, User, Venue } from './common';
 
 export type ProfileData = {
   name: string;
@@ -31,7 +31,7 @@ export type VenueData = {
   rating: number;
   created: string;
   updated: string;
-  meta: Amenities;
+  meta: Meta;
   location: Location;
   owner: User;
   bookings: BookingData[];
