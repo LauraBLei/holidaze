@@ -1,7 +1,9 @@
 import { headers } from '../../API/headers';
+import { Media } from '../../Types/common';
 import { API } from '../endpoints';
 
 type CreateVenueData = {
+  media: Media[];
   name: FormDataEntryValue;
   description: FormDataEntryValue;
   price: number;
@@ -9,6 +11,7 @@ type CreateVenueData = {
 };
 
 export const HandleCreateVenue = async ({
+  media,
   name,
   description,
   price,
@@ -17,7 +20,7 @@ export const HandleCreateVenue = async ({
   const response = await fetch(API.VENUES, {
     method: 'POST',
     headers: headers(),
-    body: JSON.stringify({ name, description, price, maxGuests }),
+    body: JSON.stringify({ media, name, description, price, maxGuests }),
   });
 
   const data = await response.json();
