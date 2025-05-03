@@ -1,3 +1,5 @@
+import { InputHTMLAttributes } from 'react';
+
 export type Media = {
   url: string;
   alt: string;
@@ -41,3 +43,12 @@ export type Amenities = {
   breakfast: boolean;
   pets: boolean;
 };
+
+export type InputType = {
+  id?: string;
+  labelText?: string;
+  textarea?: boolean;
+  icon?: React.ReactNode;
+  name?: string;
+  onButtonClick?: () => void;
+} & InputHTMLAttributes<HTMLInputElement>;
