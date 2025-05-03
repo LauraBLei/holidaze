@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, TextareaHTMLAttributes, useState } from 'react';
-// import { FaDog, FaParking } from 'react-icons/fa';
-// import { IoCheckmarkSharp } from 'react-icons/io5';
-import { PiPlusCircle } from 'react-icons/pi';
+import { FaDog, FaParking } from 'react-icons/fa';
+import { IoCheckmarkSharp } from 'react-icons/io5';
+import { PiForkKnifeBold, PiPlusCircle } from 'react-icons/pi';
 import { InputType, Media } from '../Types/common';
 import { handleCreateVenueSubmit } from '../UI/venue/create';
 import { GalleryComponent } from './gallery';
@@ -146,8 +146,9 @@ export const CreateVenueForm = () => {
               className="input text-center"
             />
 
-            {/* <InputField
+            <InputField
               id="rating"
+              name="rating"
               labelText="Rating"
               type="number"
               placeholder="Venue rating (1–5)"
@@ -155,15 +156,16 @@ export const CreateVenueForm = () => {
               max={5}
               step={1}
               className="input text-center"
-            /> */}
+            />
           </div>
         </div>
         {/* Location */}
-        {/* <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <h2 className={title}>Location</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField
               id="address"
+              name="address"
               labelText="Address"
               type="text"
               placeholder="Imaginary street 123"
@@ -172,6 +174,7 @@ export const CreateVenueForm = () => {
 
             <InputField
               id="city"
+              name="city"
               labelText="City"
               type="text"
               placeholder="Bergen"
@@ -180,6 +183,7 @@ export const CreateVenueForm = () => {
 
             <InputField
               id="zip-code"
+              name="zip-code"
               labelText="Zip-Code"
               type="text"
               placeholder="1010"
@@ -188,15 +192,16 @@ export const CreateVenueForm = () => {
 
             <InputField
               id="country"
+              name="country"
               labelText="Country"
               type="text"
               placeholder="Dreamland"
               className="input"
             />
           </div>
-        </div> */}
+        </div>
         {/* Amenities */}
-        {/* <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <h2 className={title}>Amenities</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="flex w-full p-2 rounded">
@@ -210,7 +215,7 @@ export const CreateVenueForm = () => {
                 </div>
 
                 <div className="relative">
-                  <input type="checkbox" id="pets" className="sr-only peer" />
+                  <input type="checkbox" id="pets" name="pets" className="sr-only peer" />
                   <span className="w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black">
                     <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
                   </span>
@@ -229,7 +234,7 @@ export const CreateVenueForm = () => {
                 </div>
 
                 <div className="relative">
-                  <input type="checkbox" id="parking" className="sr-only peer" />
+                  <input type="checkbox" id="parking" name="parking" className="sr-only peer" />
                   <span className="w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black">
                     <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
                   </span>
@@ -248,7 +253,7 @@ export const CreateVenueForm = () => {
                 </div>
 
                 <div className="relative">
-                  <input type="checkbox" id="breakfast" className="sr-only peer" />
+                  <input type="checkbox" id="breakfast" name="breakfast" className="sr-only peer" />
                   <span className="w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black">
                     <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
                   </span>
@@ -267,7 +272,7 @@ export const CreateVenueForm = () => {
                 </div>
 
                 <div className="relative">
-                  <input type="checkbox" id="wifi" className="sr-only peer" />
+                  <input type="checkbox" id="wifi" name="wifi" className="sr-only peer" />
                   <span className="w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black">
                     <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
                   </span>
@@ -275,7 +280,7 @@ export const CreateVenueForm = () => {
               </label>
             </div>
           </div>
-        </div> */}
+        </div>
         <div className="flex justify-center">
           <button type="submit" className="button transition font-bold">
             Create venue

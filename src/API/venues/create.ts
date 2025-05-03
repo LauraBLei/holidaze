@@ -1,31 +1,16 @@
 import { headers } from '../../API/headers';
-import { Media } from '../../Types/common';
+import { VenueCreate } from '../../Types/common';
 import { API } from '../endpoints';
 
-type CreateVenueData = {
-  media: Media[];
-  name: FormDataEntryValue;
-  description: FormDataEntryValue;
-  price: number;
-  maxGuests: number;
-};
-
-export const HandleCreateVenue = async ({
-  media,
-  name,
-  description,
-  price,
-  maxGuests,
-}: CreateVenueData) => {
+export const HandleCreateVenue = async (data: VenueCreate) => {
   const response = await fetch(API.VENUES, {
     method: 'POST',
     headers: headers(),
-    body: JSON.stringify({ media, name, description, price, maxGuests }),
+    body: JSON.stringify(data),
   });
 
-  const data = await response.json();
-  console.log('Request body:', data);
-  console.log('Response:', response.body);
+  const result = await response.json();
+  console.log('Request body:', result);
 
   if (!response.ok) {
     throw new Error('Failed to create venue');
@@ -33,5 +18,5 @@ export const HandleCreateVenue = async ({
     console.log('Venue created successfully:', response);
   }
 
-  return data;
+  return result;
 };
