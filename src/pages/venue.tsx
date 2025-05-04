@@ -29,7 +29,6 @@ export const VenuePage = () => {
   if (!venue) {
     return <LoadingVenuePage />;
   }
-  console.log(venue);
 
   return (
     <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px]">
@@ -39,20 +38,26 @@ export const VenuePage = () => {
           <p className="text-2xl">{venue.price} NOK</p>
           <p>Per night</p>
         </div>
-        <div className="w-full">
-          <BookingForm
-            maxGuests={venue.maxGuests}
-            bookings={venue.bookings}
-            onSubmit={(checkIn, checkout, guests) => {
-              // call your booking API here with:
-              // data.dateFrom, data.dateTo, data.guests
-              console.log(checkIn, checkout, guests);
-            }}
-          />
+        <div className={`w-full ${user.name === venue.owner.name ? 'hidden' : 'block'}`}>
+          <BookingForm maxGuests={venue.maxGuests} bookings={venue.bookings} id={venue.id} />
           <div className={`text-center my-10 ${!user ? 'block' : 'hidden'}`}>
-            <button className="headlineTwo" onClick={() => OpenLogin()}>
+            <button
+              className="headlineTwo cursor-pointer hover:scale-100 scale-95 transition"
+              onClick={() => OpenLogin()}
+            >
               Login or register to book this venue!
             </button>
+          </div>
+          <div className="my-5">
+            <p id="bookingErrorDates" className="w-full p-3 rounded-xl bg-error-red hidden">
+              These dates are already booked. Please select different dates.
+            </p>
+            <p id="bookingSuccess" className="w-full p-3 rounded-xl bg-error-green hidden">
+              Booking Successful!
+            </p>
+            <p id="bookingError" className="w-full p-3 rounded-xl bg-error-red hidden">
+              Something went wrong, try again later.
+            </p>
           </div>
         </div>
       </div>
@@ -66,6 +71,9 @@ export const VenuePage = () => {
             <Link
               to="/edit"
               className="flex gap-2 items-center scale-95 hover:scale-100 transition"
+              onClick={() => {
+                localStorage.setItem('editVenue', JSON.stringify(venue));
+              }}
             >
               <span>Edit Venue</span>
               <MdEdit />
@@ -78,7 +86,7 @@ export const VenuePage = () => {
         <p>{venue.maxGuests} Guests</p>
         <StarRating rating={venue.rating} />
         <Link
-          to="/profile"
+          to={`/profile?username=${venue.owner.name}`}
           className="flex items-center gap-2 border-y-2 border-brand-grey py-2 cursor-pointer"
         >
           <div className="w-[41px] h-[41px] rounded-full overflow-hidden">

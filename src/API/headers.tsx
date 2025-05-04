@@ -1,5 +1,9 @@
 import { API } from './endpoints';
 
+export const storedUser = localStorage.getItem('User');
+export const storedUserData = JSON.parse(storedUser || '{}');
+export const accessToken = storedUserData.accessToken;
+
 export function headers() {
   const headers = new Headers();
 
@@ -7,8 +11,8 @@ export function headers() {
     headers.append('X-Noroff-API-Key', API.KEY);
   }
 
-  if (localStorage.token) {
-    const token = 'Bearer ' + JSON.parse(localStorage.getItem('token') ?? '');
+  if (accessToken) {
+    const token = 'Bearer ' + accessToken;
     headers.append('Authorization', token);
   }
   headers.append('content-Type', 'application/json');
