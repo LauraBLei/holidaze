@@ -38,10 +38,13 @@ export const VenuePage = () => {
           <p className="text-2xl">{venue.price} NOK</p>
           <p>Per night</p>
         </div>
-        <div className="w-full">
+        <div className={`w-full ${user.name === venue.owner.name ? 'hidden' : 'block'}`}>
           <BookingForm maxGuests={venue.maxGuests} bookings={venue.bookings} id={venue.id} />
           <div className={`text-center my-10 ${!user ? 'block' : 'hidden'}`}>
-            <button className="headlineTwo" onClick={() => OpenLogin()}>
+            <button
+              className="headlineTwo cursor-pointer hover:scale-100 scale-95 transition"
+              onClick={() => OpenLogin()}
+            >
               Login or register to book this venue!
             </button>
           </div>

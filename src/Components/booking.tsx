@@ -86,7 +86,7 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
         </select>
       </label>
 
-      <button type="submit" className={`button mt-4 ${user ? 'block' : 'hidden'}`}>
+      <button type="submit" className={`button mt-4 ${user ? 'block' : 'hidden'} `}>
         Book now
       </button>
     </form>
