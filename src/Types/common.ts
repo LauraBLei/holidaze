@@ -1,3 +1,5 @@
+import { InputHTMLAttributes } from 'react';
+
 import { BookingData } from './API';
 
 export type Media = {
@@ -20,6 +22,22 @@ export type Venue = {
   maxGuests: number;
   meta: Meta;
   bookings: BookingData[];
+};
+
+export type VenueCreate = {
+  name: string;
+  description: string;
+  price: number;
+  maxGuests: number;
+  rating: number;
+  media: Media[];
+  location: {
+    address: string;
+    city: string;
+    zip: string;
+    country: string;
+  };
+  meta: Meta;
 };
 
 export type Booking = {
@@ -47,11 +65,18 @@ export type User = {
   banner: Media;
 };
 
-export type Amenities = {
+export type Meta = {
   breakfast: boolean;
   parking: boolean;
   pets: boolean;
   wifi: boolean;
 };
 
-
+export type InputType = {
+  id?: string;
+  labelText?: string;
+  textarea?: boolean;
+  icon?: React.ReactNode;
+  name?: string;
+  onButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+} & InputHTMLAttributes<HTMLInputElement>;
