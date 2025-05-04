@@ -4,10 +4,13 @@ import { headers } from '../headers';
 
 export const ReadVenues = async (setVenues: (input: Venue[]) => void) => {
   try {
-    const response = await fetch(API.VENUES, {
-      method: 'GET',
-      headers: headers(),
-    });
+    const response = await fetch(
+      `${API.VENUES}?sort=created&sortOrder=desc&_owner=true&_bookings=true`,
+      {
+        method: 'GET',
+        headers: headers(),
+      },
+    );
     if (response.ok) {
       const venues = await response.json();
 

@@ -40,15 +40,7 @@ export const VenuePage = () => {
           <p>Per night</p>
         </div>
         <div className="w-full">
-          <BookingForm
-            maxGuests={venue.maxGuests}
-            bookings={venue.bookings}
-            onSubmit={(checkIn, checkout, guests) => {
-              // call your booking API here with:
-              // data.dateFrom, data.dateTo, data.guests
-              console.log(checkIn, checkout, guests);
-            }}
-          />
+          <BookingForm maxGuests={venue.maxGuests} bookings={venue.bookings} id={venue.id} />
           <div className={`text-center my-10 ${!user ? 'block' : 'hidden'}`}>
             <button className="headlineTwo" onClick={() => OpenLogin()}>
               Login or register to book this venue!
