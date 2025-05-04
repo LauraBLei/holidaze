@@ -86,7 +86,7 @@ export const VenuePage = () => {
         <p>{venue.maxGuests} Guests</p>
         <StarRating rating={venue.rating} />
         <Link
-          to="/profile"
+          to={`/profile?username=${venue.owner.name}`}
           className="flex items-center gap-2 border-y-2 border-brand-grey py-2 cursor-pointer"
         >
           <div className="w-[41px] h-[41px] rounded-full overflow-hidden">
