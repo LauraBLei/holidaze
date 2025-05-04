@@ -18,8 +18,6 @@ export async function HandleUpdateProfile(formdata: FormData) {
     venueManager: formdata.get('venueManager') === 'true',
   };
 
-  console.log(payload);
-
   const response = await fetch(`${API.PROFILES}/${profileId}`, {
     method: 'PUT',
     headers: {

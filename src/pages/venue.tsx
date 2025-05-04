@@ -29,7 +29,6 @@ export const VenuePage = () => {
   if (!venue) {
     return <LoadingVenuePage />;
   }
-  console.log(venue);
 
   return (
     <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px]">
