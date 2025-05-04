@@ -22,7 +22,6 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
   const [guests, setGuests] = useState(1);
   const user = userInfo();
 
-  // Create a list of all blocked date ranges
   const excludeDateIntervals = bookings.map((b) => ({
     start: new Date(b.dateFrom),
     end: new Date(b.dateTo),
@@ -33,6 +32,20 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
 
     if (!checkIn || !checkOut) return alert('Select both dates');
     if (checkIn >= checkOut) return alert('Checkout must be after check-in');
+
+    const hasConflict = bookings.some((booking) => {
+      const existingStart = new Date(booking.dateFrom);
+      const existingEnd = new Date(booking.dateTo);
+
+      return checkIn < existingEnd && checkOut > existingStart;
+    });
+    if (hasConflict) {
+      document.getElementById('bookingErrorDates')?.classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('bookingErrorDates')?.classList.add('hidden');
+      }, 5000);
+      return;
+    }
 
     await bookVenue({ checkIn, checkOut, guests, venueId: id });
   };

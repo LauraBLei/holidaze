@@ -8,14 +8,20 @@ interface BookingPayload {
   venueId: string;
 }
 
+const normalizeToUTC = (date: Date) => {
+  const normalized = new Date(date);
+  normalized.setHours(12, 0, 0, 0); // Set time to noon to avoid timezone issues
+  return normalized.toISOString();
+};
+
 export const bookVenue = async ({ checkIn, checkOut, guests, venueId }: BookingPayload) => {
   try {
     const response = await fetch(`${API.BOOKINGS}?_customer=true&_venue=true`, {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify({
-        dateFrom: checkIn.toISOString(),
-        dateTo: checkOut.toISOString(),
+        dateFrom: normalizeToUTC(checkIn),
+        dateTo: normalizeToUTC(checkOut),
         guests,
         venueId,
       }),

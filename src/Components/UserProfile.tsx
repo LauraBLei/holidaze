@@ -99,7 +99,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         ) : null}
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
           {bookings.length > 0
-            ? bookings.map((booking) => <VenueCard key={booking.venue.id} venue={booking.venue} />)
+            ? bookings.map((booking) => <VenueCard key={booking.id} venue={booking.venue} />)
             : null}
         </div>
       </div>

@@ -71,6 +71,9 @@ export const VenuePage = () => {
             <Link
               to="/edit"
               className="flex gap-2 items-center scale-95 hover:scale-100 transition"
+              onClick={() => {
+                localStorage.setItem('editVenue', JSON.stringify(venue));
+              }}
             >
               <span>Edit Venue</span>
               <MdEdit />
