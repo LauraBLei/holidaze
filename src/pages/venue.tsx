@@ -46,6 +46,17 @@ export const VenuePage = () => {
               Login or register to book this venue!
             </button>
           </div>
+          <div className="my-5">
+            <p id="bookingErrorDates" className="w-full p-3 rounded-xl bg-error-red hidden">
+              These dates are already booked. Please select different dates.
+            </p>
+            <p id="bookingSuccess" className="w-full p-3 rounded-xl bg-error-green hidden">
+              Booking Successful!
+            </p>
+            <p id="bookingError" className="w-full p-3 rounded-xl bg-error-red hidden">
+              Something went wrong, try again later.
+            </p>
+          </div>
         </div>
       </div>
       <div className="flex flex-col gap-2 w-full md:max-w-[700px] md:min-w-[350px] px-2">

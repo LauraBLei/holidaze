@@ -22,15 +22,22 @@ export const bookVenue = async ({ checkIn, checkOut, guests, venueId }: BookingP
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Booking failed');
+      if (response.status === 409) {
+        document.getElementById('bookingErrorDates')?.classList.remove('hidden');
+        setTimeout(() => {
+          document.getElementById('bookingErrorDates')?.classList.add('hidden');
+        }, 8000);
+      }
+    } else if (response.ok) {
+      document.getElementById('bookingSuccess')?.classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('bookingSuccess')?.classList.add('hidden');
+      }, 10000);
     }
-
-    const data = await response.json();
-    console.log('Booking successful:', data);
-    return data;
-  } catch (error) {
-    console.error('Error creating booking:', error);
-    alert('Failed to create booking.');
+  } catch {
+    document.getElementById('bookingError')?.classList.remove('hidden');
+    setTimeout(() => {
+      document.getElementById('bookingError')?.classList.add('hidden');
+    }, 8000);
   }
 };
