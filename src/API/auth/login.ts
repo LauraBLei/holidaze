@@ -6,7 +6,7 @@ export default async function HandleLogin(formdata: FormData) {
     password: formdata.get('password'),
   };
   try {
-    const response = await fetch(API.AUTH_LOGIN, {
+    const response = await fetch(API.AUTH_LOGIN + '?_holidaze=true', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

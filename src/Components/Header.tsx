@@ -7,8 +7,19 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 
 export default function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [animateOut, setAnimateOut] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(!isMenuOpen);
+  const toggleMenu = () => {
+    if (isMenuOpen) {
+      setAnimateOut(true);
+      setTimeout(() => {
+        setMenuOpen(false);
+        setAnimateOut(false);
+      }, 400); // match animation duration
+    } else {
+      setMenuOpen(true);
+    }
+  };
 
   return (
     <header className="w-full py-5">
@@ -25,12 +36,19 @@ export default function Header() {
           <RxHamburgerMenu className="text-2xl cursor-pointer" onClick={toggleMenu} />
         </div>
 
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-0 right-0 max-w-96 w-full h-96 bg-[var(--color-brand-orange)] shadow-lg p-5 z-50 flex flex-col items-end rounded-bl-full">
+        {(isMenuOpen || animateOut) && (
+          <div
+            className={`${
+              animateOut ? 'animate-slide-bounce-out' : 'animate-slide-in'
+            } md:hidden absolute right-0 top-0 max-w-96 w-full h-96 bg-[var(--color-brand-orange)] shadow-lg p-2 z-50 flex flex-col items-end rounded-bl-full`}
+          >
             <div className="flex pt-2.5">
-              <BsX className="self-end text-3xl mb-5 cursor-pointer" onClick={toggleMenu} />
+              <BsX
+                className="self-end text-3xl mb-5 cursor-pointer mr-2 mt-2"
+                onClick={toggleMenu}
+              />
             </div>
-            <NavList className=" flex flex-col gap-4 pr-10" onClick={toggleMenu} />
+            <NavList className="flex flex-col gap-4 pr-20" onClick={toggleMenu} />
           </div>
         )}
       </nav>
