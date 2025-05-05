@@ -29,7 +29,7 @@ export default function Header() {
         </Link>
 
         <div className="hidden md:flex">
-          <NavList className="flex gap-5" />
+          <NavList className="flex gap-10" />
         </div>
 
         <div className="md:hidden self-center">

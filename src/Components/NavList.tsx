@@ -7,6 +7,30 @@ import { CommonContext } from '../Types/context';
 import { storedName } from '../Constants/constants';
 import { LuLogOut } from 'react-icons/lu';
 
+/**
+ * NavList component renders a responsive navigation menu for the Holidaze app.
+ *
+ * It adjusts based on the user's authentication and role (e.g., venue manager),
+ * and includes links for profile access, venue management, login, and logout.
+ *
+ * - If a user is logged in, their avatar and name are shown.
+ * - Venue managers see links to the manager dashboard and "New Venue" page.
+ * - Non-authenticated users see a login option.
+ * - The logout option clears user data from localStorage and reloads the page.
+ *
+ * Props:
+ * @param {string} className - Additional Tailwind CSS classes to apply to the `ul` element.
+ * @param {() => void} [onClick] - Optional click handler, typically used to close a mobile menu after a link is clicked.
+ *
+ * Context:
+ * Uses `CommonContext` to access the `OpenLogin` function for triggering the login modal.
+ *
+ * Local Storage:
+ * Reads from `localStorage.getItem('User')` to determine if a user is logged in and what role they have.
+ *
+ * @returns {JSX.Element} The rendered list of navigation items.
+ */
+
 interface NavListProps {
   className: string;
   onClick?: () => void;
@@ -19,25 +43,25 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
   return (
     <ul className={className}>
       <li
-        className={`flex items-center gap-1 cursor-pointer md:hidden ${user ? 'block' : 'hidden'} `}
+        className={`flex items-center  cursor-pointer md:hidden ${user ? 'block' : 'hidden'} `}
         onClick={onClick}
       >
         <Link
           to={`/profile?username=${storedName}`}
-          className={`flex flex-col gap-2 mb-2 items-center text-sm md:text-base font-bold `}
+          className={`scale-95 hover:scale-100 transition flex flex-col gap-2.5 mb-2 items-center text-sm md:text-base font-bold ${user ? 'block' : 'hidden'}`}
         >
           <div className="w-10 md:w-10 md:h-10 overflow-hidden rounded-full">
             <img
               className="w-full h-full object-cover"
-              src={user.avatar.url}
-              alt={user.avatar.alt}
+              src={user ? user.avatar.url : ''}
+              alt={user ? user.avatar.alt : ''}
             />
           </div>
           <span className="md:hidden">{user.name}</span>
         </Link>
       </li>
       <li
-        className={`flex items-center gap-1 cursor-pointer ${user.venueManager ? 'block' : 'hidden'}`}
+        className={`flex scale-95 hover:scale-100 transition items-center gap-2.5 cursor-pointer ${user.venueManager ? 'block' : 'hidden'}`}
         onClick={onClick}
       >
         <BiSolidCalendarStar className="text-2xl" />
@@ -46,7 +70,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         </Link>
       </li>
       <li
-        className={`flex items-center gap-1 cursor-pointer ${user.venueManager ? 'block' : 'hidden'} `}
+        className={`scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user.venueManager ? 'block' : 'hidden'} `}
         onClick={onClick}
       >
         <BsHouseAddFill className="text-2xl" />
@@ -56,32 +80,32 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
       </li>
 
       <li
-        className={`flex items-center gap-1 cursor-pointer ${user ? 'hidden' : 'block'} `}
+        className={` scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user ? 'hidden' : 'block'} `}
         onClick={() => OpenLogin()}
       >
         <IoPerson className="text-lg md:text-2xl" />
         <span className="text-sm md:text-base font-bold">Login</span>
       </li>
       <li
-        className={` items-center gap-1 cursor-pointer hidden md:flex ${user ? 'block' : 'hidden'} `}
+        className={`scale-95 hover:scale-100 transition items-center gap-1 cursor-pointer hidden md:flex ${user ? 'block' : 'hidden'} `}
         onClick={onClick}
       >
         <Link
           to={`/profile?username=${storedName}`}
-          className={`flex items-center gap-1 text-sm md:text-base font-bold `}
+          className={`flex items-center gap-2.5 text-sm md:text-base font-bold `}
         >
           <div className="w-10 md:w-10 md:h-10 overflow-hidden rounded-full">
             <img
               className="w-full h-full object-cover"
-              src={user.avatar.url}
-              alt={user.avatar.alt}
+              src={user ? user.avatar.url : ''}
+              alt={user ? user.avatar.alt : ''}
             />
           </div>
           <span className="md:hidden">{user.name}</span>
         </Link>
       </li>
       <li
-        className={`flex items-center gap-1 cursor-pointer ${user ? 'block' : 'hidden'} `}
+        className={`scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user ? 'block' : 'hidden'} `}
         onClick={() => {
           localStorage.removeItem('User');
           window.location.reload();
