@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { FaDog, FaParking } from 'react-icons/fa';
 import { IoCheckmarkSharp } from 'react-icons/io5';
-import { PiForkKnifeBold, PiPlusCircle } from 'react-icons/pi';
+import { PiPlusCircle } from 'react-icons/pi';
 import { Media } from '../Types/common';
 import { handleCreateVenueSubmit } from '../UI/venue/create';
 import { GalleryComponent } from './gallery';
 import { InputField } from './InputField';
+import { FaWifi } from 'react-icons/fa6';
+import { GiKnifeFork } from 'react-icons/gi';
 
 const title = 'text-xl md:text-2xl lg:text-3xl pb-2 border-b border-brand-grey mb-2 md:mb-8';
 const amenitiesLabel = 'grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer';
@@ -209,7 +211,7 @@ export const CreateVenueForm = () => {
             <div className="flex w-full p-2 rounded">
               <label htmlFor="breakfast" className={amenitiesLabel}>
                 <div className="flex items-center gap-2">
-                  <PiForkKnifeBold size={24} />
+                  <GiKnifeFork size={24} />
                   <span className="text-base">Breakfast</span>
                 </div>
 
@@ -225,7 +227,7 @@ export const CreateVenueForm = () => {
             <div className="flex w-full p-2 rounded">
               <label htmlFor="wifi" className={amenitiesLabel}>
                 <div className="flex items-center gap-2">
-                  <FaParking size={24} />
+                  <FaWifi size={24} />
                   <span className="text-base">Free Wifi</span>
                 </div>
 
