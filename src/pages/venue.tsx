@@ -33,7 +33,7 @@ export const VenuePage = () => {
 
   return (
     <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px]">
-      <div className="max-w-[700px] mb-5 md:mb-10">
+      <div className="max-w-[700px] w-full mb-5 md:mb-10">
         <GalleryComponent media={venue.media} />
         <div className="my-10">
           <p className="text-2xl">{venue.price} NOK</p>
