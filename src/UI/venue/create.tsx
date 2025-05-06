@@ -25,14 +25,8 @@ const buildVenueCreatePayload = (formdata: FormData, media: Media[]): VenueCreat
   },
 });
 
-export const handleCreateVenueSubmit = (formdata: FormData, media: Media[]) => {
+export const handleCreateVenueSubmit = async (formdata: FormData, media: Media[]) => {
   const payload = buildVenueCreatePayload(formdata, media);
 
-  console.log('📦 Venue form data:', payload);
-
-  try {
-    HandleCreateVenue(payload);
-  } catch (error) {
-    console.error('Venue creation failed:', error);
-  }
+  return await HandleCreateVenue(payload);
 };
