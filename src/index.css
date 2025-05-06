@@ -14,6 +14,10 @@ body {
   --font-primary: 'Inter', 'ui-sans-serif', 'system-ui';
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .button {
   @apply bg-brand-orange font-primary w-full md:w-[300px] rounded-xl py-2.5 md:py-3 scale-95 hover:scale-100 hover:shadow-md cursor-pointer active:scale-95 text-lg md:text-xl;
 }
@@ -36,4 +40,12 @@ body {
 
 .input {
   @apply w-full p-3 rounded-xl border border-brand-grey;
+}
+
+.error-message {
+  @apply w-full p-3 rounded-xl bg-error-red;
+}
+
+.success-message {
+  @apply w-full p-3 rounded-xl bg-error-green;
 }
