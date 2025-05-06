@@ -19,6 +19,7 @@ export default function LoadingHomePage() {
           <LoadingVenueCard />
           <LoadingVenueCard />
           <LoadingVenueCard />
+          <LoadingVenueCard />
         </div>
       </section>
     </div>
