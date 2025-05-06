@@ -1,3 +1,4 @@
+import { accessToken } from '../Constants/constants';
 import { API } from './endpoints';
 
 export const storedUser = localStorage.getItem('User');
