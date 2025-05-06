@@ -3,15 +3,18 @@ import { ReadVenues } from '../API/venues/read';
 import { VenueCard } from '../Components/VenueCard';
 import { Venue } from '../Types/common';
 import { Search } from '../Components/Search';
+import LoadingHomePage from '../Components/loading/LoadingHomePage';
 
 export const HomePage = () => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [allVenues, setAllVenues] = useState<Venue[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     ReadVenues((data) => {
       setVenues(data);
       setAllVenues(data);
+      setLoading(false);
     });
   }, []);
 
@@ -21,6 +24,10 @@ export const HomePage = () => {
     );
     setVenues(filtered);
   };
+
+  if (loading) {
+    return <LoadingHomePage />;
+  }
 
   return (
     <div className="mx-5 w-full flex flex-col items-center justify">
