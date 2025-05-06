@@ -3,6 +3,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from 'react';
 import { userInfo } from '../utilities/localstorage';
 
+import { bookVenue } from '../API/booking/book';
+
 interface Booking {
   dateFrom: string;
   dateTo: string;
@@ -11,27 +13,41 @@ interface Booking {
 interface BookingFormProps {
   maxGuests: number;
   bookings: Booking[];
-  onSubmit: (checkIn: Date, checkOut: Date, guests: number) => void;
+  id: string;
 }
 
-export const BookingForm = ({ maxGuests, bookings, onSubmit }: BookingFormProps) => {
+export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
   const [checkIn, setCheckIn] = useState<Date | null>(null);
   const [checkOut, setCheckOut] = useState<Date | null>(null);
   const [guests, setGuests] = useState(1);
   const user = userInfo();
 
-  // Create a list of all blocked date ranges
   const excludeDateIntervals = bookings.map((b) => ({
     start: new Date(b.dateFrom),
     end: new Date(b.dateTo),
   }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!checkIn || !checkOut) return alert('Select both dates');
     if (checkIn >= checkOut) return alert('Checkout must be after check-in');
 
-    onSubmit(checkIn, checkOut, guests);
+    const hasConflict = bookings.some((booking) => {
+      const existingStart = new Date(booking.dateFrom);
+      const existingEnd = new Date(booking.dateTo);
+
+      return checkIn < existingEnd && checkOut > existingStart;
+    });
+    if (hasConflict) {
+      document.getElementById('bookingErrorDates')?.classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('bookingErrorDates')?.classList.add('hidden');
+      }, 5000);
+      return;
+    }
+
+    await bookVenue({ checkIn, checkOut, guests, venueId: id });
   };
 
   return (
@@ -83,7 +99,7 @@ export const BookingForm = ({ maxGuests, bookings, onSubmit }: BookingFormProps)
         </select>
       </label>
 
-      <button type="submit" className={`button mt-4 ${user ? 'block' : 'hidden'}`}>
+      <button type="submit" className={`button mt-4 ${user ? 'block' : 'hidden'} `}>
         Book now
       </button>
     </form>

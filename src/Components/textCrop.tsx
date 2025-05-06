@@ -15,7 +15,10 @@ export const Description = ({ text }: DescriptionProps) => {
     <div className="space-y-2">
       <p>{displayedText}</p>
       {isLong && (
-        <button className="text-black underline text-sm" onClick={() => setExpanded(!expanded)}>
+        <button
+          className="text-black underline text-sm cursor-pointer"
+          onClick={() => setExpanded(!expanded)}
+        >
           {expanded ? 'See less' : 'See more'}
         </button>
       )}

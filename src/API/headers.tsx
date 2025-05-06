@@ -1,6 +1,10 @@
 import { accessToken } from '../Constants/constants';
 import { API } from './endpoints';
 
+export const storedUser = localStorage.getItem('User');
+export const storedUserData = JSON.parse(storedUser || '{}');
+export const accessToken = storedUserData.accessToken;
+
 export function headers() {
   const headers = new Headers();
 

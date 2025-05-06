@@ -24,10 +24,13 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProfile();
-      if (data?.venues) {
+      if (data?.venues && data?.bookings) {
         setVenues(data.venues);
+        setBookings(data.bookings);
       } else if (data?.bookings) {
         setBookings(data.bookings);
+      } else if (data?.venues) {
+        setVenues(data.venues);
       } else {
         console.warn('No venues found on profile');
       }
@@ -91,10 +94,12 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
             ? venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
             : null}
         </div>
-        {bookings.length > 0 ? <h2 className="font-bold text-lg md:text-2xl ">Bookings </h2> : null}
+        {bookings.length > 0 ? (
+          <h2 className="font-bold text-lg md:text-2xl ">Bookings by user </h2>
+        ) : null}
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
           {bookings.length > 0
-            ? bookings.map((booking) => <VenueCard key={booking.venue.id} venue={booking.venue} />)
+            ? bookings.map((booking) => <VenueCard key={booking.id} venue={booking.venue} />)
             : null}
         </div>
       </div>
