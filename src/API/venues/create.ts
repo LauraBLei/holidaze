@@ -10,12 +10,10 @@ export const HandleCreateVenue = async (data: VenueCreate) => {
   });
 
   const result = await response.json();
-  console.log('Request body:', result);
 
   if (!response.ok) {
-    throw new Error('Failed to create venue');
-  } else {
-    console.log('Venue created successfully:', response);
+    const message = result?.errors?.[0]?.message || result?.message || 'Failed to create venue';
+    throw new Error(message);
   }
 
   return result;

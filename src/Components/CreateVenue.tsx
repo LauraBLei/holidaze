@@ -109,7 +109,8 @@ export const CreateVenueForm = () => {
       }, 3000);
     } catch (error) {
       console.error('Venue creation failed:', error);
-      setSubmitError('Failed to create venue. Please try again.', setFormStatus);
+      const err = error as Error;
+      setSubmitError(err.message, setFormStatus);
     }
   };
 
@@ -185,8 +186,8 @@ export const CreateVenueForm = () => {
                 type="number"
                 placeholder="Enter price"
                 className="input text-center"
-                min={0}
-                max={10000}
+                // min={0}
+                // max={10000}
               />
 
               {formStatus.validationErrors?.price && (
@@ -201,8 +202,8 @@ export const CreateVenueForm = () => {
                 labelText="Max Guests *"
                 type="number"
                 placeholder="Add number of guests"
-                min={1}
-                max={100}
+                // min={1}
+                // max={100}
                 step={1}
                 className="input text-center"
               />
@@ -219,8 +220,8 @@ export const CreateVenueForm = () => {
                 labelText="Rating"
                 type="number"
                 placeholder="Venue rating (1–5)"
-                min={0}
-                max={5}
+                // min={0}
+                // max={5}
                 step={1}
                 className="input text-center"
               />
