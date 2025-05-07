@@ -10,12 +10,12 @@ interface VenueCardProps {
 export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   return (
     <Link to={`/venues?id=${venue.id}`}>
-      <article className="flex flex-col h-full md:max-w-[280px] w-full">
+      <article className="flex flex-col h-full w-full">
         <div className="w-full h-52 rounded-xl overflow-hidden">
           <img
             className="w-full h-full object-cover"
-            src={venue.media && venue.media[0]?.url ? loadingImage : ''}
-            alt={venue.media && venue.media[0]?.alt ? 'image not found' : ''}
+            src={venue.media && venue.media.length > 0 ? venue.media[0]?.url : loadingImage}
+            alt={venue.media && venue.media.length > 0 ? venue.media[0]?.alt : 'image not found'}
           />
         </div>
         <div className="flex flex-col min-h-[160px] gap-5">
