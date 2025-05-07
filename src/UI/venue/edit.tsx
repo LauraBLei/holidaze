@@ -1,7 +1,7 @@
 import { editVenue } from '../../API/venues/edit';
-import { Media, VenueCreate } from '../../Types/common';
+import { Media, Venue } from '../../Types/common';
 
-const buildVenueEditPayload = (formdata: FormData, media: Media[]): VenueCreate => ({
+const buildVenueEditPayload = (formdata: FormData, media: Media[]): Venue => ({
   media,
   name: formdata.get('name')?.toString() || '',
   description: formdata.get('description')?.toString() || '',
