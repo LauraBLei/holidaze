@@ -1,8 +1,8 @@
 import { headers } from '../headers';
-import { VenueCreate } from '../../Types/common';
+import { Venue } from '../../Types/common';
 import { API } from '../endpoints';
 
-export const editVenue = async (data: VenueCreate, id: string) => {
+export const editVenue = async (data: Venue, id: string) => {
   const response = await fetch(`${API.VENUES}/${id}`, {
     method: 'PUT',
     headers: headers(),

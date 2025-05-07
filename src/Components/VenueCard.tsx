@@ -14,8 +14,8 @@ export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
         <div className="w-full h-52 rounded-xl overflow-hidden">
           <img
             className="w-full h-full object-cover"
-            src={venue.media[0]?.url ?? loadingImage}
-            alt={venue.media[0]?.alt ?? 'image not found'}
+            src={venue.media && venue.media[0]?.url ? loadingImage : ''}
+            alt={venue.media && venue.media[0]?.alt ? 'image not found' : ''}
           />
         </div>
         <div className="flex flex-col min-h-[160px] gap-5">

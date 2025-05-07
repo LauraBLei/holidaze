@@ -1,43 +1,46 @@
 import { InputHTMLAttributes } from 'react';
 
-import { BookingData } from './API';
-
 export type Media = {
   url: string;
   alt: string;
 };
 
-export type Venue = {
+export type Profile = {
+  name: string;
+  email: string;
+  bio: string;
+  avatar: Media;
+  banner: Media;
+  venueManager: boolean;
+  venues: Venue[];
+};
+
+export type BookingData = {
   id: string;
+  dateFrom: string;
+  dateTo: string;
+  guest: number;
+  created: string;
+  updated: string;
+  venue: Venue;
+  customer: User;
+};
+
+export type Venue = {
+  id?: string;
   name: string;
   description: string;
   media: Media[];
   location: Location;
-  owner: User;
-  count: {
+  owner?: User;
+  count?: {
     bookings: number;
   };
   price: number;
   rating: number;
   maxGuests: number;
   meta: Meta;
-  bookings: BookingData[];
-};
-
-export type VenueCreate = {
-  name: string;
-  description: string;
-  price: number;
-  maxGuests: number;
-  rating: number;
-  media: Media[];
-  location: {
-    address: string;
-    city: string;
-    zip: string;
-    country: string;
-  };
-  meta: Meta;
+  bookings?: BookingData[];
 };
 
 export type Booking = {
@@ -52,9 +55,9 @@ export type Location = {
   city: string;
   zip: string;
   country: string;
-  continent: string;
-  lat: number;
-  lng: number;
+  continent?: string;
+  lat?: number;
+  lng?: number;
 };
 
 export type User = {

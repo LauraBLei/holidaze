@@ -53,8 +53,8 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           <div className="w-10 md:w-10 md:h-10 overflow-hidden rounded-full">
             <img
               className="w-full h-full object-cover"
-              src={user ? user.avatar.url : ''}
-              alt={user ? user.avatar.alt : ''}
+              src={user ? user.avatar.url : null}
+              alt={user ? user.avatar.alt : null}
             />
           </div>
           <span className="md:hidden">{user.name}</span>
@@ -87,7 +87,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         <span className="text-sm md:text-base font-bold">Login</span>
       </li>
       <li
-        className={`scale-95 hover:scale-100 transition items-center gap-1 cursor-pointer hidden md:flex ${user ? 'block' : 'hidden'} `}
+        className={`scale-95 hover:scale-100 transition items-center gap-1 cursor-pointer hidden md:flex ${user ? 'flex' : 'hidden'} `}
         onClick={onClick}
       >
         <Link
@@ -97,8 +97,8 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           <div className="w-10 md:w-10 md:h-10 overflow-hidden rounded-full">
             <img
               className="w-full h-full object-cover"
-              src={user ? user.avatar.url : ''}
-              alt={user ? user.avatar.alt : ''}
+              src={user ? user.avatar.url : null}
+              alt={user ? user.avatar.alt : null}
             />
           </div>
           <span className="md:hidden">{user.name}</span>

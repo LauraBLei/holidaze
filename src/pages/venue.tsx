@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import LoadingVenuePage from '../Components/loading/loadingVenuePage';
 
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ReadVenue } from '../API/venues/read';
 import { Venue } from '../Types/common';
 import { GalleryComponent } from '../Components/gallery';
@@ -14,13 +14,15 @@ import { GiKnifeFork } from 'react-icons/gi';
 import { BookingForm } from '../Components/booking';
 import { MdDeleteForever, MdEdit } from 'react-icons/md';
 import { CommonContext } from '../Types/context';
+import { deleteVenue } from '../API/venues/delete';
 
 export const VenuePage = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id') ?? ``;
   const [venue, setVenue] = useState<Venue>();
   const user = userInfo();
-  const { OpenLogin } = useContext(CommonContext);
+  const { OpenLogin, confirm } = useContext(CommonContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     ReadVenue(id, setVenue);
@@ -30,16 +32,34 @@ export const VenuePage = () => {
     return <LoadingVenuePage />;
   }
 
+  const handleDeleteClick = () => {
+    confirm({
+      message: 'Are you sure you want to delete this venue?',
+      onConfirm: handleDeleteVenue,
+    });
+  };
+
+  const handleDeleteVenue = () => {
+    deleteVenue(id);
+    navigate('/');
+  };
+
   return (
     <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px]">
       <div className="max-w-[700px] w-full mb-5 md:mb-10">
-        <GalleryComponent media={venue.media} />
+        <GalleryComponent media={venue.media ? venue.media : []} />
         <div className="my-10">
           <p className="text-2xl">{venue.price} NOK</p>
           <p>Per night</p>
         </div>
-        <div className={`w-full ${user.name === venue.owner.name ? 'hidden' : 'block'}`}>
-          <BookingForm maxGuests={venue.maxGuests} bookings={venue.bookings} id={venue.id} />
+        <div
+          className={`w-full ${venue.owner && user.name === venue.owner.name ? 'hidden' : 'block'}`}
+        >
+          <BookingForm
+            maxGuests={venue.maxGuests ? venue.maxGuests : 0}
+            bookings={venue.bookings ? venue.bookings : []}
+            id={venue.id ? venue.id : ''}
+          />
           <div className={`text-center my-10 ${!user ? 'block' : 'hidden'}`}>
             <button
               className="headlineTwo cursor-pointer hover:scale-100 scale-95 transition"
@@ -66,7 +86,7 @@ export const VenuePage = () => {
           <h1 className="headlineOne">{venue.name}</h1>
 
           <div
-            className={`flex gap-5 md:gap-10 font-bold ${user && user.name === venue.owner.name ? 'block' : 'hidden'}`}
+            className={`flex gap-5 md:gap-10 font-bold ${venue.owner && user && user.name === venue.owner.name ? 'block' : 'hidden'}`}
           >
             <Link
               to="/edit"
@@ -76,25 +96,28 @@ export const VenuePage = () => {
               <span>Edit Venue</span>
               <MdEdit />
             </Link>
-            <button className="flex gap-2 items-center cursor-pointer scale-95 hover:scale-100 transition">
+            <button
+              onClick={() => handleDeleteClick()}
+              className="flex gap-2 items-center cursor-pointer scale-95 hover:scale-100 transition"
+            >
               <span>Delete Venue</span> <MdDeleteForever />
             </button>
           </div>
         </div>
         <p>{venue.maxGuests} Guests</p>
-        <StarRating rating={venue.rating} />
+        <StarRating rating={venue.rating ? venue.rating : 1} />
         <Link
-          to={`/profile?username=${venue.owner.name}`}
+          to={`/profile?username=${venue.owner ? venue.owner.name : ''}`}
           className="flex items-center gap-2 border-y-2 border-brand-grey py-2 cursor-pointer"
         >
           <div className="w-[41px] h-[41px] rounded-full overflow-hidden">
             <img
               className="object-cover w-full h-full"
-              src={venue.owner.avatar.url}
-              alt={venue.owner.avatar.alt}
+              src={venue.owner ? venue.owner.avatar.url : ''}
+              alt={venue.owner ? venue.owner.avatar.alt : ''}
             />
           </div>
-          <p>{venue.owner.name}</p>
+          <p>{venue.owner ? venue.owner.name : ''}</p>
         </Link>
         <div className="flex gap-2 items-center border-b-2 border-brand-grey py-3">
           <FaLocationDot className="w-[25px] h-full" />
