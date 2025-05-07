@@ -1,39 +1,37 @@
-import { IoIosStar } from 'react-icons/io';
 import loadingImage from '/loading-image.png';
+import { Venue } from '../Types/common';
+import { IoIosStar } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 interface VenueCardProps {
-  image: string;
-  imageAlt: string;
-  title: string;
-  rating: number;
-  description: string;
-  price: number;
+  venue: Venue;
 }
 
-export const VenueCard: React.FC<VenueCardProps> = ({
-  image,
-  imageAlt,
-  title,
-  rating,
-  description,
-  price,
-}) => {
+export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   return (
-    <article className="flex flex-col  md:max-w-[280px] w-full gap-[20px]">
-      <img
-        className="cardImage h-[200px]  rounded-xl object-cover"
-        src={image ? image : loadingImage}
-        alt={imageAlt}
-      />
-      <div className="title-rating-container flex justify-between items-center">
-        <h3 className=" h-[27px] w-[60%] rounded text-base font-bold"> {title} </h3>
-        <div className="flex ratingWrapper gap-2 items-center">
-          <IoIosStar fill="#000000" stroke="#000000" />
-          <p className="text-xs">{rating}</p>
+    <Link to={`/venues?id=${venue.id}`}>
+      <article className="flex flex-col h-full md:max-w-[280px] w-full">
+        <div className="w-full h-52 rounded-xl overflow-hidden">
+          <img
+            className="w-full h-full object-cover"
+            src={venue.media && venue.media[0]?.url ? loadingImage : ''}
+            alt={venue.media && venue.media[0]?.alt ? 'image not found' : ''}
+          />
         </div>
-      </div>
-      <p className=" w-full rounded text-sm line-clamp-3">{description}</p>
-      <div className=" w-[35%] h-[27px] rounded text-sm font-bold">{price}$ / night</div>
-    </article>
+        <div className="flex flex-col min-h-[160px] gap-5">
+          <div className="title-rating-container flex justify-between items-center gap-8 mt-3">
+            <h3 className="text-base font-bold line-clamp-1"> {venue.name} </h3>
+            <div className="flex gap-2 items-center">
+              <IoIosStar fill="#000000" stroke="#000000" />
+              <p className="text-sm">{venue.rating}</p>
+            </div>
+          </div>
+          <div className="flex flex-col justify-between h-full">
+            <p className="text-sm line-clamp-3">{venue.description}</p>
+            <div className="mt-auto text-sm font-bold">{venue.price}$ / night</div>
+          </div>
+        </div>
+      </article>
+    </Link>
   );
 };
