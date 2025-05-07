@@ -1,8 +1,8 @@
 import { headers } from '../../API/headers';
-import { VenueCreate } from '../../Types/common';
+import { Venue } from '../../Types/common';
 import { API } from '../endpoints';
 
-export const HandleCreateVenue = async (data: VenueCreate) => {
+export const HandleCreateVenue = async (data: Venue) => {
   const response = await fetch(API.VENUES, {
     method: 'POST',
     headers: headers(),

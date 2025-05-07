@@ -20,7 +20,7 @@ export const HomePage = () => {
 
   const handleSearch = (query: string) => {
     const filtered = allVenues.filter((venue) =>
-      venue.name.toLowerCase().includes(query.toLowerCase()),
+      venue && venue.name ? venue.name.toLowerCase().includes(query.toLowerCase()) : '',
     );
     setVenues(filtered);
   };
