@@ -20,7 +20,7 @@ export const InputField = ({
         <textarea
           id={id}
           {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
-          className="w-full h-36 border border-brand-grey p-3 rounded-xl focus:border-0 focus:outline-brand-grey placeholder:text-sm"
+          className="w-full h-36 border border-brand-grey p-3 rounded-xl focus:outline-brand-grey placeholder:text-sm"
         />
       ) : (
         <input
