@@ -6,7 +6,7 @@ import { RegisterModal } from './register.tsx';
 
 export const Layout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col w-full min-h-screen">
       <RegisterModal />
       <LoginModal />
       <Header />

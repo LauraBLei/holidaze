@@ -89,7 +89,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         {venues.length > 0 ? (
           <h2 className="font-bold text-lg md:text-2xl ">Venues By User </h2>
         ) : null}
-        <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
+        <div className="max-w-[850px] w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
           {venues.length > 0
             ? venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
             : null}
