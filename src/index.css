@@ -4,6 +4,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 @theme {
@@ -13,9 +14,6 @@ body {
   --color-error-red: #ff7f78;
   --font-primary: 'Inter', 'ui-sans-serif', 'system-ui';
 }
-
-html {
-  scroll-behavior: smooth;
 
 @layer utilities {
   @keyframes slide-in-corner {
