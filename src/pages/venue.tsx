@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import LoadingVenuePage from '../Components/loading/loadingVenuePage';
 
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ReadVenue } from '../API/venues/read';
 import { Venue } from '../Types/common';
 import { GalleryComponent } from '../Components/gallery';
@@ -14,13 +14,15 @@ import { GiKnifeFork } from 'react-icons/gi';
 import { BookingForm } from '../Components/booking';
 import { MdDeleteForever, MdEdit } from 'react-icons/md';
 import { CommonContext } from '../Types/context';
+import { deleteVenue } from '../API/venues/delete';
 
 export const VenuePage = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id') ?? ``;
   const [venue, setVenue] = useState<Venue>();
   const user = userInfo();
-  const { OpenLogin } = useContext(CommonContext);
+  const { OpenLogin, confirm } = useContext(CommonContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     ReadVenue(id, setVenue);
@@ -29,6 +31,18 @@ export const VenuePage = () => {
   if (!venue) {
     return <LoadingVenuePage />;
   }
+
+  const handleDeleteClick = () => {
+    confirm({
+      message: 'Are you sure you want to delete this venue?',
+      onConfirm: handleDeleteVenue,
+    });
+  };
+
+  const handleDeleteVenue = () => {
+    deleteVenue(id);
+    navigate('/');
+  };
 
   return (
     <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px]">
@@ -76,7 +90,10 @@ export const VenuePage = () => {
               <span>Edit Venue</span>
               <MdEdit />
             </Link>
-            <button className="flex gap-2 items-center cursor-pointer scale-95 hover:scale-100 transition">
+            <button
+              onClick={() => handleDeleteClick()}
+              className="flex gap-2 items-center cursor-pointer scale-95 hover:scale-100 transition"
+            >
               <span>Delete Venue</span> <MdDeleteForever />
             </button>
           </div>
