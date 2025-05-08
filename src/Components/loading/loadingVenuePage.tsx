@@ -1,55 +1,78 @@
 export default function LoadingVenuePage() {
   return (
-    <section
-      className="flex flex-col animate-pulse w-full md:max-w-[1250px] md:flex-row"
-      aria-hidden="true"
-    >
-      <div className="imageAndPriceWrapper flex flex-col gap-16">
-        <div className="imageContainer flex flex-col gap-5">
-          <div className="mainImage w-full h-[440px] bg-[#C4C4C4] rounded-xl md:max-w-[530px]"></div>
-          <div className="smallImageWrapper flex justify-between">
-            <div className="image1 w-[22%] md:w-[95px] h-[85px] bg-[#C4C4C4] rounded-xl"></div>
-            <div className="image2 w-[22%] md:w-[95px] h-[85px] bg-[#C4C4C4] rounded-xl"></div>
-            <div className="image3 w-[22%] md:w-[95px] h-[85px] bg-[#C4C4C4] rounded-xl"></div>
-            <div className="image4 w-[22%] md:w-[95px] h-[85px] bg-[#C4C4C4] rounded-xl"></div>
+    <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px] animate-pulse">
+      {/* Left column */}
+      <div className="max-w-[700px] w-full mb-5 md:mb-10 flex flex-col gap-10">
+        {/* Gallery placeholder */}
+        <div className="flex flex-col gap-5">
+          <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] bg-[#C4C4C4] rounded-xl" />
+          <div className="flex w-full gap-5 md:gap-x-12 gap-y-3 flex-wrap">
+            <div className="w-full max-w-[95px] h-[85px] bg-[#C4C4C4] rounded-xl"></div>
+            <div className="w-full max-w-[95px] h-[85px] bg-[#C4C4C4] rounded-xl"></div>
+            <div className="w-full max-w-[95px] h-[85px] bg-[#C4C4C4] rounded-xl"></div>
           </div>
         </div>
-        <div className="priceContainer flex flex-col gap-5 mb-16 md:mb-0">
-          <div className="price w-[125px] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-          <div className="nights w-[70px] h-[20px] bg-[#C4C4C4] rounded-xl"></div>
-          <div className="checkIn-Out-Inputs flex w-full md:w-[530px] justify-between">
-            <div className="checkIn w-[45%] h-[45px] bg-[#C4C4C4] rounded-xl"></div>
-            <div className="checkOut w-[45%] h-[45px] bg-[#C4C4C4] rounded-xl"></div>
+
+        {/* Price and Booking Form placeholders */}
+        <div className="flex flex-col gap-5">
+          <div className="w-[125px] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
+          <div className="w-[70px] h-[20px] bg-[#C4C4C4] rounded-xl"></div>
+          <div className="flex flex-col sm:flex-row md:justify-between gap-5 w-full">
+            <div className="w-full h-[64px] bg-[#C4C4C4] rounded-xl"></div>
+            <div className="w-full h-[64px] bg-[#C4C4C4] rounded-xl"></div>
           </div>
-          <div className="guests w-[100%] h-[45px] bg-[#C4C4C4] rounded-xl"></div>
-          <div className="reserve w-[50%] h-[45px] bg-[#C4C4C4] rounded-xl self-center mt-10"></div>
-        </div>
-      </div>
-      <div className="infoWrapper flex flex-col w-full md:w-[720px] md:ml-20 gap-5">
-        <div className="title-edit-delete flex justify-between">
-          <div className="title w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-          <div className="edit-delete-wrapper w-[50%] flex gap-5">
-            <div className="edit w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-            <div className="delete w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-          </div>
-        </div>
-        <div className="guests-max w-[20%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-        <div className="rating w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-        <div className="host w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-        <div className="location w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-        <div className="desc w-[100%] h-[300px] bg-[#C4C4C4] rounded-xl"></div>
-        <div className="ammenities-header w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl mt-10"></div>
-        <div className="ammenities-container flex flex-col gap-10">
-          <div className="row-1 flex justify-between">
-            <div className="pets w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-            <div className="wifi w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-          </div>
-          <div className="row-2 flex justify-between">
-            <div className="parking w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-            <div className="breakfast w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
-          </div>
+          <div className="w-full h-[64px] bg-[#C4C4C4] rounded-xl"></div>
+          <div className="w-full md:w-[300px] h-[45px] bg-[#C4C4C4] rounded-xl self-center mt-10"></div>
         </div>
       </div>
-    </section>
+
+      {/* Right column */}
+      <div className="flex flex-col gap-5 w-full md:max-w-[700px] md:min-w-[350px] px-2">
+        {/* Title */}
+        <div className="flex justify-between items-center flex-wrap gap-10">
+          <div className="w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
+        </div>
+
+        {/* Guests, Rating, Host */}
+        <div className="w-[20%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
+        <div className="w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl"></div>
+        <div className="flex items-center gap-2 border-y-2 border-brand-grey py-2">
+          <div className="w-[41px] h-[41px] bg-[#C4C4C4] rounded-full"></div>
+          <div className="w-[30%] h-[20px] bg-[#C4C4C4] rounded-xl"></div>
+        </div>
+
+        {/* Location */}
+        <div className="flex gap-2 items-center border-b-2 border-brand-grey py-3">
+          <div className="w-[25px] h-[25px] bg-[#C4C4C4] rounded-full"></div>
+          <div className="w-[70%] h-[20px] bg-[#C4C4C4] rounded-xl"></div>
+        </div>
+
+        {/* Description */}
+        <div className="w-full h-[100px] bg-[#C4C4C4] rounded-xl border-b-2 border-brand-grey py-5"></div>
+
+        {/* Amenities */}
+        <div>
+          <div className="w-[40%] h-[30px] bg-[#C4C4C4] rounded-xl mb-5"></div>
+          <div className="grid grid-cols-2 gap-5">
+            <div className="flex gap-2 items-center">
+              <div className="w-[25px] h-[25px] bg-[#C4C4C4] rounded-full"></div>
+              <div className="w-[40%] h-[20px] bg-[#C4C4C4] rounded-xl"></div>
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="w-[25px] h-[25px] bg-[#C4C4C4] rounded-full"></div>
+              <div className="w-[40%] h-[20px] bg-[#C4C4C4] rounded-xl"></div>
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="w-[25px] h-[25px] bg-[#C4C4C4] rounded-full"></div>
+              <div className="w-[40%] h-[20px] bg-[#C4C4C4] rounded-xl"></div>
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="w-[25px] h-[25px] bg-[#C4C4C4] rounded-full"></div>
+              <div className="w-[40%] h-[20px] bg-[#C4C4C4] rounded-xl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
