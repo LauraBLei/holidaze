@@ -12,6 +12,7 @@ body {
   --color-error-green: #8bce9b;
   --color-error-red: #ff7f78;
   --font-primary: 'Inter', 'ui-sans-serif', 'system-ui';
+  --shadow-sm: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 @layer utilities {

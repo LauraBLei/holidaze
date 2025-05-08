@@ -40,6 +40,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
   const { OpenLogin } = useContext(CommonContext);
   const userData = localStorage.getItem('User');
   const user = userData ? JSON.parse(userData) : '';
+
   return (
     <ul className={className}>
       <li
@@ -50,7 +51,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           to={`/profile?username=${storedName}`}
           className={`scale-95 hover:scale-100 transition flex flex-col gap-2.5 mb-2 items-center text-sm md:text-base font-bold ${user ? 'block' : 'hidden'}`}
         >
-          <div className="w-10 md:w-10 md:h-10 overflow-hidden rounded-full">
+          <div className="w-14 md:w-10 overflow-hidden rounded-full shadow-sm ">
             <img
               className="w-full h-full object-cover"
               src={user ? user.avatar.url : null}
@@ -83,7 +84,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         className={` scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user ? 'hidden' : 'block'} `}
         onClick={() => OpenLogin()}
       >
-        <IoPerson className="text-lg md:text-2xl" />
+        <IoPerson className="text-2xl" />
         <span className="text-sm md:text-base font-bold">Login</span>
       </li>
       <li
@@ -113,7 +114,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           window.location.href = '/';
         }}
       >
-        <LuLogOut className="text-2xl md:text-2xl" />
+        <LuLogOut className="text-2xl" />
         <span className="text-sm md:text-base font-bold md:hidden">Log Out</span>
       </li>
     </ul>
