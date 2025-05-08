@@ -13,6 +13,7 @@ export type Profile = {
   banner: Media;
   venueManager: boolean;
   venues: Venue[];
+  bookings: Booking[];
 };
 
 export type BookingData = {
