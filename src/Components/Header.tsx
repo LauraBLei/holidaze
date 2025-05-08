@@ -8,6 +8,8 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 export default function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [animateOut, setAnimateOut] = useState(false);
+  const userData = localStorage.getItem('User');
+  const user = userData ? JSON.parse(userData) : '';
 
   const toggleMenu = () => {
     if (isMenuOpen) {
@@ -15,25 +17,25 @@ export default function Header() {
       setTimeout(() => {
         setMenuOpen(false);
         setAnimateOut(false);
-      }, 400); // match animation duration
+      }, 400);
     } else {
       setMenuOpen(true);
     }
   };
 
   return (
-    <header className="w-full py-5">
-      <nav className="flex item-center justify-between mx-5 md:mx-10 ">
+    <header className="flex w-full h-[90px] md:h-[120px]">
+      <nav className="flex items-center justify-between w-full mx-5 md:mx-10">
         <Link to="/" className="cursor-pointer">
           <img src={logo} alt="holidaze-logo" className="h-12 md:h-20" />
         </Link>
 
         <div className="hidden md:flex">
-          <NavList className="flex gap-10" />
+          <NavList className={`flex ${user ? 'gap-10' : ''}`} />
         </div>
 
         <div className="md:hidden self-center">
-          <RxHamburgerMenu className="text-2xl cursor-pointer" onClick={toggleMenu} />
+          <RxHamburgerMenu size={24} className="cursor-pointer" onClick={toggleMenu} />
         </div>
 
         {(isMenuOpen || animateOut) && (
