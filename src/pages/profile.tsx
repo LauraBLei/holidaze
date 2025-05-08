@@ -1,14 +1,23 @@
+import { useLocation } from 'react-router-dom';
 import fetchProfile from '../API/profile/fetchProfile';
 import LoadingProfilePage from '../Components/loading/LoadingProfilePage';
 import { BuildUser } from '../Components/UserProfile';
-import React from 'react';
+import { useEffect, useState } from 'react';
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 export const ProfilePage = () => {
-  const [page, setPage] = React.useState(<LoadingProfilePage />);
+  const query = useQuery();
+  const username = query.get('username');
 
-  React.useEffect(() => {
+  const [page, setPage] = useState(<LoadingProfilePage />);
+
+  useEffect(() => {
     const loadProfile = async () => {
       const data = await fetchProfile();
+
       if (data) {
         setPage(<BuildUser profile={data} />);
       } else {
@@ -21,7 +30,7 @@ export const ProfilePage = () => {
     };
 
     loadProfile();
-  }, []);
+  }, [username]);
 
   return <div className="w-full">{page}</div>;
 };
