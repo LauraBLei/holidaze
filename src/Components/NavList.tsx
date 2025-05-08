@@ -94,13 +94,15 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           to={`/profile?username=${storedName}`}
           className={`flex items-center gap-2.5 text-sm md:text-base font-bold `}
         >
-          <div className="w-10 md:w-10 md:h-10 overflow-hidden rounded-full">
-            <img
-              className="w-full h-full object-cover"
-              src={user ? user.avatar.url : null}
-              alt={user ? user.avatar.alt : null}
-            />
-          </div>
+          {user.avatar?.url && (
+            <div className="w-10 md:w-10 md:h-10 overflow-hidden rounded-full">
+              <img
+                className="w-full h-full object-cover"
+                src={user.avatar.url}
+                alt={user.avatar.alt || 'User avatar'}
+              />
+            </div>
+          )}
           <span className="md:hidden">{user.name}</span>
         </Link>
       </li>
@@ -108,7 +110,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         className={`scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user ? 'block' : 'hidden'} `}
         onClick={() => {
           localStorage.removeItem('User');
-          window.location.reload();
+          window.location.href = '/';
         }}
       >
         <LuLogOut className="text-2xl md:text-2xl" />
