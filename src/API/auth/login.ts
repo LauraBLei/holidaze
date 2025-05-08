@@ -22,6 +22,7 @@ export default async function HandleLogin(formdata: FormData) {
 
     if (response.ok) {
       localStorage.setItem('User', JSON.stringify(data.data));
+      window.location.reload();
     }
 
     return data.data;
