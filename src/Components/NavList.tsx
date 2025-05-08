@@ -51,7 +51,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           to={`/profile?username=${storedName}`}
           className={`scale-95 hover:scale-100 transition flex flex-col gap-2.5 mb-2 items-center text-sm md:text-base font-bold ${user ? 'block' : 'hidden'}`}
         >
-          <div className="w-14 md:w-10 overflow-hidden rounded-full shadow-sm ">
+          <div className="w-14 h-14 md:w-10 md:h-10 overflow-hidden rounded-full shadow-sm ">
             <img
               className="w-full h-full object-cover"
               src={user ? user.avatar.url : null}
@@ -96,7 +96,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           className={`flex items-center gap-2.5 text-sm md:text-base font-bold `}
         >
           {user.avatar?.url && (
-            <div className="w-10 md:w-10 md:h-10 overflow-hidden rounded-full">
+            <div className="w-14 h-14 md:w-10 md:h-10 overflow-hidden rounded-full">
               <img
                 className="w-full h-full object-cover"
                 src={user.avatar.url}
