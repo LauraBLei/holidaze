@@ -106,19 +106,39 @@ export const VenuePage = () => {
         </div>
         <p>{venue.maxGuests} Guests</p>
         <StarRating rating={venue.rating ? venue.rating : 1} />
-        <Link
-          to={`/profile?username=${venue.owner ? venue.owner.name : ''}`}
-          className="flex items-center gap-2 border-y-2 border-brand-grey py-2 cursor-pointer"
-        >
-          <div className="w-[41px] h-[41px] rounded-full overflow-hidden">
-            <img
-              className="object-cover w-full h-full"
-              src={venue.owner ? venue.owner.avatar.url : ''}
-              alt={venue.owner ? venue.owner.avatar.alt : ''}
-            />
+
+        {userInfo() ? (
+          <Link
+            to={`/profile?username=${venue.owner ? venue.owner.name : ''}`}
+            className="flex items-center gap-2 border-y-2 border-brand-grey py-2 cursor-pointer"
+          >
+            <div className="w-[41px] h-[41px] rounded-full overflow-hidden">
+              <img
+                className="object-cover w-full h-full"
+                src={venue.owner ? venue.owner.avatar.url : ''}
+                alt={venue.owner ? venue.owner.avatar.alt : ''}
+              />
+            </div>
+            <p>{venue.owner ? venue.owner.name : ''}</p>
+          </Link>
+        ) : (
+          <div
+            className="flex items-center gap-2 border-y-2 border-brand-grey py-2 cursor-pointer"
+            onClick={() => {
+              window.alert('You need to be logged in to view user profile');
+            }}
+          >
+            <div className="w-[41px] h-[41px] rounded-full overflow-hidden">
+              <img
+                className="object-cover w-full h-full"
+                src={venue.owner ? venue.owner.avatar.url : ''}
+                alt={venue.owner ? venue.owner.avatar.alt : ''}
+              />
+            </div>
+            <p>{venue.owner ? venue.owner.name : ''}</p>
           </div>
-          <p>{venue.owner ? venue.owner.name : ''}</p>
-        </Link>
+        )}
+
         <div className="flex gap-2 items-center border-b-2 border-brand-grey py-3">
           <FaLocationDot className="w-[25px] h-full" />
           <p>
