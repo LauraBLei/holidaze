@@ -15,6 +15,7 @@ export const ProfilePage = () => {
   const [page, setPage] = useState(<LoadingProfilePage />);
 
   useEffect(() => {
+    document.title = `HAL - ${username}`;
     const loadProfile = async () => {
       const data = await fetchProfile();
 

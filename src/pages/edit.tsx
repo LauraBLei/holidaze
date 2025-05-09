@@ -9,6 +9,7 @@ import { GalleryComponent } from '../Components/gallery';
 import { InputField } from '../Components/InputField';
 import { editSubmit } from '../UI/venue/edit';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const title = 'text-xl md:text-2xl lg:text-3xl pb-2 border-b border-brand-grey mb-2 md:mb-8';
 const amenitiesLabel = 'grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer';
@@ -16,6 +17,10 @@ const amenitiesCheckbox =
   'w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black';
 
 export const EditPage = () => {
+  useEffect(() => {
+    document.title = 'Edit Venue';
+  }, []);
+
   const venueData = localStorage.getItem('editVenue');
   const venue = venueData ? JSON.parse(venueData) : null;
 
