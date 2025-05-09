@@ -78,6 +78,7 @@ export type Meta = {
 export type InputType = {
   id?: string;
   labelText?: string;
+  labelClass?: string;
   textarea?: boolean;
   icon?: React.ReactNode;
   name?: string;
