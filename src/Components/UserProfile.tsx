@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import fetchProfile from '../API/profile/fetchProfile';
+import React, { useState } from 'react';
 import { Profile } from '../Types/common';
-import { Venue } from '../Types/common';
-import { Booking } from '../Types/common';
 import { VenueCard } from './VenueCard';
 import { BiSolidCalendarStar } from 'react-icons/bi';
 import { FaUserEdit } from 'react-icons/fa';
@@ -17,30 +14,30 @@ const storedUserData = JSON.parse(storedUser || '{}');
 const storedUserName = storedUserData.name;
 
 export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
-  const [venues, setVenues] = useState<Venue[]>([]);
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  // const [venues, setVenues] = useState<Venue[]>([]);
+  // const [bookings, setBookings] = useState<Booking[]>([]);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchProfile();
-      if (data?.venues && data?.bookings) {
-        setVenues(data.venues);
-        setBookings(data.bookings);
-      } else if (data?.bookings) {
-        setBookings(data.bookings);
-      } else if (data?.venues) {
-        setVenues(data.venues);
-      } else {
-        console.warn('No venues found on profile');
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await fetchProfile();
+  //     if (data?.venues && data?.bookings) {
+  //       setVenues(data.venues);
+  //       setBookings(data.bookings);
+  //     } else if (data?.bookings) {
+  //       setBookings(data.bookings);
+  //     } else if (data?.venues) {
+  //       setVenues(data.venues);
+  //     } else {
+  //       console.warn('No venues found on profile');
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
-    <div className="w-screen flex flex-col items-center gap-14 md:gap-20 lg:gap-24">
+    <div className="w-full flex flex-col items-center gap-14 md:gap-20 lg:gap-24">
       <div className="max-w-[1440px] w-full flex flex-col items-center md:items-start">
         <img
           src={profile.banner.url}
@@ -71,8 +68,6 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
                     <FaUserEdit className="text-lg md:text-2xl" />
                   </div>
                 )}
-
-                {/* Mount modal component */}
                 <UpdateProfileModal
                   isOpen={showUpdateModal}
                   onClose={() => setShowUpdateModal(false)}
@@ -86,20 +81,22 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         </div>
       </div>
       <div className="w-full flex justify-center items-center flex-col">
-        {venues.length > 0 ? (
+        {profile.venues.length > 0 ? (
           <h2 className="font-bold text-lg md:text-2xl ">Venues By User </h2>
         ) : null}
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
-          {venues.length > 0
-            ? venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
+          {profile.venues.length > 0
+            ? profile.venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
             : null}
         </div>
-        {bookings.length > 0 ? (
+        {profile.bookings.length > 0 ? (
           <h2 className="font-bold text-lg md:text-2xl ">Bookings by user </h2>
         ) : null}
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
-          {bookings.length > 0
-            ? bookings.map((booking) => <VenueCard key={booking.id} venue={booking.venue} />)
+          {profile.bookings.length > 0
+            ? profile.bookings.map((booking) => (
+                <VenueCard key={booking.id} venue={booking.venue} />
+              ))
             : null}
         </div>
       </div>
