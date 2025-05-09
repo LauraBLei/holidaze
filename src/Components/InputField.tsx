@@ -4,6 +4,7 @@ import { InputType } from '../Types/common';
 export const InputField = ({
   id,
   labelText,
+  labelClass,
   icon,
   onButtonClick,
   textarea,
@@ -11,7 +12,7 @@ export const InputField = ({
 }: InputType) => (
   <div className="w-full">
     {labelText && id && (
-      <label htmlFor={id} className="text-base">
+      <label htmlFor={id} className={labelClass}>
         {labelText}
       </label>
     )}
