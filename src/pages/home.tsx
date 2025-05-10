@@ -11,6 +11,7 @@ export const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'HAL - Holidaze';
     ReadVenues((data) => {
       setVenues(data);
       setAllVenues(data);

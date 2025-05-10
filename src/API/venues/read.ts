@@ -31,6 +31,9 @@ export const ReadVenue = async (id: string, setVenue: (input: Venue) => void) =>
     if (response.ok) {
       const venue = await response.json();
       setVenue(venue.data);
+      if (venue.data) {
+        document.title = `HAL - ${venue.data.name}`;
+      }
     }
   } catch (error) {
     console.log(error);
