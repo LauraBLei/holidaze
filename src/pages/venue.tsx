@@ -177,13 +177,13 @@ export const VenuePage = () => {
       </div>
       {user.name === venue.owner?.name && (
         <section className="2-full mt-7 flex flex-col gap-5">
-          <h2 className="headlineTwo ">Bookings</h2>
-          <div className="flex flex-wrap gap-5 w-full">
-            {venue.bookings
-              ?.slice()
-              .sort((a, b) => new Date(b.dateFrom).getTime() - new Date(a.dateFrom).getTime()) // newest to oldest
-              .map((booking) => {
-                return (
+          <h2 className="headlineTwo">Bookings</h2>
+          {venue.bookings && venue.bookings.length > 0 ? (
+            <div className="flex flex-wrap gap-5 w-full">
+              {venue.bookings
+                .slice()
+                .sort((a, b) => new Date(b.dateFrom).getTime() - new Date(a.dateFrom).getTime())
+                .map((booking) => (
                   <div
                     className="border-[1px] border-brand-grey px-5 py-2 w-full rounded-md gap-2 flex flex-col flex-1/4 min-w-[250px] font-primary"
                     key={booking.id + 1}
@@ -209,9 +209,11 @@ export const VenuePage = () => {
                       </div>
                     </div>
                   </div>
-                );
-              })}
-          </div>
+                ))}
+            </div>
+          ) : (
+            <p className="text-brand-black font-primary">There are no bookings yet.</p>
+          )}
         </section>
       )}
     </div>
