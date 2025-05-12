@@ -3,7 +3,6 @@ import { Layout } from './Components/layout';
 import { HomePage } from './pages/home';
 import { VenuePage } from './pages/venue';
 import { ProfilePage } from './pages/profile';
-import { ManagerPage } from './pages/manager';
 import { EditPage } from './pages/edit';
 import { CreatePage } from './pages/create';
 import './index.css';
@@ -20,7 +19,6 @@ function App() {
               <Route index element={<HomePage />} />
               <Route path="/venues" element={<VenuePage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/manager" element={<ManagerPage />} />
               <Route path="/edit" element={<EditPage />} />
               <Route path="/create" element={<CreatePage />} />
             </Route>

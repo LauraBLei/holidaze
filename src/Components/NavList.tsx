@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { BiSolidCalendarStar } from 'react-icons/bi';
 import { BsHouseAddFill } from 'react-icons/bs';
 import { IoPerson } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
@@ -59,15 +58,6 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
             />
           </div>
           <span className="md:hidden">{user.name}</span>
-        </Link>
-      </li>
-      <li
-        className={`flex scale-95 hover:scale-100 transition items-center gap-2.5 cursor-pointer ${user.venueManager ? 'block' : 'hidden'}`}
-        onClick={onClick}
-      >
-        <BiSolidCalendarStar className="text-2xl" />
-        <Link to="/manager" className="text-sm md:text-base font-bold ">
-          Manager
         </Link>
       </li>
       <li

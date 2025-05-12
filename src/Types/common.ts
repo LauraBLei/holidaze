@@ -20,7 +20,7 @@ export type BookingData = {
   id: string;
   dateFrom: string;
   dateTo: string;
-  guest: number;
+  guests: number;
   created: string;
   updated: string;
   venue: Venue;
