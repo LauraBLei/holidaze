@@ -48,7 +48,7 @@ export const GalleryComponent: React.FC<GalleryType> = ({ media, isEditable, onR
           const isActive = image.url === activeImage.url;
           return (
             <div
-              key={image.url}
+              key={`${image.url}/${Math.random()}`}
               className={`w-[95px] h-[84px] rounded-[10px] overflow-hidden hover:scale-100 transition ${isActive ? 'scale-100 shadow-md' : 'scale-95'}`}
               onClick={() => setActiveImage(image)}
             >
