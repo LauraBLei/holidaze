@@ -60,9 +60,9 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center items-center flex-col">
+      <div className="w-full flex justify-center items-center max-w-[850px] flex-col gap-10">
         {profile.venues.length > 0 ? (
-          <h2 className="font-bold text-lg md:text-2xl ">
+          <h2 className="font-bold text-lg md:text-2xl self-start ">
             {profile.name == storedUserName ? 'Your venues' : 'Venues By User'}{' '}
           </h2>
         ) : null}
@@ -72,7 +72,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
             : null}
         </div>
         {profile.bookings.length > 0 ? (
-          <h2 className="font-bold text-lg md:text-2xl ">
+          <h2 className="font-bold text-lg md:text-2xl self-start">
             {profile.name == storedUserName ? 'Your Bookings' : 'Bookings By User'}
           </h2>
         ) : null}
