@@ -11,14 +11,12 @@ export const AuthModal = () => {
 
   const showModal = loginOpen || registerOpen;
 
-  // Update height for animation
   useEffect(() => {
     if (contentRef.current) {
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, [loginOpen, registerOpen]);
 
-  // Handle ESC key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -36,13 +34,12 @@ export const AuthModal = () => {
     };
   }, [showModal]);
 
-  // Animate close
   const handleClose = () => {
     setVisible(false);
     setTimeout(() => {
       setRegisterOpen(false);
       setLoginOpen(false);
-    }, 300); // Matches transition duration
+    }, 300);
   };
 
   if (!showModal && !visible) return null;
