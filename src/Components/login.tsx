@@ -2,13 +2,15 @@ import { useContext } from 'react';
 import { CommonContext } from '../Types/context';
 import HandleLogin from '../API/auth/login';
 
-export const LoginModal = () => {
-  const { OpenRegister, setLoginOpen } = useContext(CommonContext);
+export const LoginModal = ({ onClose }: { onClose: () => void }) => {
+  const { OpenRegister } = useContext(CommonContext);
   return (
     <div className="flex flex-col items-center w-full">
       <div className="w-full flex justify-end px-5 ">
         <p
-          onClick={() => setLoginOpen(false)}
+          onClick={() => {
+            onClose();
+          }}
           className="font-bold  font-primary text-2xl hover:scale-100 scale-90 transition cursor-pointer"
         >
           X

@@ -2,15 +2,17 @@ import { useContext, useState } from 'react';
 import { CommonContext } from '../Types/context';
 import { handleRegisterSubmit } from '../UI/auth/register';
 
-export const RegisterModal = () => {
+export const RegisterModal = ({ onClose }: { onClose: () => void }) => {
   const [isVenueManager, setIsVenueManager] = useState(false);
-  const { OpenLogin, setRegisterOpen } = useContext(CommonContext);
+  const { OpenLogin } = useContext(CommonContext);
 
   return (
     <div className="flex flex-col items-center w-full">
       <div className="w-full flex justify-end px-5">
         <p
-          onClick={() => setRegisterOpen(false)}
+          onClick={() => {
+            onClose();
+          }}
           className="font-bold font-primary text-2xl hover:scale-100 scale-90 transition cursor-pointer"
         >
           X
