@@ -4,7 +4,7 @@ import { IoCheckmarkSharp } from 'react-icons/io5';
 import { PiPlusCircle } from 'react-icons/pi';
 import { FaWifi } from 'react-icons/fa6';
 import { GiKnifeFork } from 'react-icons/gi';
-import { Media } from '../Types/common';
+import { Media, Meta } from '../Types/common';
 import { GalleryComponent } from '../Components/gallery';
 import { InputField } from '../Components/InputField';
 import { editSubmit } from '../UI/venue/edit';
@@ -37,11 +37,20 @@ export const EditPage = () => {
     city: venue?.location?.city || '',
     zip: venue?.location?.zip || '',
     country: venue?.location?.country || '',
-    wifi: venue?.meta?.wifi || false,
+  });
+  const [amenitiesChecked, setAmenitiesChecked] = useState<Meta>({
+    pets: venue?.meta?.pets || false,
     parking: venue?.meta?.parking || false,
     breakfast: venue?.meta?.breakfast || false,
-    pets: venue?.meta?.pets || false,
+    wifi: venue?.meta?.wifi || false,
   });
+
+  const handleAmenities = (key: keyof Meta) => {
+    setAmenitiesChecked((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   const handleRemoveImage = (url: string) => {
     setMedia((prev) => prev.filter((image) => image.url !== url));
@@ -74,7 +83,7 @@ export const EditPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const form = new FormData();
+    const form = new FormData(e.currentTarget as HTMLFormElement);
 
     for (const key in formData) {
       form.append(key, String(formData[key as keyof typeof formData]));
@@ -247,26 +256,22 @@ export const EditPage = () => {
             ].map((item) => (
               <div className="flex w-full p-2 rounded" key={item.id}>
                 <label htmlFor={item.id} className={amenitiesLabel}>
+                  <input
+                    type="checkbox"
+                    id={item.id}
+                    name={item.id}
+                    className="sr-only peer"
+                    checked={amenitiesChecked[item.id as keyof typeof amenitiesChecked]}
+                    onChange={() => handleAmenities(item.id as keyof typeof amenitiesChecked)}
+                  />
                   <div className="flex items-center gap-2">
                     {item.icon}
                     <span className="text-base">{item.label}</span>
                   </div>
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      id={item.id}
-                      name={item.id}
-                      checked={formData[item.id as keyof typeof formData] as boolean}
-                      onChange={handleChange}
-                      className="sr-only peer"
-                    />
-                    <span className={amenitiesCheckbox}>
-                      <IoCheckmarkSharp
-                        size={18}
-                        className="text-white hidden peer-checked:block"
-                      />
-                    </span>
-                  </div>
+
+                  <span className={amenitiesCheckbox}>
+                    <IoCheckmarkSharp size={18} className="text-white" />
+                  </span>
                 </label>
               </div>
             ))}
