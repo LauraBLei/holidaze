@@ -49,7 +49,11 @@ export const VenuePage = () => {
     <div className="w-full max-w-[1600px] px-5">
       <div className="font-primary w-full h-full  flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly lg:justify-between gap-5 max-w-[1600px]">
         <div className="max-w-[700px] w-full mb-5 md:mb-10">
-          <GalleryComponent media={venue.media ? venue.media : []} />
+          {venue.media && venue.media.length > 0 ? (
+            <GalleryComponent media={venue.media} />
+          ) : (
+            <img src="/loading-image.png" alt="Loading..." />
+          )}
           <div className="my-10">
             <p className="text-2xl">{venue.price} NOK</p>
             <p>Per night</p>
