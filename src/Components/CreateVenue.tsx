@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaDog, FaParking } from 'react-icons/fa';
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { PiPlusCircle } from 'react-icons/pi';
-import { Media } from '../Types/common';
+import { Media, Meta } from '../Types/common';
 import { handleCreateVenueSubmit } from '../UI/venue/create';
 import { GalleryComponent } from './gallery';
 import { InputField } from './InputField';
@@ -27,6 +27,19 @@ export const CreateVenueForm = () => {
   const [media, setMedia] = useState<Media[]>([]);
   const [imageInput, setImageInput] = useState('');
   const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
+  const [amenitiesChecked, setAmenitiesChecked] = useState<Meta>({
+    pets: false,
+    parking: false,
+    breakfast: false,
+    wifi: false,
+  });
+
+  const handleAmenities = (key: keyof Meta) => {
+    setAmenitiesChecked((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   const handleRemoveImage = (url: string) => {
     setMedia((prev) => prev.filter((image) => image.url !== url));
@@ -220,8 +233,8 @@ export const CreateVenueForm = () => {
                 labelText="Rating"
                 type="number"
                 placeholder="Venue rating (1–5)"
-                // min={0}
-                // max={5}
+                min={0}
+                max={5}
                 step={1}
                 className="input text-center"
               />
@@ -280,65 +293,93 @@ export const CreateVenueForm = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="flex w-full p-2 rounded">
               <label htmlFor="pets" className={amenitiesLabel}>
+                <input
+                  type="checkbox"
+                  id="pets"
+                  name="pets"
+                  className="sr-only peer"
+                  checked={amenitiesChecked.pets}
+                  onChange={() => handleAmenities('pets')}
+                />
                 <div className="flex items-center gap-2">
                   <FaDog size={24} />
                   <span className="text-base">Pets</span>
                 </div>
 
-                <div className="relative">
-                  <input type="checkbox" id="pets" name="pets" className="sr-only peer" />
-                  <span className={amenitiesCheckbox}>
-                    <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
-                  </span>
-                </div>
+                <span className={amenitiesCheckbox}>
+                  {amenitiesChecked.pets && (
+                    <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
+                  )}
+                </span>
               </label>
             </div>
 
             <div className="flex w-full p-2 rounded">
               <label htmlFor="parking" className={amenitiesLabel}>
+                <input
+                  type="checkbox"
+                  id="parking"
+                  name="parking"
+                  className="sr-only peer"
+                  checked={amenitiesChecked.parking}
+                  onChange={() => handleAmenities('parking')}
+                />
                 <div className="flex items-center gap-2">
                   <FaParking size={24} />
                   <span className="text-base">Parking</span>
                 </div>
 
-                <div className="relative">
-                  <input type="checkbox" id="parking" name="parking" className="sr-only peer" />
-                  <span className={amenitiesCheckbox}>
-                    <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
-                  </span>
-                </div>
+                <span className={amenitiesCheckbox}>
+                  {amenitiesChecked.parking && (
+                    <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
+                  )}
+                </span>
               </label>
             </div>
 
             <div className="flex w-full p-2 rounded">
               <label htmlFor="breakfast" className={amenitiesLabel}>
+                <input
+                  type="checkbox"
+                  id="breakfast"
+                  name="breakfast"
+                  className="sr-only peer"
+                  checked={amenitiesChecked.breakfast}
+                  onChange={() => handleAmenities('breakfast')}
+                />
                 <div className="flex items-center gap-2">
                   <GiKnifeFork size={24} />
                   <span className="text-base">Breakfast</span>
                 </div>
 
-                <div className="relative">
-                  <input type="checkbox" id="breakfast" name="breakfast" className="sr-only peer" />
-                  <span className={amenitiesCheckbox}>
-                    <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
-                  </span>
-                </div>
+                <span className={amenitiesCheckbox}>
+                  {amenitiesChecked.breakfast && (
+                    <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
+                  )}
+                </span>
               </label>
             </div>
 
             <div className="flex w-full p-2 rounded">
               <label htmlFor="wifi" className={amenitiesLabel}>
+                <input
+                  type="checkbox"
+                  id="wifi"
+                  name="wifi"
+                  className="sr-only peer"
+                  checked={amenitiesChecked.wifi}
+                  onChange={() => handleAmenities('wifi')}
+                />
                 <div className="flex items-center gap-2">
                   <FaWifi size={24} />
                   <span className="text-base">Free Wifi</span>
                 </div>
 
-                <div className="relative">
-                  <input type="checkbox" id="wifi" name="wifi" className="sr-only peer" />
-                  <span className={amenitiesCheckbox}>
-                    <IoCheckmarkSharp size={18} className="text-white hidden peer-checked:block" />
-                  </span>
-                </div>
+                <span className={amenitiesCheckbox}>
+                  {amenitiesChecked.wifi && (
+                    <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
+                  )}
+                </span>
               </label>
             </div>
           </div>
