@@ -4,6 +4,7 @@ import { VenueCard } from './VenueCard';
 import { BiSolidCalendarStar } from 'react-icons/bi';
 import { FaUserEdit } from 'react-icons/fa';
 import { UpdateProfileModal } from './updateProfile';
+import { Link } from 'react-router-dom';
 
 interface BuildUserProps {
   profile: Profile;
@@ -53,7 +54,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
                   onClose={() => setShowUpdateModal(false)}
                 />
               </div>
-              <p className="text-base md:text-lg rounded italic">
+              <p className="text-base md:text-lg rounded text-gray-500 italic">
                 {profile.bio ? profile.bio : 'This user has no bio yet'}
               </p>
             </div>
@@ -61,28 +62,31 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         </div>
       </div>
       <div className="w-full flex justify-center items-center max-w-[850px] flex-col gap-10">
-        {profile.venues.length > 0 ? (
-          <h2 className="font-bold text-lg md:text-2xl self-start ">
-            {profile.name == storedUserName ? 'Your venues' : 'Venues By User'}{' '}
-          </h2>
-        ) : null}
+        <h2 className="font-bold text-lg md:text-2xl self-start ">
+          {profile.name == storedUserName ? 'Your venues' : 'Venues By User'}{' '}
+        </h2>
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
-          {profile.venues.length > 0
-            ? profile.venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
-            : null}
+          {profile.venues.length > 0 ? (
+            profile.venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
+          ) : (
+            <p className="text-gray-500 italic">Oops! No information here yet!</p>
+          )}
         </div>
-        {profile.bookings.length > 0 ? (
-          <h2 className="font-bold text-lg md:text-2xl self-start">
-            {profile.name == storedUserName ? 'Your Bookings' : 'Bookings By User'}
-          </h2>
-        ) : null}
+        <h2 className="font-bold text-lg md:text-2xl self-start">
+          {profile.name == storedUserName ? 'Your Bookings' : 'Bookings By User'}
+        </h2>
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
-          {profile.bookings.length > 0
-            ? profile.bookings.map((booking) => (
-                <VenueCard key={booking.id} venue={booking.venue} />
-              ))
-            : null}
+          {profile.bookings.length > 0 ? (
+            profile.bookings.map((booking) => <VenueCard key={booking.id} venue={booking.venue} />)
+          ) : (
+            <p className="text-gray-500 italic">Oops! No information here yet!</p>
+          )}
         </div>
+        {!(profile.venues.length || profile.bookings.length) && (
+          <Link to="/" className="button text-center mt-10">
+            Back To Homepage
+          </Link>
+        )}
       </div>
     </div>
   );
