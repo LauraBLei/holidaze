@@ -10,7 +10,6 @@ export const UpdateProfileModal = ({
   onClose: () => void;
 }) => {
   const [previewAvatar, setPreviewAvatar] = useState(storedPFP);
-  const [previewBanner, setPreviewBanner] = useState('');
 
   if (!isOpen) return null;
 
@@ -18,13 +17,6 @@ export const UpdateProfileModal = ({
     const url = e.target.value;
     if (isValidImageUrl(url)) {
       setPreviewAvatar(url);
-    }
-  };
-
-  const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value;
-    if (isValidImageUrl(url)) {
-      setPreviewBanner(url);
     }
   };
 
@@ -50,14 +42,6 @@ export const UpdateProfileModal = ({
           alt="user profile preview"
         />
 
-        {previewBanner && (
-          <img
-            src={previewBanner}
-            className="w-full max-h-[180px] object-cover rounded"
-            alt="banner preview"
-          />
-        )}
-
         <form
           className="w-full flex flex-col gap-4 max-w-[425px] items-center"
           action={HandleUpdateProfile}
@@ -72,13 +56,7 @@ export const UpdateProfileModal = ({
             onChange={handleAvatarChange}
           />
 
-          <input
-            type="url"
-            name="banner"
-            placeholder="Banner URL"
-            className="input"
-            onChange={handleBannerChange}
-          />
+          <input type="url" name="banner" placeholder="Banner URL" className="input" />
 
           {!storedVenueManager && (
             <select required name="venueManager" className="input">
