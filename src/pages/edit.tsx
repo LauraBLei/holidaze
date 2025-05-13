@@ -18,6 +18,8 @@ import {
   setValidationError,
   StatusMessage,
 } from '../utilities/validation/validation';
+import { motion } from 'framer-motion';
+import { fadeOutOnlyVariants } from '../Constants/constants';
 
 export const EditPage = () => {
   useEffect(() => {
@@ -115,228 +117,236 @@ export const EditPage = () => {
   };
 
   return (
-    <form
+    <motion.div
+      variants={fadeOutOnlyVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
       className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary"
-      onSubmit={handleSubmit}
     >
-      <div className="mx-5 flex flex-col mb-10 gap-12 md:gap-28">
-        <div className="h-full flex flex-col gap-4 mt-10">
-          {media.length > 0 && (
-            <GalleryComponent media={media} onRemoveImage={handleRemoveImage} isEditable={true} />
-          )}
-        </div>
-
-        {/* Basic info */}
-        <section className="flex flex-col gap-4">
-          <h2 className="create-edit-titles">Basic info</h2>
-
-          <InputField
-            id="image"
-            name="image"
-            labelText="URL - Media"
-            type="url"
-            value={imageInput}
-            placeholder="https://example.com/image.jpg"
-            icon={<PiPlusCircle size={24} />}
-            onChange={(e) => setImageInput(e.target.value)}
-            onButtonClick={handleAddImage}
-          />
-
-          {formStatus.validationErrors?.image && (
-            <p className="error-message">{formStatus.validationErrors.image}</p>
-          )}
-
-          <InputField
-            id="name"
-            name="name"
-            type="text"
-            labelText="Name of venue"
-            placeholder="Name of the venue"
-            value={formData.name}
-            onChange={handleChange}
-          />
-
-          {formStatus.validationErrors?.name && (
-            <p className="error-message">{formStatus.validationErrors.name}</p>
-          )}
-
-          <InputField
-            id="description"
-            name="description"
-            type="text"
-            labelText="Description"
-            placeholder="Write a description of the venue"
-            textarea
-            value={formData.description}
-            onChange={handleChange}
-          />
-
-          {formStatus.validationErrors?.description && (
-            <p className="error-message">{formStatus.validationErrors.description}</p>
-          )}
-        </section>
-
-        {/* Pricing & Guests */}
-        <section className="flex flex-col gap-4">
-          <h2 className="create-edit-titles">Pricing & Guests</h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="flex flex-col gap-2">
-              <InputField
-                id="price"
-                name="price"
-                labelText="Price"
-                type="number"
-                placeholder="Enter price"
-                className="input text-center"
-                value={formData.price}
-                onChange={handleChange}
-              />
-              {formStatus.validationErrors?.price && (
-                <p className="error-message">{formStatus.validationErrors.price}</p>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <InputField
-                id="maxGuests"
-                name="maxGuests"
-                labelText="Max Guests"
-                type="number"
-                placeholder="Add number of guests"
-                min={1}
-                max={100}
-                step={1}
-                className="input text-center"
-                value={formData.maxGuests}
-                onChange={handleChange}
-              />
-              {formStatus.validationErrors?.maxGuests && (
-                <p className="error-message">{formStatus.validationErrors.maxGuests}</p>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <InputField
-                id="rating"
-                name="rating"
-                labelText="Rating"
-                type="number"
-                placeholder="Venue rating (1–5)"
-                min={0}
-                max={5}
-                step={1}
-                className="input text-center"
-                value={formData.rating}
-                onChange={handleChange}
-              />
-              {formStatus.validationErrors?.rating && (
-                <p className="error-message">{formStatus.validationErrors.rating}</p>
-              )}
-            </div>
+      <form
+        className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary"
+        onSubmit={handleSubmit}
+      >
+        <div className="mx-5 flex flex-col mb-10 gap-12 md:gap-28">
+          <div className="h-full flex flex-col gap-4 mt-10">
+            {media.length > 0 && (
+              <GalleryComponent media={media} onRemoveImage={handleRemoveImage} isEditable={true} />
+            )}
           </div>
-        </section>
 
-        {/* Location */}
-        <section className="flex flex-col gap-4">
-          <h2 className="create-edit-titles">Location</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Basic info */}
+          <section className="flex flex-col gap-4">
+            <h2 className="create-edit-titles">Basic info</h2>
+
             <InputField
-              id="address"
-              name="address"
-              labelText="Address"
+              id="image"
+              name="image"
+              labelText="URL - Media"
+              type="url"
+              value={imageInput}
+              placeholder="https://example.com/image.jpg"
+              icon={<PiPlusCircle size={24} />}
+              onChange={(e) => setImageInput(e.target.value)}
+              onButtonClick={handleAddImage}
+            />
+
+            {formStatus.validationErrors?.image && (
+              <p className="error-message">{formStatus.validationErrors.image}</p>
+            )}
+
+            <InputField
+              id="name"
+              name="name"
               type="text"
-              placeholder="Imaginary street 123"
-              className="input"
-              value={formData.address}
+              labelText="Name of venue"
+              placeholder="Name of the venue"
+              value={formData.name}
               onChange={handleChange}
             />
 
+            {formStatus.validationErrors?.name && (
+              <p className="error-message">{formStatus.validationErrors.name}</p>
+            )}
+
             <InputField
-              id="city"
-              name="city"
-              labelText="City"
+              id="description"
+              name="description"
               type="text"
-              placeholder="Bergen"
-              className="input"
-              value={formData.city}
+              labelText="Description"
+              placeholder="Write a description of the venue"
+              textarea
+              value={formData.description}
               onChange={handleChange}
             />
 
-            <InputField
-              id="zip"
-              name="zip"
-              labelText="Zip-Code"
-              type="text"
-              placeholder="1010"
-              className="input"
-              value={formData.zip}
-              onChange={handleChange}
-            />
+            {formStatus.validationErrors?.description && (
+              <p className="error-message">{formStatus.validationErrors.description}</p>
+            )}
+          </section>
 
-            <InputField
-              id="country"
-              name="country"
-              labelText="Country"
-              type="text"
-              placeholder="Dreamland"
-              className="input"
-              value={formData.country}
-              onChange={handleChange}
-            />
-          </div>
-        </section>
+          {/* Pricing & Guests */}
+          <section className="flex flex-col gap-4">
+            <h2 className="create-edit-titles">Pricing & Guests</h2>
 
-        {/* Amenities */}
-        <section className="flex flex-col gap-4">
-          <h2 className="create-edit-titles">Amenities</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { id: 'pets', label: 'Pets', icon: <FaDog size={24} /> },
-              { id: 'parking', label: 'Parking', icon: <FaParking size={24} /> },
-              { id: 'breakfast', label: 'Breakfast', icon: <GiKnifeFork size={24} /> },
-              { id: 'wifi', label: 'Free Wifi', icon: <FaWifi size={24} /> },
-            ].map((item) => (
-              <div className="flex w-full p-2 rounded" key={item.id}>
-                <label htmlFor={item.id} className="amenities-label">
-                  <input
-                    type="checkbox"
-                    id={item.id}
-                    name={item.id}
-                    className="sr-only peer"
-                    checked={amenitiesChecked[item.id as keyof typeof amenitiesChecked]}
-                    onChange={() => handleAmenities(item.id as keyof typeof amenitiesChecked)}
-                  />
-                  <div className="flex items-center gap-2">
-                    {item.icon}
-                    <span className="text-base">{item.label}</span>
-                  </div>
-
-                  <span className="amenities-checkbox">
-                    <IoCheckmarkSharp size={18} className="text-white" />
-                  </span>
-                </label>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="flex flex-col gap-2">
+                <InputField
+                  id="price"
+                  name="price"
+                  labelText="Price"
+                  type="number"
+                  placeholder="Enter price"
+                  className="input text-center"
+                  value={formData.price}
+                  onChange={handleChange}
+                />
+                {formStatus.validationErrors?.price && (
+                  <p className="error-message">{formStatus.validationErrors.price}</p>
+                )}
               </div>
-            ))}
-          </div>
-        </section>
 
-        <div className="flex flex-col items-center justify-center gap-5">
-          <button type="submit" className="button transition font-bold">
-            Save Changes
-          </button>
-          {formStatus.success && (
-            <div id="createSuccess" className="success-message">
-              {formStatus.success}
+              <div className="flex flex-col gap-2">
+                <InputField
+                  id="maxGuests"
+                  name="maxGuests"
+                  labelText="Max Guests"
+                  type="number"
+                  placeholder="Add number of guests"
+                  min={1}
+                  max={100}
+                  step={1}
+                  className="input text-center"
+                  value={formData.maxGuests}
+                  onChange={handleChange}
+                />
+                {formStatus.validationErrors?.maxGuests && (
+                  <p className="error-message">{formStatus.validationErrors.maxGuests}</p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <InputField
+                  id="rating"
+                  name="rating"
+                  labelText="Rating"
+                  type="number"
+                  placeholder="Venue rating (1–5)"
+                  min={0}
+                  max={5}
+                  step={1}
+                  className="input text-center"
+                  value={formData.rating}
+                  onChange={handleChange}
+                />
+                {formStatus.validationErrors?.rating && (
+                  <p className="error-message">{formStatus.validationErrors.rating}</p>
+                )}
+              </div>
             </div>
-          )}
-          {formStatus.submitError && (
-            <div id="createError" className="error-message">
-              {formStatus.submitError}
+          </section>
+
+          {/* Location */}
+          <section className="flex flex-col gap-4">
+            <h2 className="create-edit-titles">Location</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <InputField
+                id="address"
+                name="address"
+                labelText="Address"
+                type="text"
+                placeholder="Imaginary street 123"
+                className="input"
+                value={formData.address}
+                onChange={handleChange}
+              />
+
+              <InputField
+                id="city"
+                name="city"
+                labelText="City"
+                type="text"
+                placeholder="Bergen"
+                className="input"
+                value={formData.city}
+                onChange={handleChange}
+              />
+
+              <InputField
+                id="zip"
+                name="zip"
+                labelText="Zip-Code"
+                type="text"
+                placeholder="1010"
+                className="input"
+                value={formData.zip}
+                onChange={handleChange}
+              />
+
+              <InputField
+                id="country"
+                name="country"
+                labelText="Country"
+                type="text"
+                placeholder="Dreamland"
+                className="input"
+                value={formData.country}
+                onChange={handleChange}
+              />
             </div>
-          )}
+          </section>
+
+          {/* Amenities */}
+          <section className="flex flex-col gap-4">
+            <h2 className="create-edit-titles">Amenities</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { id: 'pets', label: 'Pets', icon: <FaDog size={24} /> },
+                { id: 'parking', label: 'Parking', icon: <FaParking size={24} /> },
+                { id: 'breakfast', label: 'Breakfast', icon: <GiKnifeFork size={24} /> },
+                { id: 'wifi', label: 'Free Wifi', icon: <FaWifi size={24} /> },
+              ].map((item) => (
+                <div className="flex w-full p-2 rounded" key={item.id}>
+                  <label htmlFor={item.id} className="amenities-label">
+                    <input
+                      type="checkbox"
+                      id={item.id}
+                      name={item.id}
+                      className="sr-only peer"
+                      checked={amenitiesChecked[item.id as keyof typeof amenitiesChecked]}
+                      onChange={() => handleAmenities(item.id as keyof typeof amenitiesChecked)}
+                    />
+                    <div className="flex items-center gap-2">
+                      {item.icon}
+                      <span className="text-base">{item.label}</span>
+                    </div>
+
+                    <span className="amenities-checkbox">
+                      <IoCheckmarkSharp size={18} className="text-white" />
+                    </span>
+                  </label>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <div className="flex flex-col items-center justify-center gap-5">
+            <button type="submit" className="button transition font-bold">
+              Save Changes
+            </button>
+            {formStatus.success && (
+              <div id="createSuccess" className="success-message">
+                {formStatus.success}
+              </div>
+            )}
+            {formStatus.submitError && (
+              <div id="createError" className="error-message">
+                {formStatus.submitError}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </motion.div>
   );
 };
