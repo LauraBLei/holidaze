@@ -2,6 +2,15 @@ import { setValidationError, StatusMessage } from './validation';
 
 type SetFormStatus = React.Dispatch<React.SetStateAction<StatusMessage>>;
 
+/**
+ * Validates the venue form fields.
+ * Checks that required fields are filled and numeric values are within allowed ranges.
+ *
+ * @param formdata - FormData object from the submitted form
+ * @param setFormStatus - State setter to update validation errors
+ * @returns True if form is valid, false otherwise
+ */
+
 export function validateForm(formdata: FormData, setFormStatus: SetFormStatus): boolean {
   const name = formdata.get('name')?.toString() || '';
   const description = formdata.get('description')?.toString() || '';
@@ -34,6 +43,12 @@ export function validateForm(formdata: FormData, setFormStatus: SetFormStatus): 
 
   return true;
 }
+
+/**
+ * Smoothly scrolls to a form field and focuses it.
+ *
+ * @param fieldId - The HTML id of the field to scroll to
+ */
 
 function scrollToField(fieldId: string) {
   const field = document.getElementById(fieldId);
