@@ -13,7 +13,7 @@ const buildVenueEditPayload = (formdata: FormData, media: Media[]): Venue => ({
   location: {
     address: formdata.get('address')?.toString() || '',
     city: formdata.get('city')?.toString() || '',
-    zip: formdata.get('zip-code')?.toString() || '',
+    zip: formdata.get('zip')?.toString() || '',
     country: formdata.get('country')?.toString() || '',
   },
 
@@ -27,12 +27,6 @@ const buildVenueEditPayload = (formdata: FormData, media: Media[]): Venue => ({
 
 export const editSubmit = async (formdata: FormData, media: Media[], id: string) => {
   const payload = buildVenueEditPayload(formdata, media);
-
   console.log('📦 Venue form data:', payload);
-  try {
-    const data = await editVenue(payload, id);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+  return await editVenue(payload, id);
 };

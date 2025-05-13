@@ -13,7 +13,8 @@ export const editVenue = async (data: Venue, id: string) => {
   console.log('Request body:', result);
 
   if (!response.ok) {
-    throw new Error('Failed to edit venue');
+    const message = result?.errors?.[0]?.message || result?.message || 'Failed to update venue';
+    throw new Error(message);
   } else if (response.ok) {
     console.log('Venue edited successfully:', response);
     return result;
