@@ -115,8 +115,11 @@ export const EditPage = () => {
   };
 
   return (
-    <div className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary">
-      <form className="mx-5 flex flex-col mb-10 gap-12 md:gap-28" onSubmit={handleSubmit}>
+    <form
+      className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary"
+      onSubmit={handleSubmit}
+    >
+      <div className="mx-5 flex flex-col mb-10 gap-12 md:gap-28">
         <div className="h-full flex flex-col gap-4 mt-10">
           {media.length > 0 && (
             <GalleryComponent media={media} onRemoveImage={handleRemoveImage} isEditable={true} />
@@ -124,7 +127,7 @@ export const EditPage = () => {
         </div>
 
         {/* Basic info */}
-        <div className="flex flex-col gap-4">
+        <section className="flex flex-col gap-4">
           <h2 className="create-edit-titles">Basic info</h2>
 
           <InputField
@@ -171,10 +174,10 @@ export const EditPage = () => {
           {formStatus.validationErrors?.description && (
             <p className="error-message">{formStatus.validationErrors.description}</p>
           )}
-        </div>
+        </section>
 
         {/* Pricing & Guests */}
-        <div className="flex flex-col gap-4">
+        <section className="flex flex-col gap-4">
           <h2 className="create-edit-titles">Pricing & Guests</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -232,10 +235,10 @@ export const EditPage = () => {
               )}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Location */}
-        <div className="flex flex-col gap-4">
+        <section className="flex flex-col gap-4">
           <h2 className="create-edit-titles">Location</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField
@@ -282,10 +285,10 @@ export const EditPage = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
+        </section>
 
         {/* Amenities */}
-        <div className="flex flex-col gap-4">
+        <section className="flex flex-col gap-4">
           <h2 className="create-edit-titles">Amenities</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {[
@@ -316,7 +319,7 @@ export const EditPage = () => {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         <div className="flex flex-col items-center justify-center gap-5">
           <button type="submit" className="button transition font-bold">
@@ -333,7 +336,7 @@ export const EditPage = () => {
             </div>
           )}
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
