@@ -4,17 +4,20 @@ import { IoCheckmarkSharp } from 'react-icons/io5';
 import { PiPlusCircle } from 'react-icons/pi';
 import { FaWifi } from 'react-icons/fa6';
 import { GiKnifeFork } from 'react-icons/gi';
-import { Media } from '../Types/common';
+import { Media, Meta } from '../Types/common';
 import { GalleryComponent } from '../Components/gallery';
 import { InputField } from '../Components/InputField';
 import { editSubmit } from '../UI/venue/edit';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-
-const title = 'text-xl md:text-2xl lg:text-3xl pb-2 border-b border-brand-grey mb-2 md:mb-8';
-const amenitiesLabel = 'grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer';
-const amenitiesCheckbox =
-  'w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black';
+import { validateForm } from '../utilities/validation/validateForm';
+import {
+  defaultStatus,
+  setSubmitError,
+  setSuccessMessage,
+  setValidationError,
+  StatusMessage,
+} from '../utilities/validation/validation';
 
 export const EditPage = () => {
   useEffect(() => {
@@ -25,8 +28,8 @@ export const EditPage = () => {
   const venue = venueData ? JSON.parse(venueData) : null;
 
   const [media, setMedia] = useState<Media[]>(venue?.media || []);
+  const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
   const [imageInput, setImageInput] = useState('');
-  const [imageLimitReached, setImageLimitReached] = useState(false);
   const [formData, setFormData] = useState({
     name: venue?.name || '',
     description: venue?.description || '',
@@ -37,11 +40,20 @@ export const EditPage = () => {
     city: venue?.location?.city || '',
     zip: venue?.location?.zip || '',
     country: venue?.location?.country || '',
-    wifi: venue?.meta?.wifi || false,
+  });
+  const [amenitiesChecked, setAmenitiesChecked] = useState<Meta>({
+    pets: venue?.meta?.pets || false,
     parking: venue?.meta?.parking || false,
     breakfast: venue?.meta?.breakfast || false,
-    pets: venue?.meta?.pets || false,
+    wifi: venue?.meta?.wifi || false,
   });
+
+  const handleAmenities = (key: keyof Meta) => {
+    setAmenitiesChecked((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   const handleRemoveImage = (url: string) => {
     setMedia((prev) => prev.filter((image) => image.url !== url));
@@ -49,24 +61,31 @@ export const EditPage = () => {
 
   const handleAddImage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!imageInput.trim()) return;
+    const trimmedUrl = imageInput.trim();
 
-    if (media.length >= 8) {
-      setImageLimitReached(true);
-      setTimeout(() => setImageLimitReached(false), 5000);
+    if (!trimmedUrl) return;
+
+    if (trimmedUrl.length > 300) {
+      setValidationError('image', 'Image URL cannot be longer than 300 characters.', setFormStatus);
       return;
     }
 
-    setMedia((prev) => [...prev, { url: imageInput.trim(), alt: 'venue image' }]);
+    if (media.length >= 8) {
+      setValidationError('image', 'You can only add up to 8 images.', setFormStatus);
+      return;
+    }
+
+    setMedia((prev) => [...prev, { url: trimmedUrl, alt: 'venue image' }]);
     setImageInput('');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const target = e.target as HTMLInputElement;
-    const { name, value, type, checked } = target;
+    const target = e.target;
+    const { name, value } = target;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: value,
     }));
   };
 
@@ -74,34 +93,42 @@ export const EditPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const form = new FormData();
+    const form = new FormData(e.currentTarget as HTMLFormElement);
 
-    for (const key in formData) {
-      form.append(key, String(formData[key as keyof typeof formData]));
-    }
+    const isValid = validateForm(form, setFormStatus);
+    if (!isValid) return;
 
     try {
-      const result = await editSubmit(form, media, venue.id); // assume this returns updated venue
+      const result = await editSubmit(form, media, venue.id);
+      setSuccessMessage('Venue successfully updated!', setFormStatus);
+
       if (result) {
-        navigate(`/venues?id=${venue.id}`); // redirect to the updated venue page
+        setTimeout(() => {
+          navigate(`/venues?id=${venue.id}`);
+        }, 3000);
       }
     } catch (error) {
       console.error('Failed to edit venue:', error);
-      // optionally show error UI
+      const err = error as Error;
+      setSubmitError(err.message, setFormStatus);
     }
   };
 
   return (
-    <div className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary">
-      <form className="mx-5 flex flex-col mb-10 gap-12 md:gap-28" onSubmit={handleSubmit}>
+    <form
+      className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary"
+      onSubmit={handleSubmit}
+    >
+      <div className="mx-5 flex flex-col mb-10 gap-12 md:gap-28">
         <div className="h-full flex flex-col gap-4 mt-10">
           {media.length > 0 && (
             <GalleryComponent media={media} onRemoveImage={handleRemoveImage} isEditable={true} />
           )}
         </div>
 
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Basic info</h2>
+        {/* Basic info */}
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Basic info</h2>
 
           <InputField
             id="image"
@@ -114,10 +141,9 @@ export const EditPage = () => {
             onChange={(e) => setImageInput(e.target.value)}
             onButtonClick={handleAddImage}
           />
-          {imageLimitReached && (
-            <div className="bg-error-red text-black p-3 rounded-xl mb-4">
-              You can only add up to 8 images.
-            </div>
+
+          {formStatus.validationErrors?.image && (
+            <p className="error-message">{formStatus.validationErrors.image}</p>
           )}
 
           <InputField
@@ -130,6 +156,10 @@ export const EditPage = () => {
             onChange={handleChange}
           />
 
+          {formStatus.validationErrors?.name && (
+            <p className="error-message">{formStatus.validationErrors.name}</p>
+          )}
+
           <InputField
             id="description"
             name="description"
@@ -140,55 +170,76 @@ export const EditPage = () => {
             value={formData.description}
             onChange={handleChange}
           />
-        </div>
 
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Pricing & Guests</h2>
+          {formStatus.validationErrors?.description && (
+            <p className="error-message">{formStatus.validationErrors.description}</p>
+          )}
+        </section>
+
+        {/* Pricing & Guests */}
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Pricing & Guests</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <InputField
-              id="price"
-              name="price"
-              labelText="Price"
-              type="number"
-              placeholder="Enter price"
-              className="input text-center"
-              value={formData.price}
-              onChange={handleChange}
-            />
+            <div className="flex flex-col gap-2">
+              <InputField
+                id="price"
+                name="price"
+                labelText="Price"
+                type="number"
+                placeholder="Enter price"
+                className="input text-center"
+                value={formData.price}
+                onChange={handleChange}
+              />
+              {formStatus.validationErrors?.price && (
+                <p className="error-message">{formStatus.validationErrors.price}</p>
+              )}
+            </div>
 
-            <InputField
-              id="maxGuests"
-              name="maxGuests"
-              labelText="Max Guests"
-              type="number"
-              placeholder="Add number of guests"
-              min={1}
-              max={10}
-              step={1}
-              className="input text-center"
-              value={formData.maxGuests}
-              onChange={handleChange}
-            />
+            <div className="flex flex-col gap-2">
+              <InputField
+                id="maxGuests"
+                name="maxGuests"
+                labelText="Max Guests"
+                type="number"
+                placeholder="Add number of guests"
+                min={1}
+                max={100}
+                step={1}
+                className="input text-center"
+                value={formData.maxGuests}
+                onChange={handleChange}
+              />
+              {formStatus.validationErrors?.maxGuests && (
+                <p className="error-message">{formStatus.validationErrors.maxGuests}</p>
+              )}
+            </div>
 
-            <InputField
-              id="rating"
-              name="rating"
-              labelText="Rating"
-              type="number"
-              placeholder="Venue rating (1–5)"
-              min={0}
-              max={5}
-              step={1}
-              className="input text-center"
-              value={formData.rating}
-              onChange={handleChange}
-            />
+            <div className="flex flex-col gap-2">
+              <InputField
+                id="rating"
+                name="rating"
+                labelText="Rating"
+                type="number"
+                placeholder="Venue rating (1–5)"
+                min={0}
+                max={5}
+                step={1}
+                className="input text-center"
+                value={formData.rating}
+                onChange={handleChange}
+              />
+              {formStatus.validationErrors?.rating && (
+                <p className="error-message">{formStatus.validationErrors.rating}</p>
+              )}
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Location</h2>
+        {/* Location */}
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Location</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField
               id="address"
@@ -234,10 +285,11 @@ export const EditPage = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
+        </section>
 
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Amenities</h2>
+        {/* Amenities */}
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Amenities</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { id: 'pets', label: 'Pets', icon: <FaDog size={24} /> },
@@ -246,39 +298,45 @@ export const EditPage = () => {
               { id: 'wifi', label: 'Free Wifi', icon: <FaWifi size={24} /> },
             ].map((item) => (
               <div className="flex w-full p-2 rounded" key={item.id}>
-                <label htmlFor={item.id} className={amenitiesLabel}>
+                <label htmlFor={item.id} className="amenities-label">
+                  <input
+                    type="checkbox"
+                    id={item.id}
+                    name={item.id}
+                    className="sr-only peer"
+                    checked={amenitiesChecked[item.id as keyof typeof amenitiesChecked]}
+                    onChange={() => handleAmenities(item.id as keyof typeof amenitiesChecked)}
+                  />
                   <div className="flex items-center gap-2">
                     {item.icon}
                     <span className="text-base">{item.label}</span>
                   </div>
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      id={item.id}
-                      name={item.id}
-                      checked={formData[item.id as keyof typeof formData] as boolean}
-                      onChange={handleChange}
-                      className="sr-only peer"
-                    />
-                    <span className={amenitiesCheckbox}>
-                      <IoCheckmarkSharp
-                        size={18}
-                        className="text-white hidden peer-checked:block"
-                      />
-                    </span>
-                  </div>
+
+                  <span className="amenities-checkbox">
+                    <IoCheckmarkSharp size={18} className="text-white" />
+                  </span>
                 </label>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center justify-center gap-5">
           <button type="submit" className="button transition font-bold">
             Save Changes
           </button>
+          {formStatus.success && (
+            <div id="createSuccess" className="success-message">
+              {formStatus.success}
+            </div>
+          )}
+          {formStatus.submitError && (
+            <div id="createError" className="error-message">
+              {formStatus.submitError}
+            </div>
+          )}
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
