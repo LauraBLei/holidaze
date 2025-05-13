@@ -68,7 +68,7 @@ export const VenuePage = () => {
             />
             <div className={`text-center my-10 ${!user ? 'block' : 'hidden'}`}>
               <button
-                className="headlineTwo cursor-pointer hover:scale-100 scale-95 transition"
+                className="bg-brand-grey font-primary w-full mt-5 transition md:w-[500px] rounded-xl py-2.5 md:py-3 scale-95 hover:scale-100 hover:shadow-md cursor-pointer active:scale-95 text-base md:text-lg"
                 onClick={() => OpenLogin()}
               >
                 Login or register to book this venue!
