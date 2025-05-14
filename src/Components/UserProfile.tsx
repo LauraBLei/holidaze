@@ -14,6 +14,16 @@ const storedUser = localStorage.getItem('User');
 const storedUserData = JSON.parse(storedUser || '{}');
 const storedUserName = storedUserData.name;
 
+/**
+ * The BuildUser component displays the user's profile information, including the profile picture, banner,
+ * bio, venues, and bookings. It allows the user to edit their profile if it is their own account.
+ *
+ * @param {Object} props - The component's props.
+ * @param {Profile} props.profile - The profile data to be displayed.
+ *
+ * @returns {JSX.Element} The rendered profile page with user details, venues, and bookings.
+ */
+
 export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 

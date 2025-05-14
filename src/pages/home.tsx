@@ -7,6 +7,20 @@ import LoadingHomePage from '../Components/loading/LoadingHomePage';
 import { motion } from 'framer-motion';
 import { fadeOutOnlyVariants } from '../Constants/constants';
 
+/**
+ * The HomePage component displays a list of all available venues. It fetches the venue data from an API on
+ * component mount and allows users to filter the list using a search functionality. It also handles loading
+ * states while data is being fetched.
+ *
+ * - Fetches venue data using `ReadVenues` and updates the state accordingly.
+ * - Displays a search input to filter the venues by name.
+ * - Renders a grid of `VenueCard` components for each venue.
+ * - Shows a loading component while fetching the venue data.
+ * - If no venues match the search query, a message is displayed.
+ *
+ * @returns {JSX.Element} The rendered homepage with a list of venues and a search bar.
+ */
+
 export const HomePage = () => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [allVenues, setAllVenues] = useState<Venue[]>([]);

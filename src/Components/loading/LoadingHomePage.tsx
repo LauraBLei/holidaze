@@ -1,5 +1,17 @@
 import LoadingVenueCard from './loadingVenueCard';
 
+/**
+ * LoadingHomePage component displays a skeleton loader for the homepage
+ * while the venues are loading. It includes loading placeholders for
+ * venue cards and the header.
+ *
+ * @component
+ * @example
+ * return <LoadingHomePage />;
+ *
+ * @returns {JSX.Element} The LoadingHomePage component with skeleton loaders for venue cards
+ */
+
 export default function LoadingHomePage() {
   return (
     <div className="mx-5 w-full flex flex-col items-center justify">

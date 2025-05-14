@@ -2,6 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { HandleUpdateProfile } from '../API/profile/updateProfile';
 import { storedPFP, storedVenueManager } from '../Constants/constants';
 
+/**
+ * The UpdateProfileModal component displays a modal for the user to update their profile information.
+ * It includes fields for the user's bio, avatar URL, banner URL, and venue manager status.
+ * It also allows the user to close the modal by clicking outside or pressing the Escape key.
+ *
+ * @param {Object} props - The component's props.
+ * @param {boolean} props.isOpen - Whether the modal is currently open.
+ * @param {Function} props.onClose - A function to close the modal.
+ *
+ * @returns {JSX.Element|null} The rendered modal or null if `isOpen` is false.
+ */
+
 export const UpdateProfileModal = ({
   isOpen,
   onClose,

@@ -2,6 +2,18 @@ import { useContext } from 'react';
 import { CommonContext } from '../Types/context';
 import HandleLogin from '../API/auth/login';
 
+/**
+ * The LoginModal component displays a modal window where users can log in to their account.
+ * It includes email and password input fields and a login button.
+ * A button for navigating to the registration page is also provided.
+ * The modal can be closed by calling the `onClose` function passed as a prop.
+ *
+ * @param {Object} props - The component's props.
+ * @param {Function} props.onClose - A function that handles closing the modal.
+ *
+ * @returns {JSX.Element} The rendered login modal.
+ */
+
 export const LoginModal = ({ onClose }: { onClose: () => void }) => {
   const { OpenRegister } = useContext(CommonContext);
   return (

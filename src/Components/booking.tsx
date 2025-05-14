@@ -16,6 +16,24 @@ interface BookingFormProps {
   id: string;
 }
 
+/**
+ * BookingForm component allows users to select check-in and check-out dates,
+ * choose the number of guests, and submit the booking for a venue.
+ * It validates the booking dates to ensure there are no conflicts with existing bookings.
+ *
+ * @component
+ * @example
+ * const bookings = [{ dateFrom: '2025-05-15', dateTo: '2025-05-20' }];
+ * return <BookingForm maxGuests={4} bookings={bookings} id="venue123" />;
+ *
+ * @param {Object} props - Component props.
+ * @param {number} props.maxGuests - The maximum number of guests allowed for the venue.
+ * @param {Array} props.bookings - A list of existing bookings, with start and end dates.
+ * @param {string} props.id - The ID of the venue being booked.
+ *
+ * @returns {JSX.Element} A form component that allows users to book a venue.
+ */
+
 export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
   const [checkIn, setCheckIn] = useState<Date | null>(null);
   const [checkOut, setCheckOut] = useState<Date | null>(null);

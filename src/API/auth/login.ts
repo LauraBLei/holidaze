@@ -1,5 +1,15 @@
 import { API } from '../endpoints';
 
+/**
+ * Handles user login by sending a POST request with email and password.
+ *
+ * Stores the returned user data in localStorage and reloads the page on success.
+ *
+ * @param {FormData} formdata - The form data containing 'email' and 'password' fields.
+ * @returns {Promise<any>} Resolves with user data if login is successful.
+ * @throws {Error} If the login request fails or the response is not OK.
+ */
+
 export default async function HandleLogin(formdata: FormData) {
   const body = {
     email: formdata.get('email'),
