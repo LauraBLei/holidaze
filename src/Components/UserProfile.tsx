@@ -6,14 +6,11 @@ import { FaUserEdit } from 'react-icons/fa';
 import { UpdateProfileModal } from './updateProfile';
 import { Link } from 'react-router-dom';
 import { BookingCard } from './BookingCard';
+import { storedName, storedVenueManager } from '../Constants/constants';
 
 interface BuildUserProps {
   profile: Profile;
 }
-
-const storedUser = localStorage.getItem('User');
-const storedUserData = JSON.parse(storedUser || '{}');
-const storedUserName = storedUserData.name;
 
 /**
  * The BuildUser component displays the user's profile information, including the profile picture, banner,
@@ -47,11 +44,11 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <h1 className="text-lg md:text-2xl rounded">{profile.name}</h1>
-                  {profile.venueManager ? (
+                  {storedVenueManager ? (
                     <BiSolidCalendarStar className="text-lg md:text-2xl" />
                   ) : null}
                 </div>
-                {profile.name === storedUserName && (
+                {profile.name === storedName && (
                   <div
                     onClick={() => setShowUpdateModal(true)}
                     className="edit-container items-center flex gap-2.5 cursor-pointer"
@@ -74,7 +71,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
       </div>
       <div className="w-full flex justify-center items-center max-w-[850px] flex-col gap-10">
         <h2 className="font-bold text-lg md:text-2xl self-start ">
-          {profile.name == storedUserName ? 'Your venues' : 'Venues By User'}{' '}
+          {profile.name == storedName ? 'Your venues' : 'Venues By User'}{' '}
         </h2>
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
           {profile.venues.length > 0 ? (
@@ -84,7 +81,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
           )}
         </div>
         <h2 className="font-bold text-lg md:text-2xl self-start">
-          {profile.name == storedUserName ? 'Your Bookings' : 'Bookings By User'}
+          {profile.name == storedName ? 'Your Bookings' : 'Bookings By User'}
         </h2>
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
           {profile.bookings.length > 0 ? (
