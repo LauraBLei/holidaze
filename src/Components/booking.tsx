@@ -1,20 +1,10 @@
+import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useState } from 'react';
 import { userInfo } from '../utilities/localstorage';
 
-import { bookVenue } from '../API/booking/book';
-
-interface Booking {
-  dateFrom: string;
-  dateTo: string;
-}
-
-interface BookingFormProps {
-  maxGuests: number;
-  bookings: Booking[];
-  id: string;
-}
+import { Booking } from '../Types/common';
+import { handleSubmitBooking } from '../UI/venue/booking';
 
 /**
  * BookingForm component allows users to select check-in and check-out dates,
@@ -33,6 +23,11 @@ interface BookingFormProps {
  *
  * @returns {JSX.Element} A form component that allows users to book a venue.
  */
+interface BookingFormProps {
+  maxGuests: number;
+  bookings: Booking[];
+  id: string;
+}
 
 export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
   const [checkIn, setCheckIn] = useState<Date | null>(null);
@@ -41,31 +36,14 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
   const user = userInfo();
 
   const excludeDateIntervals = bookings.map((b) => ({
-    start: new Date(b.dateFrom),
-    end: new Date(b.dateTo),
+    start: new Date(b.dateFrom).setHours(0, 0, 0, 0),
+    end: new Date(b.dateTo).setHours(0, 0, 0, 0),
   }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!checkIn || !checkOut) return alert('Select both dates');
-    if (checkIn >= checkOut) return alert('Checkout must be after check-in');
-
-    const hasConflict = bookings.some((booking) => {
-      const existingStart = new Date(booking.dateFrom);
-      const existingEnd = new Date(booking.dateTo);
-
-      return checkIn < existingEnd && checkOut > existingStart;
-    });
-    if (hasConflict) {
-      document.getElementById('bookingErrorDates')?.classList.remove('hidden');
-      setTimeout(() => {
-        document.getElementById('bookingErrorDates')?.classList.add('hidden');
-      }, 5000);
-      return;
-    }
-
-    await bookVenue({ checkIn, checkOut, guests, venueId: id });
+    await handleSubmitBooking(checkIn, checkOut, guests, id, bookings);
   };
 
   return (
@@ -79,7 +57,10 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
             selectsStart
             startDate={checkIn}
             endDate={checkOut}
-            excludeDateIntervals={excludeDateIntervals}
+            excludeDateIntervals={excludeDateIntervals.map((interval) => ({
+              start: new Date(interval.start),
+              end: new Date(interval.end),
+            }))}
             minDate={new Date()}
             className="text-base"
             placeholderText="Select check-in date"
@@ -94,7 +75,10 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
             selectsEnd
             startDate={checkIn}
             endDate={checkOut}
-            excludeDateIntervals={excludeDateIntervals}
+            excludeDateIntervals={excludeDateIntervals.map((interval) => ({
+              start: new Date(interval.start),
+              end: new Date(interval.end),
+            }))}
             minDate={checkIn || new Date()}
             className="text-base"
             placeholderText="Select checkout date"
