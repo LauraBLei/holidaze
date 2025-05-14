@@ -39,6 +39,7 @@ export async function HandleUpdateProfile(formdata: FormData) {
     const existingUser = JSON.parse(localStorage.getItem('User') || '{}');
     const updatedUser = { ...existingUser, ...data.data };
     localStorage.setItem('User', JSON.stringify(updatedUser));
+    window.location.reload();
   }
 
   return data.data;
