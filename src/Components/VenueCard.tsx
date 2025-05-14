@@ -1,7 +1,7 @@
 import loadingImage from '/loading-image.png';
 import { Venue } from '../Types/common';
-import { IoIosStar } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import { BiSolidStar } from 'react-icons/bi';
 
 interface VenueCardProps {
   venue: Venue;
@@ -22,7 +22,7 @@ export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
           <div className="title-rating-container flex justify-between items-center gap-8 mt-3">
             <h3 className="text-base font-bold line-clamp-1"> {venue.name} </h3>
             <div className="flex gap-2 items-center">
-              <IoIosStar fill="#000000" stroke="#000000" />
+              <BiSolidStar fill="#000000" stroke="#000000" />
               <p className="text-sm">{venue.rating}</p>
             </div>
           </div>
