@@ -1,6 +1,14 @@
 import { API } from '../endpoints';
 import { accessToken } from '../../Constants/constants';
 
+/**
+ * Fetches a user profile including their bookings and venues based on the `username` query parameter in the URL.
+ *
+ * Sends an authenticated GET request to the profile endpoint using the access token and API key.
+ *
+ * @returns {Promise<any>} The profile data including bookings and venues, or logs an error if the request fails.
+ */
+
 export default async function fetchProfile() {
   const urlSearch = new URLSearchParams(window.location.search);
   const profileName = urlSearch.get('username');

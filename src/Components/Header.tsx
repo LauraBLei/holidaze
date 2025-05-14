@@ -5,6 +5,13 @@ import { useState } from 'react';
 import { NavList } from './NavList';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
+/**
+ * Header component displays the website's navigation, logo, and a hamburger menu for mobile view.
+ * It toggles between an open and closed menu state on mobile when the hamburger icon is clicked.
+ * It also adapts the navigation items based on the user's authentication status.
+ *
+ * @returns {JSX.Element} The rendered header component with navigation options.
+ */
 export default function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [animateOut, setAnimateOut] = useState(false);

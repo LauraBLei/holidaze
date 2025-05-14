@@ -3,6 +3,15 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { fadeOutOnlyVariants } from '../Constants/constants';
 
+/**
+ * The CreatePage component renders the page where a user can create a new venue.
+ * This page contains a title and a form for creating a venue, and it animates in and out using framer-motion.
+ *
+ * - The page title is dynamically set to "HAL - New Venue".
+ * - The `CreateVenueForm` component is rendered within the page, allowing users to submit their venue details.
+ *
+ * @returns {JSX.Element} The rendered page where users can create a new venue.
+ */
 export const CreatePage = () => {
   useEffect(() => {
     document.title = 'HAL - New Venue';

@@ -6,6 +6,15 @@ import { BiSolidStar } from 'react-icons/bi';
 interface VenueCardProps {
   venue: Venue;
 }
+/**
+ * The VenueCard component displays a card with information about a venue, including an image, name, rating,
+ * description, and price per night. The card links to the venue's details page.
+ *
+ * @param {Object} props - The component's props.
+ * @param {Venue} props.venue - The venue data to be displayed in the card.
+ *
+ * @returns {JSX.Element} The rendered venue card, linking to the venue's details page.
+ */
 
 export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   return (

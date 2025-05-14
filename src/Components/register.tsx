@@ -2,6 +2,18 @@ import { useContext, useState } from 'react';
 import { CommonContext } from '../Types/context';
 import { handleRegisterSubmit } from '../UI/auth/register';
 
+/**
+ * The RegisterModal component displays a modal window for users to register an account.
+ * It includes fields for name, email, password, and confirm password.
+ * The user can toggle between registering as a customer or a venue manager.
+ * The modal can be closed by calling the `onClose` function passed as a prop.
+ *
+ * @param {Object} props - The component's props.
+ * @param {Function} props.onClose - A function that handles closing the modal.
+ *
+ * @returns {JSX.Element} The rendered registration modal.
+ */
+
 export const RegisterModal = ({ onClose }: { onClose: () => void }) => {
   const [isVenueManager, setIsVenueManager] = useState(false);
   const { OpenLogin } = useContext(CommonContext);
