@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HandleUpdateProfile } from '../API/profile/updateProfile';
 import { storedPFP, storedVenueManager } from '../Constants/constants';
 
@@ -10,8 +10,31 @@ export const UpdateProfileModal = ({
   onClose: () => void;
 }) => {
   const [previewAvatar, setPreviewAvatar] = useState(storedPFP);
+  const [isClosing, setIsClosing] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  if (!isOpen) return null;
+  const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      handleClose();
+    }
+  };
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+    document.addEventListener('keydown', handleEsc);
+    return () => document.removeEventListener('keydown', handleEsc);
+  }, []);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+      setIsClosing(false);
+    }, 500);
+  };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
@@ -23,12 +46,23 @@ export const UpdateProfileModal = ({
   const isValidImageUrl = (url: string) =>
     /\.(jpeg|jpg|gif|png|webp|svg)$/.test(url) && url.startsWith('http');
 
+  if (!isOpen) return null;
+
   return (
-    <section className="absolute z-50 bg-black/50 top-0 left-0 h-screen w-screen flex items-center justify-center">
-      <div className="bg-white w-full md:max-w-[750px] max-h-[750px] h-auto py-10 gap-10 px-5 flex flex-col justify-center items-center rounded-xl">
+    <section
+      onClick={handleClickOutside}
+      className={`fixed z-50 bg-black/50 top-0 left-0 h-screen w-screen flex items-center justify-center transition-opacity ${
+        isClosing ? 'opacity-0' : 'opacity-100'
+      }`}
+    >
+      <div
+        ref={modalRef}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white w-full md:max-w-[750px] max-h-[750px] h-auto py-10 gap-10 px-5 flex flex-col justify-center items-center rounded-xl transition-all duration-500 ease-in-out"
+      >
         <div className="w-full flex justify-end px-5">
           <p
-            onClick={onClose}
+            onClick={handleClose}
             className="font-bold font-primary text-2xl hover:scale-100 scale-90 transition cursor-pointer"
           >
             X
