@@ -16,11 +16,7 @@ import {
   StatusMessage,
 } from '../utilities/validation/validation';
 import { useNavigate } from 'react-router-dom';
-
-const title = 'text-xl md:text-2xl lg:text-3xl pb-2 border-b border-brand-grey mb-2 md:mb-8';
-const amenitiesLabel = 'grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer';
-const amenitiesCheckbox =
-  'w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black';
+import { validateForm } from '../utilities/validation/validateForm';
 
 export const CreateVenueForm = () => {
   const navigate = useNavigate();
@@ -95,8 +91,8 @@ export const CreateVenueForm = () => {
         </div>
 
         {/* Basic info */}
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Basic info</h2>
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Basic info</h2>
 
           <div className="flex flex-col gap-2">
             <InputField
@@ -142,11 +138,11 @@ export const CreateVenueForm = () => {
               <p className="error-message">{formStatus.validationErrors.description}</p>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Pricing & Guests */}
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Pricing & Guests</h2>
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Pricing & Guests</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="flex flex-col gap-2">
@@ -157,8 +153,6 @@ export const CreateVenueForm = () => {
                 type="number"
                 placeholder="Enter price"
                 className="input text-center"
-                // min={0}
-                // max={10000}
               />
 
               {formStatus.validationErrors?.price && (
@@ -193,7 +187,7 @@ export const CreateVenueForm = () => {
                 placeholder="Venue rating (1–5)"
                 min={0}
                 max={5}
-                step={1}
+                step={0.5}
                 className="input text-center"
               />
             </div>
@@ -202,11 +196,11 @@ export const CreateVenueForm = () => {
               <p className="error-message">{formStatus.validationErrors.rating}</p>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Location */}
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Location</h2>
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Location</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField
               id="address"
@@ -244,13 +238,14 @@ export const CreateVenueForm = () => {
               className="input"
             />
           </div>
-        </div>
+        </section>
+
         {/* Amenities */}
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Amenities</h2>
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Amenities</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="flex w-full p-2 rounded">
-              <label htmlFor="pets" className={amenitiesLabel}>
+              <label htmlFor="pets" className="amenities-label">
                 <input
                   type="checkbox"
                   id="pets"
@@ -264,7 +259,7 @@ export const CreateVenueForm = () => {
                   <span className="text-base">Pets</span>
                 </div>
 
-                <span className={amenitiesCheckbox}>
+                <span className="amenities-checkbox">
                   {amenitiesChecked.pets && (
                     <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
                   )}
@@ -273,7 +268,7 @@ export const CreateVenueForm = () => {
             </div>
 
             <div className="flex w-full p-2 rounded">
-              <label htmlFor="parking" className={amenitiesLabel}>
+              <label htmlFor="parking" className="amenities-label">
                 <input
                   type="checkbox"
                   id="parking"
@@ -287,7 +282,7 @@ export const CreateVenueForm = () => {
                   <span className="text-base">Parking</span>
                 </div>
 
-                <span className={amenitiesCheckbox}>
+                <span className="amenities-checkbox">
                   {amenitiesChecked.parking && (
                     <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
                   )}
@@ -296,7 +291,7 @@ export const CreateVenueForm = () => {
             </div>
 
             <div className="flex w-full p-2 rounded">
-              <label htmlFor="breakfast" className={amenitiesLabel}>
+              <label htmlFor="breakfast" className="amenities-label">
                 <input
                   type="checkbox"
                   id="breakfast"
@@ -310,7 +305,7 @@ export const CreateVenueForm = () => {
                   <span className="text-base">Breakfast</span>
                 </div>
 
-                <span className={amenitiesCheckbox}>
+                <span className="amenities-checkbox">
                   {amenitiesChecked.breakfast && (
                     <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
                   )}
@@ -319,7 +314,7 @@ export const CreateVenueForm = () => {
             </div>
 
             <div className="flex w-full p-2 rounded">
-              <label htmlFor="wifi" className={amenitiesLabel}>
+              <label htmlFor="wifi" className="amenities-label">
                 <input
                   type="checkbox"
                   id="wifi"
@@ -333,7 +328,7 @@ export const CreateVenueForm = () => {
                   <span className="text-base">Free Wifi</span>
                 </div>
 
-                <span className={amenitiesCheckbox}>
+                <span className="amenities-checkbox">
                   {amenitiesChecked.wifi && (
                     <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
                   )}
@@ -341,7 +336,7 @@ export const CreateVenueForm = () => {
               </label>
             </div>
           </div>
-        </div>
+        </section>
         <div className="flex flex-col items-center justify-center gap-5">
           <button type="submit" className="button transition font-bold">
             Create venue
