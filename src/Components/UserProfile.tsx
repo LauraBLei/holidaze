@@ -5,6 +5,7 @@ import { BiSolidCalendarStar } from 'react-icons/bi';
 import { FaUserEdit } from 'react-icons/fa';
 import { UpdateProfileModal } from './updateProfile';
 import { Link } from 'react-router-dom';
+import { BookingCard } from './BookingCard';
 
 interface BuildUserProps {
   profile: Profile;
@@ -87,7 +88,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         </h2>
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
           {profile.bookings.length > 0 ? (
-            profile.bookings.map((booking) => <VenueCard key={booking.id} venue={booking.venue} />)
+            profile.bookings.map((booking) => <BookingCard booking={booking} />)
           ) : (
             <p className="text-gray-500 italic">Oops! No information here yet!</p>
           )}
