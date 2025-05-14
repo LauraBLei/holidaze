@@ -3,6 +3,8 @@ import fetchProfile from '../API/profile/fetchProfile';
 import LoadingProfilePage from '../Components/loading/LoadingProfilePage';
 import { BuildUser } from '../Components/UserProfile';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { fadeOutOnlyVariants } from '../Constants/constants';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -33,5 +35,15 @@ export const ProfilePage = () => {
     loadProfile();
   }, [username]);
 
-  return <div className="w-full">{page}</div>;
+  return (
+    <motion.div
+      variants={fadeOutOnlyVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className="w-full"
+    >
+      {page}
+    </motion.div>
+  );
 };

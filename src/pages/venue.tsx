@@ -15,6 +15,8 @@ import { BookingForm } from '../Components/booking';
 import { MdDeleteForever, MdEdit } from 'react-icons/md';
 import { CommonContext } from '../Types/context';
 import { deleteVenue } from '../API/venues/delete';
+import { motion } from 'framer-motion';
+import { fadeOutOnlyVariants } from '../Constants/constants';
 
 export const VenuePage = () => {
   const [searchParams] = useSearchParams();
@@ -46,7 +48,13 @@ export const VenuePage = () => {
   console.log(venue.bookings);
 
   return (
-    <div className="w-full max-w-[1600px] px-5">
+    <motion.div
+      className="w-full max-w-[1600px] px-5"
+      variants={fadeOutOnlyVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <div className="font-primary w-full h-full  flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly lg:justify-between gap-5 max-w-[1600px]">
         <div className="max-w-[700px] w-full mb-5 md:mb-10">
           {venue.media && venue.media.length > 0 ? (
@@ -220,7 +228,7 @@ export const VenuePage = () => {
           )}
         </section>
       )}
-    </div>
+    </motion.div>
   );
 };
 
