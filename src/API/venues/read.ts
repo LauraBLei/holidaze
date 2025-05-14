@@ -25,7 +25,7 @@ export const ReadVenues = async (setVenues: (input: Venue[]) => void) => {
       setVenues(venues.data);
     }
   } catch (error) {
-    console.log(error);
+    throw new Error(`${error}`);
   }
 };
 
@@ -54,6 +54,6 @@ export const ReadVenue = async (id: string, setVenue: (input: Venue) => void) =>
       }
     }
   } catch (error) {
-    console.log(error);
+    throw new Error(`${error}`);
   }
 };

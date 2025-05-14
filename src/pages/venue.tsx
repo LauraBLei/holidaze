@@ -62,7 +62,6 @@ export const VenuePage = () => {
     deleteVenue(id);
     navigate('/');
   };
-  console.log(venue.bookings);
 
   return (
     <motion.div

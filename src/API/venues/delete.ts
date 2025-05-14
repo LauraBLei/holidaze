@@ -14,10 +14,8 @@ export const deleteVenue = async (id: string) => {
       method: 'DELETE',
       headers: headers(),
     });
-    if (response.ok) {
-      console.log('deleted post');
-    }
+    return response;
   } catch (error) {
-    console.log(error);
+    throw new Error(`${error}`);
   }
 };

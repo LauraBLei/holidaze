@@ -27,6 +27,6 @@ const buildVenueEditPayload = (formdata: FormData, media: Media[]): Venue => ({
 
 export const editSubmit = async (formdata: FormData, media: Media[], id: string) => {
   const payload = buildVenueEditPayload(formdata, media);
-  console.log('📦 Venue form data:', payload);
+
   return await editVenue(payload, id);
 };
