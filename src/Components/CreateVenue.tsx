@@ -56,7 +56,7 @@ export const CreateVenueForm = () => {
       return;
     }
 
-    if (media.length >= 2) {
+    if (media.length >= 8) {
       setValidationError('image', 'You can only add up to 8 images.', setFormStatus);
       return;
     }
@@ -69,50 +69,8 @@ export const CreateVenueForm = () => {
     e.preventDefault();
     const formdata = new FormData(e.currentTarget as HTMLFormElement);
 
-    const name = formdata.get('name')?.toString() || '';
-    const description = formdata.get('description')?.toString() || '';
-    const price = Number(formdata.get('price'));
-    const maxGuests = Number(formdata.get('maxGuests'));
-
-    if (name === '') {
-      setValidationError('name', 'Please enter a venue name', setFormStatus);
-      const field = document.getElementById('name');
-      if (field) {
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        (field as HTMLElement).focus();
-      }
-      return;
-    }
-
-    if (description === '') {
-      setValidationError('description', 'Please enter a description', setFormStatus);
-      const field = document.getElementById('description');
-      if (field) {
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        (field as HTMLElement).focus();
-      }
-      return;
-    }
-
-    if (price < 1 || price > 10000) {
-      setValidationError('price', 'Price must be between 1 and 10000.', setFormStatus);
-      const field = document.getElementById('price');
-      if (field) {
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        (field as HTMLElement).focus();
-      }
-      return;
-    }
-
-    if (maxGuests < 1 || maxGuests > 100) {
-      setValidationError('maxGuests', 'Guests must be between 1 and 100.', setFormStatus);
-      const field = document.getElementById('maxGuests');
-      if (field) {
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        (field as HTMLElement).focus();
-      }
-      return;
-    }
+    const isValid = validateForm(formdata, setFormStatus);
+    if (!isValid) return;
 
     try {
       await handleCreateVenueSubmit(formdata, media);
