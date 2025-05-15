@@ -23,7 +23,7 @@ export const Description = ({ text }: DescriptionProps) => {
 
   return (
     <div className="space-y-2">
-      <p>{displayedText}</p>
+      <p className="break-all">{displayedText}</p>
       {isLong && (
         <button
           className="text-black underline text-sm cursor-pointer"
