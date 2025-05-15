@@ -39,7 +39,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   return (
     <Link
       to={`/venues?id=${booking.venue.id}`}
-      className="flex flex-col  md:max-w-[280px] w-full gap-[20px] cursor-pointer"
+      className="flex flex-col  md:max-w-[280px] w-full gap-[20px] cursor-pointer lg:hover:scale-105 transition duration-150"
     >
       <img
         className="cardImage h-[200px]  rounded-xl object-cover"
@@ -55,7 +55,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
       </div>
       <p className=" w-full rounded text-sm line-clamp-3">{booking.venue.description}</p>
 
-      <p>
+      <p className="text-sm">
         {new Date(booking.dateFrom).toLocaleDateString('en-GB')} <span>-</span>{' '}
         {new Date(booking.dateTo).toLocaleDateString('en-GB')}
       </p>

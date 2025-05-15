@@ -18,7 +18,7 @@ interface VenueCardProps {
 
 export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   return (
-    <Link to={`/venues?id=${venue.id}`}>
+    <Link to={`/venues?id=${venue.id}`} className="lg:hover:scale-105 transition duration-150">
       <article className="flex flex-col h-full w-full">
         <div className="w-full h-52 rounded-xl overflow-hidden">
           <img
