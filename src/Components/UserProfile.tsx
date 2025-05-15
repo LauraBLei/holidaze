@@ -69,11 +69,11 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center items-center max-w-[850px] flex-col gap-10">
+      <div className="w-full flex justify-center items-center max-w-[1440px] flex-col gap-10">
         <h2 className="font-bold text-lg md:text-2xl self-start ">
           {profile.name == storedName ? 'Your venues' : 'Venues By User'}{' '}
         </h2>
-        <div className="max-w-[850px] w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full">
           {profile.venues.length > 0 ? (
             profile.venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
           ) : (
@@ -83,7 +83,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         <h2 className="font-bold text-lg md:text-2xl self-start">
           {profile.name == storedName ? 'Your Bookings' : 'Bookings By User'}
         </h2>
-        <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full">
           {profile.bookings.length > 0 ? (
             [...profile.bookings]
               .filter((booking) => new Date(booking.dateTo) >= new Date())
