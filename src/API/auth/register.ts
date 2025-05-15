@@ -7,43 +7,27 @@ type RegisterForm = {
   password: FormDataEntryValue;
   isVenueManager: boolean;
 };
-export const HandleRegister = async ({ name, email, password, isVenueManager }: RegisterForm) => {
+export const fetchRegister = async ({ name, email, password, isVenueManager }: RegisterForm) => {
   const body = {
     name,
     email,
     password,
     venueManager: isVenueManager,
   };
-  try {
-    const response = await fetch(API.AUTH_REGISTER, {
-      method: 'POST',
-      headers: headers(),
-      body: JSON.stringify(body),
-    });
 
-    if (!response.ok) {
-      const errorData = await response.json();
+  const response = await fetch(API.AUTH_REGISTER, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify(body),
+  });
 
-      if (response.status === 400 && errorData.errors[0]?.message === 'Profile already exists') {
-        document.getElementById('userExists')?.classList.remove('hidden');
-        setTimeout(() => {
-          document.getElementById('userExists')?.classList.add('hidden');
-        }, 5000);
-        return;
-      }
-    }
+  const data = await response.json();
 
-    if (response.ok) {
-      document.getElementById('registerSuccess')?.classList.remove('hidden');
-      setTimeout(() => {
-        document.getElementById('registerSuccess')?.classList.add('hidden');
-      }, 5000);
-    }
-  } catch (error) {
-    document.getElementById('catchError')?.classList.remove('hidden');
-    setTimeout(() => {
-      document.getElementById('catchError')?.classList.add('hidden');
-    }, 5000);
-    throw error;
+  if (!response.ok) {
+    const message =
+      data?.errors?.[0]?.message || data?.message || 'Failed to register. Please try again';
+    throw new Error(message);
   }
+
+  return data;
 };
