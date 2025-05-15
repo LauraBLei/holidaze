@@ -18,6 +18,17 @@ import {
   StatusMessage,
 } from '../utilities/validation/validation';
 
+/**
+ * CreateVenueForm component allows users to create a new venue by submitting details such as images, name, description, pricing, amenities, and location.
+ * It validates the form fields and provides feedback for any errors or success messages.
+ *
+ * @component
+ * @example
+ * return <CreateVenueForm />;
+ *
+ * @returns {JSX.Element} The venue creation form with input fields, image upload, amenities selection, and submission button.
+ */
+
 export const CreateVenueForm = () => {
   const navigate = useNavigate();
   const [media, setMedia] = useState<Media[]>([]);

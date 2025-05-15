@@ -18,6 +18,23 @@ import { deleteVenue } from '../API/venues/delete';
 import { motion } from 'framer-motion';
 import { fadeOutOnlyVariants } from '../Constants/constants';
 
+/**
+ * The VenuePage component displays detailed information about a specific venue.
+ * It retrieves the venue data based on the `id` query parameter in the URL and
+ * allows users to book the venue if they are logged in. If the user is the owner
+ * of the venue, they can edit or delete the venue. The page also displays the venue's
+ * amenities, owner information, and a list of bookings (if the user is the venue owner).
+ *
+ * - Fetches and displays the venue's media, price, description, location, amenities, and owner details.
+ * - Provides a booking form if the user is logged in and not the owner of the venue.
+ * - Displays the list of bookings if the user is the venue owner, including booking details such as date range and number of guests.
+ * - Allows the venue owner to edit or delete the venue.
+ * - Shows appropriate messages for booking success, error, or unavailable dates.
+ *
+ * @returns {JSX.Element} The rendered venue page displaying detailed venue information, booking options,
+ * and the venue's bookings (if the user is the owner).
+ */
+
 export const VenuePage = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id') ?? ``;
@@ -45,17 +62,16 @@ export const VenuePage = () => {
     deleteVenue(id);
     navigate('/');
   };
-  console.log(venue.bookings);
 
   return (
     <motion.div
-      className="w-full max-w-[1600px] px-5"
+      className="w-full max-w-[1440px] px-5"
       variants={fadeOutOnlyVariants}
       initial="initial"
       animate="animate"
       exit="exit"
     >
-      <div className="font-primary w-full h-full  flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly lg:justify-between gap-5 max-w-[1600px]">
+      <div className="font-primary w-full h-full  flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly lg:justify-between gap-5">
         <div className="max-w-[700px] w-full mb-5 md:mb-10">
           {venue.media && venue.media.length > 0 ? (
             <GalleryComponent media={venue.media} />
@@ -235,6 +251,14 @@ export const VenuePage = () => {
 interface AmenityItemProps {
   value: boolean;
 }
+
+/**
+ * The AmenityItem component renders an icon (check or cross) based on the provided boolean `value` prop.
+ * It is used to display whether certain amenities (such as pets, wifi, parking, etc.) are available at the venue.
+ *
+ * @param {boolean} value - A boolean indicating the availability of an amenity.
+ * @returns {JSX.Element} A check or cross icon indicating whether the amenity is available.
+ */
 
 export const AmenityItem = ({ value }: AmenityItemProps) => {
   return (

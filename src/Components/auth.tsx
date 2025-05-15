@@ -3,6 +3,20 @@ import { CommonContext } from '../Types/context';
 import { LoginModal } from './login';
 import { RegisterModal } from './register';
 
+/**
+ * AuthModal component renders a modal for user authentication (login or register).
+ * It listens to the context state and conditionally displays either the login or
+ * register modal. The modal also handles showing and hiding animations, and
+ * closes when the Escape key is pressed or when the background is clicked.
+ *
+ * @component
+ * @example
+ * return <AuthModal />;
+ *
+ * @returns {JSX.Element | null} The AuthModal component containing either the
+ * LoginModal or RegisterModal based on the context state.
+ */
+
 export const AuthModal = () => {
   const { loginOpen, registerOpen, setRegisterOpen, setLoginOpen } = useContext(CommonContext);
   const [visible, setVisible] = useState(false);

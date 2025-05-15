@@ -20,6 +20,19 @@ import {
 } from '../utilities/validation/validation';
 import { runVenueValidations } from '../utilities/validation/runVenueValidations';
 
+/**
+ * The EditPage component allows the user to edit an existing venue's details, including media, name, description,
+ * pricing, location, and amenities. The page includes form validation and submission, as well as a media gallery
+ * for managing images.
+ *
+ * - The page renders the current venue data retrieved from `localStorage`.
+ * - The form includes fields for basic info, pricing & guests, location, and amenities.
+ * - Users can add/remove images, check/uncheck amenities, and submit the updated venue data.
+ * - On successful submission, the page navigates to the updated venue's detail page.
+ *
+ * @returns {JSX.Element} The rendered form for editing the venue.
+ */
+
 export const EditPage = () => {
   useEffect(() => {
     document.title = 'Edit Venue';

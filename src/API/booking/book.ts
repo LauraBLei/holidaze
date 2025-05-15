@@ -1,5 +1,18 @@
 import { API } from '../endpoints';
 import { headers } from '../headers';
+/**
+ * Sends a booking request for a venue with specified dates and guest count.
+ *
+ * Converts check-in and check-out dates to UTC ISO strings to avoid timezone issues.
+ * Displays appropriate messages for successful booking, date conflict errors (409), or other failures.
+ *
+ * @param {Object} params - Booking details.
+ * @param {Date} params.checkIn - The start date of the booking.
+ * @param {Date} params.checkOut - The end date of the booking.
+ * @param {number} params.guests - Number of guests for the booking.
+ * @param {string} params.venueId - The ID of the venue to book.
+ * @returns {Promise<void>} Resolves when the booking request has been processed.
+ */
 
 interface BookingPayload {
   checkIn: Date;

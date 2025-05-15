@@ -1,4 +1,4 @@
-import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from 'react-icons/io';
+import { BiSolidStar, BiSolidStarHalf, BiStar } from 'react-icons/bi';
 
 /**
  * Props for the StarRating component.
@@ -41,7 +41,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
       {Array(fullStars)
         .fill(0)
         .map((_, i) => (
-          <IoIosStar
+          <BiSolidStar
             className="w-[18px] md:w-[25px] h-auto"
             key={`full-${i}`}
             fill="currentColor"
@@ -51,7 +51,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
 
       {/* Half Star */}
       {hasHalfStar && (
-        <IoIosStarHalf
+        <BiSolidStarHalf
           className="w-[18px] md:w-[25px] h-auto"
           key="half"
           fill="currentColor"
@@ -63,7 +63,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
       {Array(emptyStars)
         .fill(0)
         .map((_, i) => (
-          <IoIosStarOutline
+          <BiStar
             className="w-[18px] md:w-[25px] h-auto"
             key={`empty-${i}`}
             stroke="currentColor"

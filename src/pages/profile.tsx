@@ -10,6 +10,19 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+/**
+ * The ProfilePage component fetches and displays a user's profile based on the `username` query parameter
+ * from the URL. It loads the user's profile data asynchronously and displays either the profile details or
+ * an error message if the profile cannot be loaded.
+ *
+ * - Extracts the `username` query parameter from the URL using `useLocation`.
+ * - Displays a loading state while fetching the user's profile.
+ * - Once the profile data is fetched, it renders the `BuildUser` component with the profile data.
+ * - If an error occurs while fetching the profile, a 404 error message is displayed.
+ *
+ * @returns {JSX.Element} The rendered profile page with the user's profile information or an error message.
+ */
+
 export const ProfilePage = () => {
   const query = useQuery();
   const username = query.get('username');
