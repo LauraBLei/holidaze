@@ -2,18 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { HandleUpdateProfile } from '../API/profile/updateProfile';
 import { storedPFP, storedVenueManager } from '../Constants/constants';
 
-/**
- * The UpdateProfileModal component displays a modal for the user to update their profile information.
- * It includes fields for the user's bio, avatar URL, banner URL, and venue manager status.
- * It also allows the user to close the modal by clicking outside or pressing the Escape key.
- *
- * @param {Object} props - The component's props.
- * @param {boolean} props.isOpen - Whether the modal is currently open.
- * @param {Function} props.onClose - A function to close the modal.
- *
- * @returns {JSX.Element|null} The rendered modal or null if `isOpen` is false.
- */
-
 export const UpdateProfileModal = ({
   isOpen,
   onClose,
@@ -23,29 +11,40 @@ export const UpdateProfileModal = ({
 }) => {
   const [previewAvatar, setPreviewAvatar] = useState(storedPFP);
   const [isClosing, setIsClosing] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  // Fade-in effect
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(false); // Start hidden
+      requestAnimationFrame(() => {
+        setIsVisible(true); // Trigger fade-in on next tick
+      });
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleClose();
+    };
+    document.addEventListener('keydown', handleEsc);
+    return () => document.removeEventListener('keydown', handleEsc);
+  }, []);
 
   const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
       handleClose();
     }
   };
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleClose();
-      }
-    };
-    document.addEventListener('keydown', handleEsc);
-    return () => document.removeEventListener('keydown', handleEsc);
-  }, []);
 
   const handleClose = () => {
     setIsClosing(true);
+    setIsVisible(false);
     setTimeout(() => {
       onClose();
       setIsClosing(false);
-    }, 500);
+    }, 500); // Match duration
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,19 +57,20 @@ export const UpdateProfileModal = ({
   const isValidImageUrl = (url: string) =>
     /\.(jpeg|jpg|gif|png|webp|svg)$/.test(url) && url.startsWith('http');
 
-  if (!isOpen) return null;
+  // Keep mounted while fading
+  if (!isOpen && !isClosing) return null;
 
   return (
     <section
       onClick={handleClickOutside}
-      className={`fixed z-50 bg-black/50 top-0 left-0 h-screen w-screen flex items-center justify-center transition-opacity ${
-        isClosing ? 'opacity-0' : 'opacity-100'
-      }`}
+      className={`fixed z-50 bg-black/50 top-0 left-0 h-screen w-screen flex items-center justify-center
+        transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
     >
       <div
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
-        className="bg-white w-full md:max-w-[750px] max-h-[750px] h-auto py-10 gap-10 px-5 flex flex-col justify-center items-center rounded-xl transition-all duration-500 ease-in-out"
+        className={`bg-white w-full md:max-w-[750px] max-h-[750px] h-auto py-10 gap-10 px-5 flex flex-col justify-center items-center
+          rounded-xl transition-all duration-500 ease-in-out transform ${isVisible ? 'scale-100' : 'scale-95'}`}
       >
         <div className="w-full flex justify-end px-5">
           <p
@@ -93,7 +93,6 @@ export const UpdateProfileModal = ({
           action={HandleUpdateProfile}
         >
           <input type="text" name="bio" placeholder="Bio" className="input" />
-
           <input
             type="url"
             name="url"
@@ -101,7 +100,6 @@ export const UpdateProfileModal = ({
             className="input"
             onChange={handleAvatarChange}
           />
-
           <input type="url" name="banner" placeholder="Banner URL" className="input" />
 
           {!storedVenueManager && (
