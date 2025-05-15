@@ -10,13 +10,13 @@ export const InputField = ({
   textarea,
   ...rest
 }: InputType) => (
-  <div className="w-full">
+  <div className="w-full flex flex-col gap-1">
     {labelText && id && (
       <label htmlFor={id} className={labelClass}>
         {labelText}
       </label>
     )}
-    <div className="relative mt-1">
+    <div className="relative">
       {textarea ? (
         <textarea
           id={id}
