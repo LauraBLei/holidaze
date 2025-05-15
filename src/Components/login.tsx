@@ -10,10 +10,27 @@ import { InputField } from './InputField';
 import { runLoginValidations } from '../utilities/validation/runLoginValidations';
 import { handleLoginSubmit } from '../UI/auth/login';
 
+/**
+ * Login modal component for users to sign in to their account.
+ *
+ * Handles form validation and submission, displaying success or error messages.
+ *
+ * @param onClose - Function to close the modal.
+ * @returns JSX element for the login form modal UI.
+ */
 export const LoginModal = ({ onClose }: { onClose: () => void }) => {
   const { OpenRegister } = useContext(CommonContext);
   const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
 
+  /**
+   * Handles the form submission event.
+   *
+   * Prevents default form behavior, validates the form data,
+   * submits the form if valid, and updates form status with success or error messages.
+   *
+   * @param e - The form submission event.
+   * @returns Promise<void>
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget as HTMLFormElement);

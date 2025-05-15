@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { JSX, useContext, useState } from 'react';
 import { CommonContext } from '../Types/context';
 import { handleRegisterSubmit } from '../UI/auth/register';
 import {
@@ -10,12 +10,30 @@ import {
 import { runRegistrationValidations } from '../utilities/validation/runRegistrationValidations';
 import { InputField } from './InputField';
 
-export const RegisterModal = ({ onClose }: { onClose: () => void }) => {
+/**
+ * Registration modal component for users to create a new account.
+ *
+ * Allows toggling between customer and venue manager roles,
+ * handles form validation and submission, and shows success/error messages.
+ *
+ * @param onClose - Function to close the modal.
+ * @returns JSX element for the registration form modal UI.
+ */
+export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element => {
   const [isVenueManager, setIsVenueManager] = useState(false);
   const { OpenLogin } = useContext(CommonContext);
 
   const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
 
+  /**
+   * Handles the form submission event.
+   *
+   * Prevents default form behavior, validates the form data,
+   * submits the form if valid, and updates form status with success or error messages.
+   *
+   * @param e - The form submission event.
+   * @returns Promise<void>
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget as HTMLFormElement);
