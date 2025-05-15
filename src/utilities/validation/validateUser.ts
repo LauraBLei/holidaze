@@ -1,6 +1,13 @@
 import { checkIfEmptyField } from './validateEmptyField';
 import { setValidationError, StatusMessage } from './validation';
 
+/**
+ * Validates the username.
+ * Checks if the name is empty and matches allowed pattern (letters, numbers, underscores, 1-20 chars).
+ * @param {string} name - The username to validate.
+ * @param {React.Dispatch<React.SetStateAction<StatusMessage>>} setStatus - Setter for validation status.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 export function validateName(
   name: string,
   setStatus: React.Dispatch<React.SetStateAction<StatusMessage>>,
@@ -20,6 +27,13 @@ export function validateName(
   return true;
 }
 
+/**
+ * Validates the email address.
+ * Checks if email is empty and matches Noroff/stud.noroff domain pattern.
+ * @param {string} email - The email to validate.
+ * @param {React.Dispatch<React.SetStateAction<StatusMessage>>} setStatus - Setter for validation status.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 export function validateEmail(
   email: string,
   setStatus: React.Dispatch<React.SetStateAction<StatusMessage>>,
@@ -40,6 +54,13 @@ export function validateEmail(
   return true;
 }
 
+/**
+ * Validates the password.
+ * Checks if password is empty and at least 8 characters long.
+ * @param {string} password - The password to validate.
+ * @param {React.Dispatch<React.SetStateAction<StatusMessage>>} setStatus - Setter for validation status.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 export function validatePassword(
   password: string,
   setStatus: React.Dispatch<React.SetStateAction<StatusMessage>>,
