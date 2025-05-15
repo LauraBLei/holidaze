@@ -85,6 +85,8 @@ export const setValidationError = (
   setStatus: React.Dispatch<React.SetStateAction<StatusMessage>>,
   delay = 5000,
 ) => {
+  clearFieldMessage(field, 'successMessages', setStatus);
+
   setStatus((prev) => ({
     ...prev,
     validationErrors: {
@@ -156,9 +158,10 @@ export const setFieldSuccessMessage = (
   field: string,
   message: string,
   setStatus: React.Dispatch<React.SetStateAction<StatusMessage>>,
-  delay = 3000,
+  delay = 5000,
 ) => {
   clearFieldMessage(field, 'successMessages', setStatus);
+  clearFieldMessage(field, 'validationErrors', setStatus);
 
   setStatus((prev) => ({
     ...prev,
