@@ -80,10 +80,14 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
             <p className="text-gray-500 italic">Oops! No information here yet!</p>
           )}
         </div>
-        <h2 className="font-bold text-lg md:text-2xl self-start">
-          {profile.name == storedName ? 'Your Bookings' : 'Bookings By User'}
+        <h2
+          className={`font-bold text-lg md:text-2xl self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
+        >
+          Your Bookings
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full">
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
+        >
           {profile.bookings.length > 0 ? (
             [...profile.bookings]
               .filter((booking) => new Date(booking.dateTo) >= new Date())
