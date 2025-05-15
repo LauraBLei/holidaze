@@ -1,9 +1,39 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CommonContext } from '../Types/context';
-import HandleLogin from '../API/auth/login';
+import {
+  defaultStatus,
+  setSubmitError,
+  setSuccessMessage,
+  StatusMessage,
+} from '../utilities/validation/validation';
+import { InputField } from './InputField';
+import { runLoginValidations } from '../utilities/validation/runLoginValidations';
+import { handleLoginSubmit } from '../UI/auth/login';
 
 export const LoginModal = ({ onClose }: { onClose: () => void }) => {
   const { OpenRegister } = useContext(CommonContext);
+  const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+
+    const isValid = runLoginValidations(formData, setFormStatus);
+    if (!isValid) return;
+
+    try {
+      await handleLoginSubmit(formData);
+      setSuccessMessage('Login successful!', setFormStatus);
+      setTimeout(() => {
+        onClose();
+        window.location.reload();
+      }, 2000);
+    } catch (error) {
+      const err = error as Error;
+      setSubmitError(err.message, setFormStatus);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center w-full">
       <div className="w-full flex justify-end px-5 ">
@@ -17,15 +47,38 @@ export const LoginModal = ({ onClose }: { onClose: () => void }) => {
         </p>
       </div>
       <h1 className="text-2xl">Log In</h1>
-      <form className="w-full flex flex-col gap-4 max-w-[425px] items-center" action={HandleLogin}>
+      <form
+        className="w-full flex flex-col gap-4 max-w-[425px] items-center"
+        onSubmit={handleSubmit}
+      >
         <div id="Slider" className="w-full  mx-auto"></div>
-        <div id="error messages" className="hidden">
-          <span>Login Successful</span>
-        </div>
 
-        <input type="email" name="email" placeholder="Email" required className="input " />
+        {formStatus.success && <p className="success-message">{formStatus.success}</p>}
+        {formStatus.submitError && <p className="error-message">{formStatus.submitError}</p>}
 
-        <input type="password" name="password" placeholder="Password" required className="input" />
+        <InputField
+          id="email"
+          name="email"
+          labelText="Email"
+          labelClass="sr-only"
+          type="email"
+          placeholder="Email"
+        />
+        {formStatus.validationErrors?.email && (
+          <p className="error-message">{formStatus.validationErrors.email}</p>
+        )}
+
+        <InputField
+          id="password"
+          name="password"
+          labelText="Password"
+          labelClass="sr-only"
+          type="password"
+          placeholder="Password"
+        />
+        {formStatus.validationErrors?.password && (
+          <p className="error-message">{formStatus.validationErrors.password}</p>
+        )}
 
         <button type="submit" className="button transition font-bold">
           Login
