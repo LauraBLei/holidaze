@@ -85,7 +85,10 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         </h2>
         <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
           {profile.bookings.length > 0 ? (
-            profile.bookings.map((booking) => <BookingCard booking={booking} />)
+            [...profile.bookings]
+              .filter((booking) => new Date(booking.dateTo) >= new Date())
+              .sort((a, b) => new Date(a.dateFrom).getTime() - new Date(b.dateFrom).getTime())
+              .map((booking) => <BookingCard key={booking.id} booking={booking} />)
           ) : (
             <p className="text-gray-500 italic">Oops! No information here yet!</p>
           )}
