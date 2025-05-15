@@ -55,7 +55,7 @@ export const HomePage = () => {
       transition={{ duration: 0.5 }}
       className="w-full flex flex-col items-center justify"
     >
-      <div className="max-w-[1240px] w-full">
+      <div className="max-w-[1440px] w-full ">
         <section className="mx-5">
           <Search id="search" onSearch={handleSearch} />
 

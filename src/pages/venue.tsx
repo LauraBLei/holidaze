@@ -65,13 +65,13 @@ export const VenuePage = () => {
 
   return (
     <motion.div
-      className="w-full max-w-[1600px] px-5"
+      className="w-full max-w-[1440px] px-5"
       variants={fadeOutOnlyVariants}
       initial="initial"
       animate="animate"
       exit="exit"
     >
-      <div className="font-primary w-full h-full  flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly lg:justify-between gap-5 max-w-[1600px]">
+      <div className="font-primary w-full h-full  flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly lg:justify-between gap-5">
         <div className="max-w-[700px] w-full mb-5 md:mb-10">
           {venue.media && venue.media.length > 0 ? (
             <GalleryComponent media={venue.media} />
