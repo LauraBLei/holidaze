@@ -8,15 +8,15 @@ import { GalleryComponent } from './gallery';
 import { InputField } from './InputField';
 import { FaWifi } from 'react-icons/fa6';
 import { GiKnifeFork } from 'react-icons/gi';
+import { useNavigate } from 'react-router-dom';
+import { runVenueValidations } from '../utilities/validation/runVenueValidations';
+import { validateImage } from '../utilities/validation/validateVenue';
 import {
   defaultStatus,
   setSubmitError,
   setSuccessMessage,
-  setValidationError,
   StatusMessage,
 } from '../utilities/validation/validation';
-import { useNavigate } from 'react-router-dom';
-import { validateForm } from '../utilities/validation/validateForm';
 
 export const CreateVenueForm = () => {
   const navigate = useNavigate();
@@ -43,21 +43,11 @@ export const CreateVenueForm = () => {
 
   const handleAddImage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const trimmedUrl = imageInput.trim();
 
-    if (!trimmedUrl) return;
+    const isValid = validateImage(imageInput, media.length, setFormStatus);
+    if (!isValid) return;
 
-    if (trimmedUrl.length > 300) {
-      setValidationError('image', 'Image URL cannot be longer than 300 characters.', setFormStatus);
-      return;
-    }
-
-    if (media.length >= 8) {
-      setValidationError('image', 'You can only add up to 8 images.', setFormStatus);
-      return;
-    }
-
-    setMedia((prev) => [...prev, { url: trimmedUrl, alt: 'venue image' }]);
+    setMedia((prev) => [...prev, { url: imageInput.trim(), alt: 'venue image' }]);
     setImageInput('');
   };
 
@@ -65,15 +55,19 @@ export const CreateVenueForm = () => {
     e.preventDefault();
     const formdata = new FormData(e.currentTarget as HTMLFormElement);
 
-    const isValid = validateForm(formdata, setFormStatus);
+    const isValid = runVenueValidations(formdata, setFormStatus);
     if (!isValid) return;
 
     try {
-      await handleCreateVenueSubmit(formdata, media);
+      const result = await handleCreateVenueSubmit(formdata, media);
       setSuccessMessage('Venue created successfully!', setFormStatus);
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
+      console.log('result', result.id);
+
+      if (result && result.id) {
+        setTimeout(() => {
+          navigate(`/venues?id=${result.id}`);
+        }, 2000);
+      }
     } catch (error) {
       console.error('Venue creation failed:', error);
       const err = error as Error;
@@ -110,18 +104,21 @@ export const CreateVenueForm = () => {
             {formStatus.validationErrors?.image && (
               <p className="error-message">{formStatus.validationErrors.image}</p>
             )}
+            {formStatus.successMessages?.image && (
+              <div className="success-message">{formStatus.successMessages.image}</div>
+            )}
           </div>
 
           <div className="flex flex-col gap-2">
             <InputField
-              id="name"
-              name="name"
+              id="venueName"
+              name="venueName"
               type="text"
               labelText="Name of venue *"
               placeholder="Name of the venue"
             />
-            {formStatus.validationErrors?.name && (
-              <p className="error-message">{formStatus.validationErrors.name}</p>
+            {formStatus.validationErrors?.venueName && (
+              <p className="error-message">{formStatus.validationErrors.venueName}</p>
             )}
           </div>
 
@@ -167,8 +164,6 @@ export const CreateVenueForm = () => {
                 labelText="Max Guests *"
                 type="number"
                 placeholder="Add number of guests"
-                // min={1}
-                // max={100}
                 step={1}
                 className="input text-center"
               />

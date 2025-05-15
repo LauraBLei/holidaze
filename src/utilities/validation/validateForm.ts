@@ -12,14 +12,14 @@ type SetFormStatus = React.Dispatch<React.SetStateAction<StatusMessage>>;
  */
 
 export function validateForm(formdata: FormData, setFormStatus: SetFormStatus): boolean {
-  const name = formdata.get('name')?.toString() || '';
+  const venueName = formdata.get('venueName')?.toString() || '';
   const description = formdata.get('description')?.toString() || '';
   const price = Number(formdata.get('price'));
   const maxGuests = Number(formdata.get('maxGuests'));
 
-  if (name === '') {
-    setValidationError('name', 'Please enter a venue name', setFormStatus);
-    scrollToField('name');
+  if (venueName === '') {
+    setValidationError('venueName', 'Please enter a venue name', setFormStatus);
+    scrollToField('venueName');
     return false;
   }
 
