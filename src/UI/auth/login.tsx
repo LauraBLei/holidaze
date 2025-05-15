@@ -1,4 +1,4 @@
-import fetchLogin from '../../API/auth/login';
+import { fetchLogin } from '../../API/auth/login';
 
 /**
  * Handles user login form submission by extracting email and password
