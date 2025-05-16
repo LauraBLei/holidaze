@@ -91,3 +91,18 @@ export function validateConfirmPassword(
 
   return true;
 }
+
+export function validateBio(
+  bio: string,
+  setStatus: React.Dispatch<React.SetStateAction<StatusMessage>>,
+): boolean {
+  const isEmpty = checkIfEmptyField('bio', bio, setStatus);
+  if (isEmpty) return false;
+
+  if (bio.length > 180) {
+    setValidationError('bio', 'Max 160 characters', setStatus);
+    return false;
+  }
+
+  return true;
+}
