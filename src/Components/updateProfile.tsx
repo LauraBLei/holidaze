@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { HandleUpdateProfile } from '../API/profile/updateProfile';
 import { storedPFP, storedVenueManager } from '../Constants/constants';
+import { InputField } from './InputField';
 
 export const UpdateProfileModal = ({
   isOpen,
@@ -14,12 +15,11 @@ export const UpdateProfileModal = ({
   const [isVisible, setIsVisible] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Fade-in effect
   useEffect(() => {
     if (isOpen) {
-      setIsVisible(false); // Start hidden
+      setIsVisible(false);
       requestAnimationFrame(() => {
-        setIsVisible(true); // Trigger fade-in on next tick
+        setIsVisible(true);
       });
     }
   }, [isOpen]);
@@ -30,7 +30,7 @@ export const UpdateProfileModal = ({
     };
     document.addEventListener('keydown', handleEsc);
     return () => document.removeEventListener('keydown', handleEsc);
-  }, []);
+  });
 
   const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
@@ -44,7 +44,7 @@ export const UpdateProfileModal = ({
     setTimeout(() => {
       onClose();
       setIsClosing(false);
-    }, 500); // Match duration
+    }, 300);
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +57,6 @@ export const UpdateProfileModal = ({
   const isValidImageUrl = (url: string) =>
     /\.(jpeg|jpg|gif|png|webp|svg)$/.test(url) && url.startsWith('http');
 
-  // Keep mounted while fading
   if (!isOpen && !isClosing) return null;
 
   return (
@@ -92,15 +91,36 @@ export const UpdateProfileModal = ({
           className="w-full flex flex-col gap-4 max-w-[425px] items-center"
           action={HandleUpdateProfile}
         >
-          <input type="text" name="bio" placeholder="Bio" className="input" />
-          <input
+          <InputField
+            id="bio"
+            type="text"
+            name="bio"
+            placeholder="Bio"
+            className="input"
+            labelText="Bio"
+            labelClass="sr-only"
+          />
+
+          <InputField
+            id="avatar"
             type="url"
-            name="url"
+            name="avatar"
             placeholder="Avatar URL"
             className="input"
             onChange={handleAvatarChange}
+            labelText="Avatar url"
+            labelClass="sr-only"
           />
-          <input type="url" name="banner" placeholder="Banner URL" className="input" />
+
+          <InputField
+            id="banner"
+            type="url"
+            name="banner"
+            placeholder="Banner URL"
+            className="input"
+            labelText="Banner url"
+            labelClass="sr-only"
+          />
 
           {!storedVenueManager && (
             <select required name="venueManager" className="input">
