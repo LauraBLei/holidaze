@@ -67,35 +67,6 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         </div>
       </div>
       <div className="w-full flex justify-center items-center max-w-[1440px] flex-col gap-10 px-5">
-        <section
-          className={`w-full justify-evenly ${profile.name === storedName ? 'flex' : 'hidden'}`}
-        >
-          <button
-            className="button"
-            onClick={() => {
-              document.getElementById('UserVenues')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Your Venues
-          </button>
-          <button
-            className="button"
-            onClick={() => {
-              document.getElementById('Bookings')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Your Bookings
-          </button>
-          <button
-            className="button"
-            onClick={() => {
-              document.getElementById('PrevBookings')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Your Previous Bookings
-          </button>
-        </section>
-
         <section id="UserVenues" className="w-full">
           <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
             {profile.name == storedName ? 'Your venues' : 'Venues By User'}{' '}
