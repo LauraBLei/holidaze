@@ -8,19 +8,15 @@ import { GalleryComponent } from './gallery';
 import { InputField } from './InputField';
 import { FaWifi } from 'react-icons/fa6';
 import { GiKnifeFork } from 'react-icons/gi';
+import { useNavigate } from 'react-router-dom';
+import { runVenueValidations } from '../utilities/validation/runVenueValidations';
+import { validateImage } from '../utilities/validation/validateVenue';
 import {
   defaultStatus,
   setSubmitError,
   setSuccessMessage,
-  setValidationError,
   StatusMessage,
 } from '../utilities/validation/validation';
-import { useNavigate } from 'react-router-dom';
-
-const title = 'text-xl md:text-2xl lg:text-3xl pb-2 border-b border-brand-grey mb-2 md:mb-8';
-const amenitiesLabel = 'grid grid-cols-2 md:flex md:gap-5 items-center w-full cursor-pointer';
-const amenitiesCheckbox =
-  'w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black';
 
 /**
  * CreateVenueForm component allows users to create a new venue by submitting details such as images, name, description, pricing, amenities, and location.
@@ -58,21 +54,11 @@ export const CreateVenueForm = () => {
 
   const handleAddImage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const trimmedUrl = imageInput.trim();
 
-    if (!trimmedUrl) return;
+    const isValid = validateImage(imageInput, media.length, setFormStatus);
+    if (!isValid) return;
 
-    if (trimmedUrl.length > 300) {
-      setValidationError('image', 'Image URL cannot be longer than 300 characters.', setFormStatus);
-      return;
-    }
-
-    if (media.length >= 2) {
-      setValidationError('image', 'You can only add up to 8 images.', setFormStatus);
-      return;
-    }
-
-    setMedia((prev) => [...prev, { url: trimmedUrl, alt: 'venue image' }]);
+    setMedia((prev) => [...prev, { url: imageInput.trim(), alt: 'venue image' }]);
     setImageInput('');
   };
 
@@ -80,57 +66,19 @@ export const CreateVenueForm = () => {
     e.preventDefault();
     const formdata = new FormData(e.currentTarget as HTMLFormElement);
 
-    const name = formdata.get('name')?.toString() || '';
-    const description = formdata.get('description')?.toString() || '';
-    const price = Number(formdata.get('price'));
-    const maxGuests = Number(formdata.get('maxGuests'));
-
-    if (name === '') {
-      setValidationError('name', 'Please enter a venue name', setFormStatus);
-      const field = document.getElementById('name');
-      if (field) {
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        (field as HTMLElement).focus();
-      }
-      return;
-    }
-
-    if (description === '') {
-      setValidationError('description', 'Please enter a description', setFormStatus);
-      const field = document.getElementById('description');
-      if (field) {
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        (field as HTMLElement).focus();
-      }
-      return;
-    }
-
-    if (price < 1 || price > 10000) {
-      setValidationError('price', 'Price must be between 1 and 10000.', setFormStatus);
-      const field = document.getElementById('price');
-      if (field) {
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        (field as HTMLElement).focus();
-      }
-      return;
-    }
-
-    if (maxGuests < 1 || maxGuests > 100) {
-      setValidationError('maxGuests', 'Guests must be between 1 and 100.', setFormStatus);
-      const field = document.getElementById('maxGuests');
-      if (field) {
-        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        (field as HTMLElement).focus();
-      }
-      return;
-    }
+    const isValid = runVenueValidations(formdata, setFormStatus);
+    if (!isValid) return;
 
     try {
-      await handleCreateVenueSubmit(formdata, media);
+      const result = await handleCreateVenueSubmit(formdata, media);
       setSuccessMessage('Venue created successfully!', setFormStatus);
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
+      console.log('result', result.id);
+
+      if (result && result.id) {
+        setTimeout(() => {
+          navigate(`/venues?id=${result.id}`);
+        }, 2000);
+      }
     } catch (error) {
       console.error('Venue creation failed:', error);
       const err = error as Error;
@@ -148,8 +96,8 @@ export const CreateVenueForm = () => {
         </div>
 
         {/* Basic info */}
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Basic info</h2>
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Basic info</h2>
 
           <div className="flex flex-col gap-2">
             <InputField
@@ -167,18 +115,21 @@ export const CreateVenueForm = () => {
             {formStatus.validationErrors?.image && (
               <p className="error-message">{formStatus.validationErrors.image}</p>
             )}
+            {formStatus.successMessages?.image && (
+              <div className="success-message">{formStatus.successMessages.image}</div>
+            )}
           </div>
 
           <div className="flex flex-col gap-2">
             <InputField
-              id="name"
-              name="name"
+              id="venueName"
+              name="venueName"
               type="text"
               labelText="Name of venue *"
               placeholder="Name of the venue"
             />
-            {formStatus.validationErrors?.name && (
-              <p className="error-message">{formStatus.validationErrors.name}</p>
+            {formStatus.validationErrors?.venueName && (
+              <p className="error-message">{formStatus.validationErrors.venueName}</p>
             )}
           </div>
 
@@ -195,11 +146,11 @@ export const CreateVenueForm = () => {
               <p className="error-message">{formStatus.validationErrors.description}</p>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Pricing & Guests */}
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Pricing & Guests</h2>
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Pricing & Guests</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="flex flex-col gap-2">
@@ -210,8 +161,6 @@ export const CreateVenueForm = () => {
                 type="number"
                 placeholder="Enter price"
                 className="input text-center"
-                // min={0}
-                // max={10000}
               />
 
               {formStatus.validationErrors?.price && (
@@ -226,8 +175,6 @@ export const CreateVenueForm = () => {
                 labelText="Max Guests *"
                 type="number"
                 placeholder="Add number of guests"
-                // min={1}
-                // max={100}
                 step={1}
                 className="input text-center"
               />
@@ -246,7 +193,7 @@ export const CreateVenueForm = () => {
                 placeholder="Venue rating (1–5)"
                 min={0}
                 max={5}
-                step={1}
+                step={0.5}
                 className="input text-center"
               />
             </div>
@@ -255,11 +202,11 @@ export const CreateVenueForm = () => {
               <p className="error-message">{formStatus.validationErrors.rating}</p>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Location */}
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Location</h2>
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Location</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField
               id="address"
@@ -297,13 +244,14 @@ export const CreateVenueForm = () => {
               className="input"
             />
           </div>
-        </div>
+        </section>
+
         {/* Amenities */}
-        <div className="flex flex-col gap-4">
-          <h2 className={title}>Amenities</h2>
+        <section className="flex flex-col gap-4">
+          <h2 className="create-edit-titles">Amenities</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div className="flex w-full p-2 rounded">
-              <label htmlFor="pets" className={amenitiesLabel}>
+              <label htmlFor="pets" className="amenities-label">
                 <input
                   type="checkbox"
                   id="pets"
@@ -317,7 +265,7 @@ export const CreateVenueForm = () => {
                   <span className="text-base">Pets</span>
                 </div>
 
-                <span className={amenitiesCheckbox}>
+                <span className="amenities-checkbox">
                   {amenitiesChecked.pets && (
                     <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
                   )}
@@ -326,7 +274,7 @@ export const CreateVenueForm = () => {
             </div>
 
             <div className="flex w-full p-2 rounded">
-              <label htmlFor="parking" className={amenitiesLabel}>
+              <label htmlFor="parking" className="amenities-label">
                 <input
                   type="checkbox"
                   id="parking"
@@ -340,7 +288,7 @@ export const CreateVenueForm = () => {
                   <span className="text-base">Parking</span>
                 </div>
 
-                <span className={amenitiesCheckbox}>
+                <span className="amenities-checkbox">
                   {amenitiesChecked.parking && (
                     <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
                   )}
@@ -349,7 +297,7 @@ export const CreateVenueForm = () => {
             </div>
 
             <div className="flex w-full p-2 rounded">
-              <label htmlFor="breakfast" className={amenitiesLabel}>
+              <label htmlFor="breakfast" className="amenities-label">
                 <input
                   type="checkbox"
                   id="breakfast"
@@ -363,7 +311,7 @@ export const CreateVenueForm = () => {
                   <span className="text-base">Breakfast</span>
                 </div>
 
-                <span className={amenitiesCheckbox}>
+                <span className="amenities-checkbox">
                   {amenitiesChecked.breakfast && (
                     <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
                   )}
@@ -372,7 +320,7 @@ export const CreateVenueForm = () => {
             </div>
 
             <div className="flex w-full p-2 rounded">
-              <label htmlFor="wifi" className={amenitiesLabel}>
+              <label htmlFor="wifi" className="amenities-label">
                 <input
                   type="checkbox"
                   id="wifi"
@@ -386,7 +334,7 @@ export const CreateVenueForm = () => {
                   <span className="text-base">Free Wifi</span>
                 </div>
 
-                <span className={amenitiesCheckbox}>
+                <span className="amenities-checkbox">
                   {amenitiesChecked.wifi && (
                     <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
                   )}
@@ -394,7 +342,7 @@ export const CreateVenueForm = () => {
               </label>
             </div>
           </div>
-        </div>
+        </section>
         <div className="flex flex-col items-center justify-center gap-5">
           <button type="submit" className="button transition font-bold">
             Create venue

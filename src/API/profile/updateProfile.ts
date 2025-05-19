@@ -20,7 +20,7 @@ export async function HandleUpdateProfile(formdata: FormData) {
   const payload = {
     bio: formdata?.get('bio') || storedBio,
     avatar: {
-      url: formdata?.get('url') || storedPFP,
+      url: formdata?.get('avatar') || storedPFP,
       alt: '',
     },
     banner: {

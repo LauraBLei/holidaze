@@ -14,7 +14,7 @@ import { Media, Venue } from '../../Types/common';
  */
 const buildVenueCreatePayload = (formdata: FormData, media: Media[]): Venue => ({
   media,
-  name: formdata.get('name')?.toString() || '',
+  name: formdata.get('venueName')?.toString() || '',
   description: formdata.get('description')?.toString() || '',
 
   price: Number(formdata.get('price')),
@@ -49,6 +49,5 @@ const buildVenueCreatePayload = (formdata: FormData, media: Media[]): Venue => (
  */
 export const handleCreateVenueSubmit = async (formdata: FormData, media: Media[]) => {
   const payload = buildVenueCreatePayload(formdata, media);
-
   return await HandleCreateVenue(payload);
 };

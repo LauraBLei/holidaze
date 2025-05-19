@@ -24,5 +24,5 @@ export const HandleCreateVenue = async (data: Venue) => {
     throw new Error(message);
   }
 
-  return result;
+  return result.data;
 };

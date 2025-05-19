@@ -14,7 +14,7 @@ import { Media, Venue } from '../../Types/common';
  */
 const buildVenueEditPayload = (formdata: FormData, media: Media[]): Venue => ({
   media,
-  name: formdata.get('name')?.toString() || '',
+  name: formdata.get('venueName')?.toString() || '',
   description: formdata.get('description')?.toString() || '',
 
   price: Number(formdata.get('price')),
@@ -48,8 +48,7 @@ const buildVenueEditPayload = (formdata: FormData, media: Media[]): Venue => ({
  *
  * @returns {Promise<any>} The result of the venue edit request, which is handled by `editVenue`.
  */
-export const editSubmit = async (formdata: FormData, media: Media[], id: string) => {
+export const handleEditSubmit = async (formdata: FormData, media: Media[], id: string) => {
   const payload = buildVenueEditPayload(formdata, media);
-
   return await editVenue(payload, id);
 };

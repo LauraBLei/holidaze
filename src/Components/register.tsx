@@ -1,22 +1,59 @@
-import { useContext, useState } from 'react';
+import { JSX, useContext, useState } from 'react';
 import { CommonContext } from '../Types/context';
 import { handleRegisterSubmit } from '../UI/auth/register';
+import {
+  defaultStatus,
+  setSubmitError,
+  setSuccessMessage,
+  StatusMessage,
+} from '../utilities/validation/validation';
+import { runRegistrationValidations } from '../utilities/validation/runRegistrationValidations';
+import { InputField } from './InputField';
 
 /**
- * The RegisterModal component displays a modal window for users to register an account.
- * It includes fields for name, email, password, and confirm password.
- * The user can toggle between registering as a customer or a venue manager.
- * The modal can be closed by calling the `onClose` function passed as a prop.
+ * Registration modal component for users to create a new account.
  *
- * @param {Object} props - The component's props.
- * @param {Function} props.onClose - A function that handles closing the modal.
+ * Allows toggling between customer and venue manager roles,
+ * handles form validation and submission, and shows success/error messages.
  *
- * @returns {JSX.Element} The rendered registration modal.
+ * @param onClose - Function to close the modal.
+ * @returns JSX element for the registration form modal UI.
  */
-
-export const RegisterModal = ({ onClose }: { onClose: () => void }) => {
+export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element => {
   const [isVenueManager, setIsVenueManager] = useState(false);
   const { OpenLogin } = useContext(CommonContext);
+
+  const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
+
+  /**
+   * Handles the form submission event.
+   *
+   * Prevents default form behavior, validates the form data,
+   * submits the form if valid, and updates form status with success or error messages.
+   *
+   * @param e - The form submission event.
+   * @returns Promise<void>
+   */
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+
+    const isValid = runRegistrationValidations(formData, setFormStatus);
+    console.log('Validation result:', isValid);
+    if (!isValid) return;
+
+    try {
+      await handleRegisterSubmit(formData);
+      setSuccessMessage('Registration successful!', setFormStatus);
+      setTimeout(() => {
+        onClose();
+        window.location.reload();
+      }, 2000);
+    } catch (error) {
+      const err = error as Error;
+      setSubmitError(err.message, setFormStatus);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -33,11 +70,7 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }) => {
       <h1 className="headlineOne mb-16 mt-3">Register an account</h1>
       <form
         className="w-full flex flex-col gap-4 max-w-[425px] items-center"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formdata = new FormData(e.currentTarget);
-          handleRegisterSubmit(formdata);
-        }}
+        onSubmit={handleSubmit}
       >
         <div id="Slider" className="w-full  mx-auto">
           <input type="hidden" name="isVenueManager" value={isVenueManager.toString()} />
@@ -76,51 +109,59 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }) => {
             </button>
           </div>
         </div>
-        <div id="error messages" className="w-full">
-          <p id="registerSuccess" className="w-full p-3 rounded-xl bg-error-green hidden">
-            Your account has been registered!
-          </p>
-          <p id="passwordError" className="w-full p-3 rounded-xl bg-error-red hidden">
-            Passwords does not match
-          </p>
-          <p id="userExists" className="w-full p-3 rounded-xl bg-error-red hidden">
-            Email already exists
-          </p>
-          <p id="catchError" className="w-full p-3 rounded-xl bg-error-red hidden">
-            Something went wrong trying to register, try again later
-          </p>
-          <p id="wrongEmailPattern" className="w-full p-3 rounded-xl bg-error-red hidden">
-            Email must end with @noroff.no / @stud.noroff.no
-          </p>
-        </div>
-        <input
-          type="text"
+
+        {formStatus.success && <p className="success-message">{formStatus.success}</p>}
+        {formStatus.submitError && <p className="error-message">{formStatus.submitError}</p>}
+
+        <InputField
+          id="name"
           name="name"
+          labelText="Name"
+          labelClass="sr-only"
+          type="text"
           placeholder="Name"
-          required
-          className="input "
-          maxLength={20}
+          className="input"
         />
+        {formStatus.validationErrors?.name && (
+          <p className="error-message">{formStatus.validationErrors.name}</p>
+        )}
 
-        <input type="email" name="email" placeholder="Email" required className="input " />
+        <InputField
+          id="email"
+          name="email"
+          labelText="Email"
+          labelClass="sr-only"
+          type="email"
+          placeholder="Email"
+          className="input"
+        />
+        {formStatus.validationErrors?.email && (
+          <p className="error-message">{formStatus.validationErrors.email}</p>
+        )}
 
-        <input
-          type="password"
+        <InputField
+          id="password"
           name="password"
-          placeholder="Password"
-          required
-          className="input"
-          minLength={8}
-        />
-
-        <input
+          labelText="Password"
+          labelClass="sr-only"
           type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          required
-          className="input"
-          minLength={8}
+          placeholder="Password"
         />
+        {formStatus.validationErrors?.password && (
+          <p className="error-message">{formStatus.validationErrors.password}</p>
+        )}
+
+        <InputField
+          id="confirmPassword"
+          name="confirmPassword"
+          labelText="Confirm Password"
+          labelClass="sr-only"
+          type="password"
+          placeholder="Confirm Password"
+        />
+        {formStatus.validationErrors?.confirmPassword && (
+          <p className="error-message">{formStatus.validationErrors.confirmPassword}</p>
+        )}
 
         <button type="submit" className="button transition mt-14">
           Register

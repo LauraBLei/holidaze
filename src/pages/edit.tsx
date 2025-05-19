@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaDog, FaParking } from 'react-icons/fa';
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { PiPlusCircle } from 'react-icons/pi';
@@ -7,19 +7,18 @@ import { GiKnifeFork } from 'react-icons/gi';
 import { Media, Meta } from '../Types/common';
 import { GalleryComponent } from '../Components/gallery';
 import { InputField } from '../Components/InputField';
-import { editSubmit } from '../UI/venue/edit';
+import { handleEditSubmit } from '../UI/venue/edit';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { validateForm } from '../utilities/validation/validateForm';
+import { motion } from 'framer-motion';
+import { fadeOutOnlyVariants } from '../Constants/constants';
+import { validateImage } from '../utilities/validation/validateVenue';
 import {
   defaultStatus,
   setSubmitError,
   setSuccessMessage,
-  setValidationError,
   StatusMessage,
 } from '../utilities/validation/validation';
-import { motion } from 'framer-motion';
-import { fadeOutOnlyVariants } from '../Constants/constants';
+import { runVenueValidations } from '../utilities/validation/runVenueValidations';
 
 /**
  * The EditPage component allows the user to edit an existing venue's details, including media, name, description,
@@ -42,11 +41,12 @@ export const EditPage = () => {
   const venueData = localStorage.getItem('editVenue');
   const venue = venueData ? JSON.parse(venueData) : null;
 
+  const navigate = useNavigate();
   const [media, setMedia] = useState<Media[]>(venue?.media || []);
   const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
   const [imageInput, setImageInput] = useState('');
   const [formData, setFormData] = useState({
-    name: venue?.name || '',
+    venueName: venue?.name || '',
     description: venue?.description || '',
     price: venue?.price || '',
     maxGuests: venue?.maxGuests || '',
@@ -76,21 +76,11 @@ export const EditPage = () => {
 
   const handleAddImage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const trimmedUrl = imageInput.trim();
 
-    if (!trimmedUrl) return;
+    const isValid = validateImage(imageInput, media.length, setFormStatus);
+    if (!isValid) return;
 
-    if (trimmedUrl.length > 300) {
-      setValidationError('image', 'Image URL cannot be longer than 300 characters.', setFormStatus);
-      return;
-    }
-
-    if (media.length >= 8) {
-      setValidationError('image', 'You can only add up to 8 images.', setFormStatus);
-      return;
-    }
-
-    setMedia((prev) => [...prev, { url: trimmedUrl, alt: 'venue image' }]);
+    setMedia((prev) => [...prev, { url: imageInput.trim(), alt: 'venue image' }]);
     setImageInput('');
   };
 
@@ -104,23 +94,21 @@ export const EditPage = () => {
     }));
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget as HTMLFormElement);
 
-    const isValid = validateForm(form, setFormStatus);
+    const isValid = runVenueValidations(form, setFormStatus);
     if (!isValid) return;
 
     try {
-      const result = await editSubmit(form, media, venue.id);
+      const result = await handleEditSubmit(form, media, venue.id);
       setSuccessMessage('Venue successfully updated!', setFormStatus);
 
       if (result) {
         setTimeout(() => {
           navigate(`/venues?id=${venue.id}`);
-        }, 3000);
+        }, 2000);
       }
     } catch (error) {
       console.error('Failed to edit venue:', error);
@@ -167,19 +155,22 @@ export const EditPage = () => {
             {formStatus.validationErrors?.image && (
               <p className="error-message">{formStatus.validationErrors.image}</p>
             )}
+            {formStatus.successMessages?.image && (
+              <div className="success-message">{formStatus.successMessages.image}</div>
+            )}
 
             <InputField
-              id="name"
-              name="name"
+              id="venueName"
+              name="venueName"
               type="text"
               labelText="Name of venue"
               placeholder="Name of the venue"
-              value={formData.name}
+              value={formData.venueName}
               onChange={handleChange}
             />
 
-            {formStatus.validationErrors?.name && (
-              <p className="error-message">{formStatus.validationErrors.name}</p>
+            {formStatus.validationErrors?.venueName && (
+              <p className="error-message">{formStatus.validationErrors.venueName}</p>
             )}
 
             <InputField
@@ -226,8 +217,6 @@ export const EditPage = () => {
                   labelText="Max Guests"
                   type="number"
                   placeholder="Add number of guests"
-                  min={1}
-                  max={100}
                   step={1}
                   className="input text-center"
                   value={formData.maxGuests}
@@ -247,7 +236,7 @@ export const EditPage = () => {
                   placeholder="Venue rating (1–5)"
                   min={0}
                   max={5}
-                  step={1}
+                  step={0.5}
                   className="input text-center"
                   value={formData.rating}
                   onChange={handleChange}

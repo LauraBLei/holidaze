@@ -1,44 +1,42 @@
 import { API } from '../endpoints';
 
+type LoginForm = {
+  email: FormDataEntryValue;
+  password: FormDataEntryValue;
+};
+
 /**
- * Handles user login by sending a POST request with email and password.
+ * Sends a login request to the API.
  *
- * Stores the returned user data in localStorage and reloads the page on success.
- *
- * @param {FormData} formdata - The form data containing 'email' and 'password' fields.
- * @returns {Promise<any>} Resolves with user data if login is successful.
- * @throws {Error} If the login request fails or the response is not OK.
+ * @param {Object} params - Login credentials.
+ * @param {FormDataEntryValue} params.email - User's email address.
+ * @param {FormDataEntryValue} params.password - User's password.
+ * @returns {Promise<Object>} Resolves with user data on successful login.
+ * @throws {Error} Throws an error if the API response is not ok.
  */
-
-export default async function HandleLogin(formdata: FormData) {
+export const fetchLogin = async ({ email, password }: LoginForm): Promise<object> => {
   const body = {
-    email: formdata.get('email'),
-    password: formdata.get('password'),
+    email,
+    password,
   };
-  try {
-    const response = await fetch(API.AUTH_LOGIN + '?_holidaze=true', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+  const response = await fetch(API.AUTH_LOGIN + '?_holidaze=true', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
 
-    const data = await response.json();
+  const data = await response.json();
 
-    if (response.ok) {
-      localStorage.setItem('User', JSON.stringify(data.data));
-
-      window.location.reload();
-    }
-
-    return data.data;
-  } catch (error) {
-    console.error('Login failed:', error);
-    throw error;
+  if (!response.ok) {
+    const message =
+      data?.errors?.[0]?.message || data?.message || 'Failed to login. Please try again';
+    throw new Error(message);
   }
-}
+
+  localStorage.setItem('User', JSON.stringify(data.data));
+
+  return data.data;
+};
