@@ -1,6 +1,6 @@
 import loadingImage from '/loading-image.png';
 import { Booking } from '../Types/common';
-import { BiSolidStar } from 'react-icons/bi';
+import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface BookingCardProps {
@@ -49,7 +49,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
       <div className="title-rating-container flex justify-between items-center">
         <h3 className=" h-[27px] w-[60%] rounded text-base font-bold"> {booking.venue.name} </h3>
         <div className="flex ratingWrapper gap-2 items-center">
-          <BiSolidStar fill="#000000" stroke="#000000" />
+          <Star fill="#000000" stroke="#000000" />
           <p className="text-xs">{booking.venue.rating}</p>
         </div>
       </div>

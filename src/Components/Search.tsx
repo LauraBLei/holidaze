@@ -1,4 +1,4 @@
-import { BiSearch } from 'react-icons/bi';
+import { SearchIcon } from 'lucide-react';
 import React, { JSX } from 'react';
 
 interface InputProps {
@@ -38,7 +38,7 @@ export const Search: React.FC<InputProps> = ({ id, onSearch }: InputProps): JSX.
           onChange={handleSearch}
         />
         <div className="w-12 h-12 flex items-center justify-center absolute top-0 right-0">
-          <BiSearch size={20} />
+          <SearchIcon size={20} />
         </div>
       </div>
     </form>

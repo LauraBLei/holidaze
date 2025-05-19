@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Profile } from '../Types/common';
 import { VenueCard } from './VenueCard';
 import { BiSolidCalendarStar } from 'react-icons/bi';
-import { FaUserEdit } from 'react-icons/fa';
 import { EditProfile } from './EditProfile';
 import { Link } from 'react-router-dom';
 import { BookingCard } from './BookingCard';
 import { storedName, storedVenueManager } from '../Constants/constants';
+import { UserRoundPen } from 'lucide-react';
 
 interface BuildUserProps {
   profile: Profile;
@@ -54,7 +54,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
                     className="edit-container items-center flex gap-2.5 cursor-pointer"
                   >
                     <p>Edit User</p>
-                    <FaUserEdit className="text-lg md:text-2xl" />
+                    <UserRoundPen className="text-lg md:text-2xl" />
                   </div>
                 )}
                 <EditProfile isOpen={showUpdateModal} onClose={() => setShowUpdateModal(false)} />
