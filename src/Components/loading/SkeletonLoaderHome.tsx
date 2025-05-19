@@ -1,18 +1,18 @@
-import LoadingVenueCard from './loadingVenueCard';
+import SkeletonLoaderVenueCard from './SkeletonLoaderVenueCard';
 
 /**
- * LoadingHomePage component displays a skeleton loader for the homepage
+ * SkeletonLoaderHome component displays a skeleton loader for the homepage
  * while the venues are loading. It includes loading placeholders for
  * venue cards and the header.
  *
  * @component
  * @example
- * return <LoadingHomePage />;
+ * return <SkeletonLoaderHome />;
  *
- * @returns {JSX.Element} The LoadingHomePage component with skeleton loaders for venue cards
+ * @returns {JSX.Element} The SkeletonLoaderHome component with skeleton loaders for venue cards
  */
 
-export default function LoadingHomePage() {
+export default function SkeletonLoaderHome() {
   return (
     <div className="mx-5 w-full flex flex-col items-center justify">
       <div role="search" className="pt-10 mb-16 w-full flex justify-center items-center">
@@ -24,18 +24,18 @@ export default function LoadingHomePage() {
       <section className="max-w-[1240px] w-full">
         <h1 className="headlineOne mb-5 md:mb-8">All Venues</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
-          <LoadingVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
+          <SkeletonLoaderVenueCard />
         </div>
       </section>
     </div>
