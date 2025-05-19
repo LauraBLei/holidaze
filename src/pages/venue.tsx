@@ -8,7 +8,7 @@ import { GalleryComponent } from '../Components/GalleryComponent';
 import { userInfo } from '../utilities/localstorage';
 import StarRating from '../Components/StarRating';
 import { FaCheck, FaDog, FaLocationDot, FaWifi } from 'react-icons/fa6';
-import { TextCrop } from '../Components/textCrop';
+import { DescriptionCrop } from '../Components/DescriptionCrop';
 import { FaParking, FaTimes } from 'react-icons/fa';
 import { GiKnifeFork } from 'react-icons/gi';
 import { BookingForm } from '../Components/BookingForm';
@@ -177,7 +177,7 @@ export const VenuePage = () => {
             </p>
           </div>
           <div className="py-5 border-b-2 border-brand-grey">
-            <TextCrop text={venue.description} />
+            <DescriptionCrop text={venue.description} />
           </div>
           <div>
             <h2 className="headlineTwo font-bold mb-5">What this place offers</h2>
