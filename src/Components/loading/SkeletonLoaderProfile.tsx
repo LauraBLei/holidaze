@@ -1,18 +1,18 @@
-import LoadingVenueCard from './loadingVenueCard';
+import LoadingVenueCard from './SkeletonLoaderVenueCard';
 
 /**
- * LoadingProfilePage component displays a skeleton loader for the profile page
+ * SkeletonLoaderProfile component displays a skeleton loader for the profile page
  * while the profile data and venues are loading. It includes loading placeholders
  * for the profile banner, avatar, bio, and venue cards.
  *
  * @component
  * @example
- * return <LoadingProfilePage />;
+ * return <SkeletonLoaderProfile />;
  *
- * @returns {JSX.Element} The LoadingProfilePage component with skeleton loaders
+ * @returns {JSX.Element} The SkeletonLoaderProfile component with skeleton loaders
  */
 
-export default function LoadingProfilePage() {
+export default function SkeletonLoaderProfile() {
   return (
     <div className="skeletonLoaders animate-pulse w-full flex flex-col items-center gap-14 md:gap-20 lg:gap-24">
       <div className="max-w-[1440px] w-full flex flex-col  items-center md:items-start">

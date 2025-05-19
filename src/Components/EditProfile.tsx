@@ -3,13 +3,7 @@ import { HandleUpdateProfile } from '../API/profile/updateProfile';
 import { storedPFP, storedVenueManager } from '../Constants/constants';
 import { InputField } from './InputField';
 
-export const UpdateProfileModal = ({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) => {
+export const EditProfile = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const [previewAvatar, setPreviewAvatar] = useState(storedPFP);
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);

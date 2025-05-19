@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import fetchProfile from '../API/profile/fetchProfile';
-import LoadingProfilePage from '../Components/loading/LoadingProfilePage';
+import LoadingProfilePage from '../Components/loading/SkeletonLoaderProfile';
 import { BuildUser } from '../Components/UserProfile';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';

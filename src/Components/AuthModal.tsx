@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { CommonContext } from '../Types/context';
-import { LoginModal } from './login';
-import { RegisterModal } from './register';
+import { LoginModal } from './LoginModal';
+import { RegisterModal } from './RegisterModal';
 
 /**
  * AuthModal component renders a modal for user authentication (login or register).

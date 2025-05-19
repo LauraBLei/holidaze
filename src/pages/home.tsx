@@ -3,7 +3,7 @@ import { ReadVenues } from '../API/venues/read';
 import { VenueCard } from '../Components/VenueCard';
 import { Venue } from '../Types/common';
 import { Search } from '../Components/Search';
-import LoadingHomePage from '../Components/loading/LoadingHomePage';
+import LoadingHomePage from '../Components/loading/SkeletonLoaderHome';
 import { motion } from 'framer-motion';
 import { fadeOutOnlyVariants } from '../Constants/constants';
 

@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
-import LoadingVenuePage from '../Components/loading/loadingVenuePage';
+import LoadingVenuePage from '../Components/loading/SkeletonLoaderVenue';
 
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ReadVenue } from '../API/venues/read';
 import { Venue } from '../Types/common';
-import { GalleryComponent } from '../Components/gallery';
+import { GalleryComponent } from '../Components/GalleryComponent';
 import { userInfo } from '../utilities/localstorage';
-import StarRating from '../Components/rating';
+import StarRating from '../Components/StarRating';
 import { FaCheck, FaDog, FaLocationDot, FaWifi } from 'react-icons/fa6';
-import { Description } from '../Components/textCrop';
+import { DescriptionCrop } from '../Components/DescriptionCrop';
 import { FaParking, FaTimes } from 'react-icons/fa';
 import { GiKnifeFork } from 'react-icons/gi';
-import { BookingForm } from '../Components/booking';
+import { BookingForm } from '../Components/BookingForm';
 import { MdDeleteForever, MdEdit } from 'react-icons/md';
 import { CommonContext } from '../Types/context';
 import { deleteVenue } from '../API/venues/delete';
@@ -177,7 +177,7 @@ export const VenuePage = () => {
             </p>
           </div>
           <div className="py-5 border-b-2 border-brand-grey">
-            <Description text={venue.description} />
+            <DescriptionCrop text={venue.description} />
           </div>
           <div>
             <h2 className="headlineTwo font-bold mb-5">What this place offers</h2>

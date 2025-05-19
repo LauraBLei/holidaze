@@ -3,7 +3,7 @@ import { Profile } from '../Types/common';
 import { VenueCard } from './VenueCard';
 import { BiSolidCalendarStar } from 'react-icons/bi';
 import { FaUserEdit } from 'react-icons/fa';
-import { UpdateProfileModal } from './updateProfile';
+import { EditProfile } from './EditProfile';
 import { Link } from 'react-router-dom';
 import { BookingCard } from './BookingCard';
 import { storedName, storedVenueManager } from '../Constants/constants';
@@ -57,10 +57,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
                     <FaUserEdit className="text-lg md:text-2xl" />
                   </div>
                 )}
-                <UpdateProfileModal
-                  isOpen={showUpdateModal}
-                  onClose={() => setShowUpdateModal(false)}
-                />
+                <EditProfile isOpen={showUpdateModal} onClose={() => setShowUpdateModal(false)} />
               </div>
               <p className="text-base md:text-lg rounded text-gray-500 italic">
                 {profile.bio ? profile.bio : 'This user has no bio yet'}

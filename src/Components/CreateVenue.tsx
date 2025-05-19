@@ -4,7 +4,7 @@ import { IoCheckmarkSharp } from 'react-icons/io5';
 import { PiPlusCircle } from 'react-icons/pi';
 import { Media, Meta } from '../Types/common';
 import { handleCreateVenueSubmit } from '../UI/venue/create';
-import { GalleryComponent } from './gallery';
+import { GalleryComponent } from './GalleryComponent';
 import { InputField } from './InputField';
 import { FaWifi } from 'react-icons/fa6';
 import { GiKnifeFork } from 'react-icons/gi';

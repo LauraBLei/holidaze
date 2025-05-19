@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Footer from './Footer.tsx';
 import Header from './Header.tsx';
-import { AuthModal } from './auth.tsx';
+import { AuthModal } from './AuthModal.tsx';
 
 /**
  * The Layout component serves as the main structure for the pages, wrapping the header, footer,

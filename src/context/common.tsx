@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CommonContext, ConfirmOptions } from '../Types/context';
-import { Confirm } from '../Components/confirm';
+import { ConfirmDialog } from '../Components/ConfirmDialog';
 
 type ContextProviderProps = {
   children: React.ReactNode;
@@ -68,7 +68,7 @@ export const DataProvider = ({ children }: ContextProviderProps) => {
     >
       {children}
       {confirmOptions && (
-        <Confirm
+        <ConfirmDialog
           message={confirmOptions.message}
           onConfirm={handleConfirm}
           onCancel={handleCancel}
