@@ -193,7 +193,7 @@ export const VenuePage = () => {
 
               <div className="flex gap-2 items-center">
                 <AmenityItem value={venue.meta.parking} />
-                <FaParking className="w-[25px] md:w-[30px]h-auto" /> <span>Parking</span>
+                <FaParking className="w-[25px] md:w-[30px] h-auto" /> <span>Parking</span>
               </div>
               <div className="flex gap-2 items-center">
                 <AmenityItem value={venue.meta.breakfast} />
