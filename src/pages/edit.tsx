@@ -5,7 +5,7 @@ import { PiPlusCircle } from 'react-icons/pi';
 import { FaWifi } from 'react-icons/fa6';
 import { GiKnifeFork } from 'react-icons/gi';
 import { Media, Meta } from '../Types/common';
-import { GalleryComponent } from '../Components/gallery';
+import { GalleryComponent } from '../Components/GalleryComponent';
 import { InputField } from '../Components/InputField';
 import { handleEditSubmit } from '../UI/venue/edit';
 import { useNavigate } from 'react-router-dom';

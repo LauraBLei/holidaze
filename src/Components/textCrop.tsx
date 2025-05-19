@@ -15,7 +15,7 @@ interface DescriptionProps {
  * @returns {JSX.Element} The rendered description with a toggle button for long text.
  */
 
-export const Description = ({ text }: DescriptionProps) => {
+export const TextCrop = ({ text }: DescriptionProps) => {
   const [expanded, setExpanded] = useState(false);
   const limit = 800;
   const paragraphRef = useRef<HTMLParagraphElement>(null);
