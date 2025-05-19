@@ -12,7 +12,8 @@ import { fadeOutOnlyVariants } from '../Constants/constants';
  *
  * @returns {JSX.Element} The rendered page where users can create a new venue.
  */
-export const CreatePage = () => {
+
+const CreatePage = () => {
   useEffect(() => {
     document.title = 'HAL - New Venue';
   }, []);
@@ -32,3 +33,5 @@ export const CreatePage = () => {
     </motion.div>
   );
 };
+
+export default CreatePage;

@@ -21,7 +21,7 @@ import { fadeOutOnlyVariants } from '../Constants/constants';
  * @returns {JSX.Element} The rendered homepage with a list of venues and a search bar.
  */
 
-export const HomePage = () => {
+const HomePage = () => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [allVenues, setAllVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
@@ -73,3 +73,5 @@ export const HomePage = () => {
     </motion.div>
   );
 };
+
+export default HomePage;
