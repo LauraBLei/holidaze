@@ -30,7 +30,13 @@ export default function SkeletonLoaderProfile() {
         </div>
       </div>
       <div className="w-full flex justify-center items-center">
-        <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
+        <div className="max-w-[1440px] w-full h-full grid grid-cols-1 md:grid-cols-4 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
+          <LoadingVenueCard />
+          <LoadingVenueCard />
+          <LoadingVenueCard />
+          <LoadingVenueCard />
+          <LoadingVenueCard />
+          <LoadingVenueCard />
           <LoadingVenueCard />
           <LoadingVenueCard />
           <LoadingVenueCard />
