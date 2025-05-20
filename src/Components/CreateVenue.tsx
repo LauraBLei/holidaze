@@ -1,13 +1,8 @@
 import { useState } from 'react';
-import { FaDog, FaParking } from 'react-icons/fa';
-import { IoCheckmarkSharp } from 'react-icons/io5';
-import { PiPlusCircle } from 'react-icons/pi';
 import { Media, Meta } from '../Types/common';
 import { handleCreateVenueSubmit } from '../UI/venue/create';
 import { GalleryComponent } from './GalleryComponent';
 import { InputField } from './InputField';
-import { FaWifi } from 'react-icons/fa6';
-import { GiKnifeFork } from 'react-icons/gi';
 import { useNavigate } from 'react-router-dom';
 import { runVenueValidations } from '../utilities/validation/runVenueValidations';
 import { validateImage } from '../utilities/validation/validateVenue';
@@ -17,6 +12,7 @@ import {
   setSuccessMessage,
   StatusMessage,
 } from '../utilities/validation/validation';
+import { Check, ParkingSquare, PawPrint, Plus, Utensils, Wifi } from 'lucide-react';
 
 /**
  * CreateVenueForm component allows users to create a new venue by submitting details such as images, name, description, pricing, amenities, and location.
@@ -107,7 +103,7 @@ export const CreateVenueForm = () => {
               type="url"
               value={imageInput}
               placeholder="https://example.com/image.jpg"
-              icon={<PiPlusCircle size={24} />}
+              icon={<Plus size={24} />}
               onChange={(e) => setImageInput(e.target.value)}
               onButtonClick={handleAddImage}
             />
@@ -261,13 +257,13 @@ export const CreateVenueForm = () => {
                   onChange={() => handleAmenities('pets')}
                 />
                 <div className="flex items-center gap-2">
-                  <FaDog size={24} />
+                  <PawPrint size={24} />
                   <span className="text-base">Pets</span>
                 </div>
 
                 <span className="amenities-checkbox">
                   {amenitiesChecked.pets && (
-                    <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
+                    <Check size={18} className="text-white peer-checked:bg-black" />
                   )}
                 </span>
               </label>
@@ -284,13 +280,13 @@ export const CreateVenueForm = () => {
                   onChange={() => handleAmenities('parking')}
                 />
                 <div className="flex items-center gap-2">
-                  <FaParking size={24} />
+                  <ParkingSquare size={24} />
                   <span className="text-base">Parking</span>
                 </div>
 
                 <span className="amenities-checkbox">
                   {amenitiesChecked.parking && (
-                    <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
+                    <Check size={18} className="text-white peer-checked:bg-black" />
                   )}
                 </span>
               </label>
@@ -307,13 +303,13 @@ export const CreateVenueForm = () => {
                   onChange={() => handleAmenities('breakfast')}
                 />
                 <div className="flex items-center gap-2">
-                  <GiKnifeFork size={24} />
+                  <Utensils size={24} />
                   <span className="text-base">Breakfast</span>
                 </div>
 
                 <span className="amenities-checkbox">
                   {amenitiesChecked.breakfast && (
-                    <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
+                    <Check size={18} className="text-white peer-checked:bg-black" />
                   )}
                 </span>
               </label>
@@ -330,13 +326,13 @@ export const CreateVenueForm = () => {
                   onChange={() => handleAmenities('wifi')}
                 />
                 <div className="flex items-center gap-2">
-                  <FaWifi size={24} />
+                  <Wifi size={24} />
                   <span className="text-base">Free Wifi</span>
                 </div>
 
                 <span className="amenities-checkbox">
                   {amenitiesChecked.wifi && (
-                    <IoCheckmarkSharp size={18} className="text-white peer-checked:bg-black" />
+                    <Check size={18} className="text-white peer-checked:bg-black" />
                   )}
                 </span>
               </label>

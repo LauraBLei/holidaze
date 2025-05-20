@@ -1,7 +1,7 @@
 import loadingImage from '/loading-image.png';
 import { Venue } from '../Types/common';
 import { Link } from 'react-router-dom';
-import { BiSolidStar } from 'react-icons/bi';
+import { Star } from 'lucide-react';
 
 interface VenueCardProps {
   venue: Venue;
@@ -31,7 +31,7 @@ export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
           <div className="title-rating-container flex justify-between items-center gap-8 mt-3">
             <h3 className="text-base font-bold line-clamp-1"> {venue.name} </h3>
             <div className="flex gap-2 items-center">
-              <BiSolidStar fill="#000000" stroke="#000000" />
+              <Star fill="#000000" stroke="#000000" className="h-4" />
               <p className="text-sm">{venue.rating}</p>
             </div>
           </div>

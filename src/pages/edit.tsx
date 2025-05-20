@@ -1,9 +1,4 @@
 import { useState, useEffect } from 'react';
-import { FaDog, FaParking } from 'react-icons/fa';
-import { IoCheckmarkSharp } from 'react-icons/io5';
-import { PiPlusCircle } from 'react-icons/pi';
-import { FaWifi } from 'react-icons/fa6';
-import { GiKnifeFork } from 'react-icons/gi';
 import { Media, Meta } from '../Types/common';
 import { GalleryComponent } from '../Components/GalleryComponent';
 import { InputField } from '../Components/InputField';
@@ -19,6 +14,7 @@ import {
   StatusMessage,
 } from '../utilities/validation/validation';
 import { runVenueValidations } from '../utilities/validation/runVenueValidations';
+import { Check, ParkingSquare, PawPrint, Plus, Utensils, Wifi } from 'lucide-react';
 
 /**
  * The EditPage component allows the user to edit an existing venue's details, including media, name, description,
@@ -147,7 +143,7 @@ const EditPage = () => {
               type="url"
               value={imageInput}
               placeholder="https://example.com/image.jpg"
-              icon={<PiPlusCircle size={24} />}
+              icon={<Plus size={24} />}
               onChange={(e) => setImageInput(e.target.value)}
               onButtonClick={handleAddImage}
             />
@@ -303,10 +299,10 @@ const EditPage = () => {
             <h2 className="create-edit-titles">Amenities</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { id: 'pets', label: 'Pets', icon: <FaDog size={24} /> },
-                { id: 'parking', label: 'Parking', icon: <FaParking size={24} /> },
-                { id: 'breakfast', label: 'Breakfast', icon: <GiKnifeFork size={24} /> },
-                { id: 'wifi', label: 'Free Wifi', icon: <FaWifi size={24} /> },
+                { id: 'pets', label: 'Pets', icon: <PawPrint size={24} /> },
+                { id: 'parking', label: 'Parking', icon: <ParkingSquare size={24} /> },
+                { id: 'breakfast', label: 'Breakfast', icon: <Utensils size={24} /> },
+                { id: 'wifi', label: 'Free Wifi', icon: <Wifi size={24} /> },
               ].map((item) => (
                 <div className="flex w-full p-2 rounded" key={item.id}>
                   <label htmlFor={item.id} className="amenities-label">
@@ -324,7 +320,7 @@ const EditPage = () => {
                     </div>
 
                     <span className="amenities-checkbox">
-                      <IoCheckmarkSharp size={18} className="text-white" />
+                      <Check size={18} className="text-white" />
                     </span>
                   </label>
                 </div>

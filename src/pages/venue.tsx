@@ -7,16 +7,23 @@ import { Venue } from '../Types/common';
 import { GalleryComponent } from '../Components/GalleryComponent';
 import { userInfo } from '../utilities/localstorage';
 import StarRating from '../Components/StarRating';
-import { FaCheck, FaDog, FaLocationDot, FaWifi } from 'react-icons/fa6';
 import { DescriptionCrop } from '../Components/DescriptionCrop';
-import { FaParking, FaTimes } from 'react-icons/fa';
-import { GiKnifeFork } from 'react-icons/gi';
 import { BookingForm } from '../Components/BookingForm';
-import { MdDeleteForever, MdEdit } from 'react-icons/md';
 import { CommonContext } from '../Types/context';
 import { deleteVenue } from '../API/venues/delete';
 import { motion } from 'framer-motion';
 import { fadeOutOnlyVariants } from '../Constants/constants';
+import {
+  Check,
+  MapPin,
+  ParkingSquare,
+  PawPrint,
+  Pencil,
+  Trash2,
+  UtensilsCrossed,
+  Wifi,
+  X,
+} from 'lucide-react';
 
 /**
  * The VenuePage component displays detailed information about a specific venue.
@@ -124,13 +131,13 @@ const VenuePage = () => {
                 onClick={() => localStorage.setItem('editVenue', JSON.stringify(venue))}
               >
                 <span>Edit Venue</span>
-                <MdEdit />
+                <Pencil className="h-4" />
               </Link>
               <button
                 onClick={() => handleDeleteClick()}
                 className="flex gap-2 items-center cursor-pointer scale-95 hover:scale-100 transition"
               >
-                <span>Delete Venue</span> <MdDeleteForever />
+                <span>Delete Venue</span> <Trash2 className="h-4" />
               </button>
             </div>
           </div>
@@ -170,7 +177,7 @@ const VenuePage = () => {
           )}
 
           <div className="flex gap-2 items-center border-b-2 border-brand-grey py-3">
-            <FaLocationDot className="w-[25px] h-full" />
+            <MapPin className="w-[25px] h-full" />
             <p>
               {venue.location.address}, {venue.location.zip}, {venue.location.city},{' '}
               {venue.location.country}
@@ -184,20 +191,21 @@ const VenuePage = () => {
             <div className="grid grid-cols-2 gap-5">
               <div className="flex gap-2 items-center">
                 <AmenityItem value={venue.meta.pets} />
-                <FaDog className="w-[25px] md:w-[30px] h-auto" /> <span>Pets</span>
+                <PawPrint className="w-[25px] md:w-[30px] h-auto" /> <span>Pets</span>
               </div>
               <div className="flex gap-2 items-center">
                 <AmenityItem value={venue.meta.wifi} />
-                <FaWifi className="w-[25px] md:w-[30px] h-auto" /> <span>Free Wifi</span>
+                <Wifi className="w-[25px] md:w-[30px] h-auto" /> <span>Free Wifi</span>
               </div>
 
               <div className="flex gap-2 items-center">
                 <AmenityItem value={venue.meta.parking} />
-                <FaParking className="w-[25px] md:w-[30px] h-auto" /> <span>Parking</span>
+                <ParkingSquare className="w-[25px] md:w-[30px] h-auto" /> <span>Parking</span>
               </div>
               <div className="flex gap-2 items-center">
                 <AmenityItem value={venue.meta.breakfast} />
-                <GiKnifeFork className="w-[25px] md:w-[30px] h-auto" /> <span>BreakFast</span>
+                <UtensilsCrossed className="w-[25px] md:w-[30px] h-[23px] md:h-[28px]" />
+                <span>BreakFast</span>
               </div>
             </div>
           </div>
@@ -264,9 +272,9 @@ export const AmenityItem = ({ value }: AmenityItemProps) => {
   return (
     <div>
       {value ? (
-        <FaCheck className="w-[20px] md:w-[25px] h-auto text-black" />
+        <Check className="w-[20px] md:w-[25px] h-auto text-black" />
       ) : (
-        <FaTimes className="w-[20px] md:w-[25px] h-auto text-black" />
+        <X className="w-[20px] md:w-[25px] h-auto text-black" />
       )}
     </div>
   );

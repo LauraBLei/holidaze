@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Media } from '../Types/common';
-import { BiX } from 'react-icons/bi';
+import { X } from 'lucide-react';
 
 interface GalleryType {
   media: Media[];
@@ -47,7 +47,7 @@ export const GalleryComponent: React.FC<GalleryType> = ({ media, isEditable, onR
               className="absolute cursor-pointer hover:animate-pulse top-1 right-1 h-8 w-8 flex justify-center items-center text-black bg-error-red rounded-bl-xl"
               style={{ transform: 'translate(20%, -20%)' }}
             >
-              <BiX size={24} />
+              <X size={20} />
             </button>
           )}
         </div>
@@ -77,7 +77,7 @@ export const GalleryComponent: React.FC<GalleryType> = ({ media, isEditable, onR
                   className="absolute cursor-pointer hover:animate-pulse top-1 right-1 h-8 w-8 flex justify-center items-center text-black bg-error-red rounded-bl-xl"
                   style={{ transform: 'translate(20%, -20%)' }}
                 >
-                  <BiX size={24} />
+                  <X size={20} />
                 </button>
               )}
             </div>
