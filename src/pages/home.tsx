@@ -3,7 +3,7 @@ import { ReadVenues } from '../API/venues/read';
 import { VenueCard } from '../Components/VenueCard';
 import { Venue } from '../Types/common';
 import { Search } from '../Components/Search';
-import LoadingHomePage from '../Components/loading/SkeletonLoaderHome';
+import SkeletonLoaderHome from '../Components/loading/SkeletonLoaderHome';
 import { motion } from 'framer-motion';
 import { fadeOutOnlyVariants } from '../Constants/constants';
 import { searchVenues } from '../API/venues/search';
@@ -63,7 +63,7 @@ const HomePage = () => {
   }, [searchPage, searchText]);
 
   if (allVenues.length === 0) {
-    return <LoadingHomePage />;
+    return <SkeletonLoaderHome />;
   }
 
   return (
@@ -75,40 +75,41 @@ const HomePage = () => {
       transition={{ duration: 0.5 }}
       className="w-full flex flex-col items-center justify"
     >
-
-
+      <div></div>
       <div className="max-w-[1440px] w-full font primary">
-        <Search setSearchText={setSearchText} />
-        {searchText &&
-          SearchSection({
-            searchAllVenues: searchAllVenues,
-            searchHasNext: searchHasNext,
-            searchHasPrevious: searchHasPrevious,
-            searchPage: searchPage,
-            searchText: searchText,
-            searchTotalPages: searchTotalPages,
-            setSearchPage: setSearchPage,
-            setText: setSearchText,
-          })}
+        <div className="mx-5 2xl:mx-0">
+          <Search setSearchText={setSearchText} />
+          {searchText &&
+            SearchSection({
+              searchAllVenues: searchAllVenues,
+              searchHasNext: searchHasNext,
+              searchHasPrevious: searchHasPrevious,
+              searchPage: searchPage,
+              searchText: searchText,
+              searchTotalPages: searchTotalPages,
+              setSearchPage: setSearchPage,
+              setText: setSearchText,
+            })}
 
-        <section className="mx-5">
-          <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
-            All Venues
-          </h2>
+          <section>
+            <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+              All Venues
+            </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
-            {allVenues.map((venue) => (
-              <VenueCard venue={venue} key={venue.id} />
-            ))}
-          </div>
-          <Pagination
-            page={venuePage}
-            setPage={setVenuePage}
-            hasNext={venueHasNext}
-            hasPrevious={venueHasPrevious}
-            totalPages={venueTotalPages}
-          />
-        </section>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
+              {allVenues.map((venue) => (
+                <VenueCard venue={venue} key={venue.id} />
+              ))}
+            </div>
+            <Pagination
+              page={venuePage}
+              setPage={setVenuePage}
+              hasNext={venueHasNext}
+              hasPrevious={venueHasPrevious}
+              totalPages={venueTotalPages}
+            />
+          </section>
+        </div>
       </div>
     </motion.div>
   );
