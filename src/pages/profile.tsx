@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import fetchProfile from '../API/profile/fetchProfile';
-import LoadingProfilePage from '../Components/loading/SkeletonLoaderProfile';
 import { BuildUser } from '../Components/UserProfile';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeOutOnlyVariants } from '../Constants/constants';
+import SkeletonLoaderProfile from '../Components/loading/SkeletonLoaderProfile';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -28,7 +28,7 @@ const ProfilePage = () => {
   const username = query.get('username');
   const navigate = useNavigate();
 
-  const [page, setPage] = useState(<LoadingProfilePage />);
+  const [page, setPage] = useState(<SkeletonLoaderProfile />);
 
   useEffect(() => {
     document.title = `HAL - ${username}`;

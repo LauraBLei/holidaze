@@ -41,33 +41,40 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   return (
     <Link
       to={`/venues?id=${booking.venue.id}`}
-      className="flex flex-col  md:max-w-[280px] w-full gap-[20px] cursor-pointer lg:hover:scale-105 transition duration-150"
+      className="lg:hover:scale-105 transition duration-150"
     >
-      <img
-        className="cardImage h-[200px]  rounded-xl object-cover"
-        src={booking.venue.media[0] ? booking.venue.media[0].url : loadingImage}
-        alt={booking.venue.media[0] ? booking.venue.media[0].alt : 'Image not found'}
-      />
-      <div className="title-rating-container flex justify-between items-center">
-        <h3 className=" h-[27px] w-[60%] rounded text-base font-bold"> {booking.venue.name} </h3>
-        <div className="flex ratingWrapper gap-2 items-center">
-          <Star fill="#000000" stroke="#000000" />
-          <p className="text-xs">{booking.venue.rating}</p>
+      <article className="flex flex-col h-full w-full">
+        <div className="w-full h-52 rounded-xl overflow-hidden">
+          <img
+            className="w-full h-full object-cover"
+            src={booking.venue.media[0] ? booking.venue.media[0].url : loadingImage}
+            alt={booking.venue.media[0] ? booking.venue.media[0].alt : 'Image not found'}
+          />
         </div>
-      </div>
-      <p className=" w-full rounded text-sm line-clamp-3">{booking.venue.description}</p>
 
-      <p className="text-sm">
-        {new Date(booking.dateFrom).toLocaleDateString('en-GB')} <span>-</span>{' '}
-        {new Date(booking.dateTo).toLocaleDateString('en-GB')}
-      </p>
+        <div className="flex flex-col min-h-[160px] gap-5">
+          <div className="title-rating-container flex justify-between items-center gap-8 mt-3">
+            <h3 className="text-base font-bold line-clamp-1"> {booking.venue.name} </h3>
+            <div className="flex gap-2 items-center">
+              <Star fill="#000000" stroke="#000000" className="h-4" />
+              <p className="text-sm">{booking.venue.rating}</p>
+            </div>
+          </div>
 
-      <div className="flex justify-between items-center">
-        <div className=" w-[35%] h-[27px] rounded text-sm font-bold">
-          {booking.venue.price}$ / night
+          <div className="flex flex-col justify-between h-full gap-5">
+            <p className=" w-full rounded text-sm line-clamp-1">{booking.venue.description}</p>
+            <p className="text-sm">
+              {new Date(booking.dateFrom).toLocaleDateString('en-GB')} <span>-</span>{' '}
+              {new Date(booking.dateTo).toLocaleDateString('en-GB')}
+            </p>
+
+            <div className="flex justify-between items-center mt-auto">
+              <span className="text-sm font-bold">{booking.venue.price}$ / night</span>
+              <p>{booking.guests} guest(s)</p>
+            </div>
+          </div>
         </div>
-        <p>{booking.guests} guest(s)</p>
-      </div>
+      </article>
     </Link>
   );
 };

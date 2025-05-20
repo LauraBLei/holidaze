@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import LoadingVenuePage from '../Components/loading/SkeletonLoaderVenue';
-
+import SkeletonLoaderVenue from '../Components/loading/SkeletonLoaderVenue';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ReadVenue } from '../API/venues/read';
 import { Venue } from '../Types/common';
@@ -55,7 +54,7 @@ const VenuePage = () => {
   }, [id]);
 
   if (!venue) {
-    return <LoadingVenuePage />;
+    return <SkeletonLoaderVenue />;
   }
 
   const handleDeleteClick = () => {

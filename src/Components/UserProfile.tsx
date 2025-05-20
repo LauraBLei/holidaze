@@ -11,7 +11,6 @@ import { readUserBookings } from '../API/booking/userBooking';
 import { Pagination } from './pagination';
 import { ReadUserVenues } from '../API/venues/read';
 
-
 interface BuildUserProps {
   profile: Profile;
 }
@@ -101,7 +100,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center items-center max-w-[1440px] flex-col gap-10 px-5">
+      <div className="w-full flex justify-center items-center max-w-[1440px] flex-col gap-10 px-5 2xl:px-0">
         <section id="UserVenues" className="w-full">
           <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
             {profile.name == storedName ? 'Your venues' : 'Venues By User'}{' '}
@@ -113,17 +112,19 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
               <p className="text-gray-500 italic">Oops! No information here yet!</p>
             )}
           </div>{' '}
-          <Pagination
-            page={venuePage}
-            setPage={setVenuePage}
-            hasNext={venueHasNext}
-            hasPrevious={venueHasPrevious}
-            totalPages={venueTotalPages}
-          />
+          {venueTotalPages > 1 && (
+            <Pagination
+              page={venuePage}
+              setPage={setVenuePage}
+              hasNext={venueHasNext}
+              hasPrevious={venueHasPrevious}
+              totalPages={venueTotalPages}
+            />
+          )}
         </section>
         <section
           id="Bookings"
-          className={`w-full${profile.name === storedName ? 'grid' : 'hidden'}`}
+          className={`w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
         >
           <h2
             className={`border-b-[1px] border-brand-grey mb-5 py-2 font-bold text-lg md:text-2xl self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
@@ -139,13 +140,15 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
               <p className="text-gray-500 italic">Oops! No information here yet!</p>
             )}
           </div>
-          <Pagination
-            page={bookingPage}
-            setPage={setBookingPage}
-            hasNext={bookingHasNext}
-            hasPrevious={bookingHasPrevious}
-            totalPages={bookingTotalPages}
-          />
+          {bookingTotalPages > 1 && (
+            <Pagination
+              page={bookingPage}
+              setPage={setBookingPage}
+              hasNext={bookingHasNext}
+              hasPrevious={bookingHasPrevious}
+              totalPages={bookingTotalPages}
+            />
+          )}
         </section>
         <section id="PrevBookings" className="w-full">
           <h2
