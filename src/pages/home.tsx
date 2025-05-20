@@ -23,7 +23,7 @@ import { Pagination } from '../Components/pagination';
  * @returns {JSX.Element} The rendered homepage with a list of venues and a search bar.
  */
 
-export const HomePage = () => {
+const HomePage = () => {
   const [allVenues, setAllVenues] = useState<Venue[]>([]);
   const [searchAllVenues, setSearchAllVenues] = useState<Venue[]>([]);
   const [searchPage, setSearchPage] = useState<number>(1);
@@ -166,3 +166,5 @@ const SearchSection = ({
     )}
   </>
 );
+
+export default HomePage;
