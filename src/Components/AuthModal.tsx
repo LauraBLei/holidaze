@@ -60,12 +60,11 @@ export const AuthModal = () => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-white w-full md:max-w-[750px] overflow-hidden rounded-xl transform transition-all duration-300 ${
+        className={`bg-white h-auto  w-full md:max-w-[750px] overflow-hidden rounded-xl transform transition-all duration-300 ${
           visible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
-        style={{ height: 'auto' }}
       >
-        <div ref={contentRef} className="pt-10 pb-16 px-5">
+        <div ref={contentRef} className="pt-10 pb-16 px-5 ">
           {loginOpen ? (
             <LoginModal onClose={handleClose} />
           ) : registerOpen ? (

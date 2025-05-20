@@ -42,7 +42,7 @@ import {
  * and the venue's bookings (if the user is the owner).
  */
 
-export const VenuePage = () => {
+const VenuePage = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id') ?? ``;
   const [venue, setVenue] = useState<Venue>();
@@ -279,3 +279,5 @@ export const AmenityItem = ({ value }: AmenityItemProps) => {
     </div>
   );
 };
+
+export default VenuePage;

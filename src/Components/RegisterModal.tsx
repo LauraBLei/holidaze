@@ -56,7 +56,7 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
   };
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full overflow-y-auto max-h-[650px] md:max-h-[1000px]">
       <div className="w-full flex justify-end px-5">
         <p
           onClick={() => {
@@ -67,7 +67,7 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
           X
         </p>
       </div>
-      <h1 className="headlineOne mb-16 mt-3">Register an account</h1>
+      <h1 className="headlineOne mb-6 md:mb-16 mt-2 md:mt-3">Register an account</h1>
       <form
         className="w-full flex flex-col gap-4 max-w-[425px] items-center"
         onSubmit={handleSubmit}
@@ -163,12 +163,12 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
           <p className="error-message">{formStatus.validationErrors.confirmPassword}</p>
         )}
 
-        <button type="submit" className="button transition mt-14">
+        <button type="submit" className="button transition mt-5 md:mt-14">
           Register
         </button>
       </form>
       <button
-        className="transition scale-95 hover:scale-100 cursor-pointer mt-4 font-primary"
+        className="transition scale-95 hover:scale-100 cursor-pointer mt-2 md:mt-4 font-primary"
         onClick={() => OpenLogin()}
       >
         Login

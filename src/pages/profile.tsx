@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import fetchProfile from '../API/profile/fetchProfile';
 import LoadingProfilePage from '../Components/loading/SkeletonLoaderProfile';
 import { BuildUser } from '../Components/UserProfile';
@@ -23,9 +23,10 @@ function useQuery() {
  * @returns {JSX.Element} The rendered profile page with the user's profile information or an error message.
  */
 
-export const ProfilePage = () => {
+const ProfilePage = () => {
   const query = useQuery();
   const username = query.get('username');
+  const navigate = useNavigate();
 
   const [page, setPage] = useState(<LoadingProfilePage />);
 
@@ -37,11 +38,7 @@ export const ProfilePage = () => {
       if (data) {
         setPage(<BuildUser profile={data} />);
       } else {
-        setPage(
-          <p className="font-bold text-2xl items-center flex justify-center text-center">
-            404. Error loading profile.
-          </p>,
-        );
+        navigate('/error');
       }
     };
 
@@ -60,3 +57,5 @@ export const ProfilePage = () => {
     </motion.div>
   );
 };
+
+export default ProfilePage;

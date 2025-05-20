@@ -29,7 +29,7 @@ import { Check, ParkingSquare, PawPrint, Plus, Utensils, Wifi } from 'lucide-rea
  * @returns {JSX.Element} The rendered form for editing the venue.
  */
 
-export const EditPage = () => {
+const EditPage = () => {
   useEffect(() => {
     document.title = 'Edit Venue';
   }, []);
@@ -348,3 +348,5 @@ export const EditPage = () => {
     </motion.div>
   );
 };
+
+export default EditPage;
