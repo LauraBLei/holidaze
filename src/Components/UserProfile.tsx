@@ -26,7 +26,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   return (
-    <div className="w-full flex flex-col items-center gap-14 md:gap-20 lg:gap-24">
+    <div className="w-full flex flex-col items-center gap-14 md:gap-20 lg:gap-24 font-primary">
       <div className="max-w-[1440px] w-full flex flex-col items-center md:items-start">
         <img
           src={profile.banner.url}
