@@ -52,6 +52,8 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
         <label className="input flex flex-col flex-1/2 text-xs">
           CHECK-IN
           <DatePicker
+            id="checkIn"
+            name="checkIn"
             selected={checkIn}
             onChange={setCheckIn}
             selectsStart
@@ -70,6 +72,8 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
         <label className="input flex flex-col flex-1/2 text-xs">
           CHECK-OUT
           <DatePicker
+            id="checkOut"
+            name="checkOut"
             selected={checkOut}
             onChange={setCheckOut}
             selectsEnd
@@ -89,6 +93,8 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
       <label className="input flex flex-col text-xs">
         GUESTS
         <select
+          id="guests"
+          name="guests"
           value={guests}
           onChange={(e) => setGuests(Number(e.target.value))}
           className="text-base"

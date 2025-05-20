@@ -33,7 +33,7 @@ import { runVenueValidations } from '../utilities/validation/runVenueValidations
  * @returns {JSX.Element} The rendered form for editing the venue.
  */
 
-export const EditPage = () => {
+const EditPage = () => {
   useEffect(() => {
     document.title = 'Edit Venue';
   }, []);
@@ -352,3 +352,5 @@ export const EditPage = () => {
     </motion.div>
   );
 };
+
+export default EditPage;
