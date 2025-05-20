@@ -23,7 +23,7 @@ function useQuery() {
  * @returns {JSX.Element} The rendered profile page with the user's profile information or an error message.
  */
 
-export const ProfilePage = () => {
+const ProfilePage = () => {
   const query = useQuery();
   const username = query.get('username');
 
@@ -60,3 +60,5 @@ export const ProfilePage = () => {
     </motion.div>
   );
 };
+
+export default ProfilePage;
