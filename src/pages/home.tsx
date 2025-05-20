@@ -86,11 +86,13 @@ export const HomePage = () => {
             searchText: searchText,
             searchTotalPages: searchTotalPages,
             setSearchPage: setSearchPage,
+            setText: setSearchText,
           })}
         <section className="mx-5">
           <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
             All Venues
           </h2>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
             {allVenues.map((venue) => (
               <VenueCard venue={venue} key={venue.id} />
@@ -117,6 +119,7 @@ interface searchSectionProps {
   searchHasNext: boolean;
   searchHasPrevious: boolean;
   searchTotalPages: number;
+  setText: (input: string) => void;
 }
 const SearchSection = ({
   searchAllVenues,
@@ -126,13 +129,20 @@ const SearchSection = ({
   searchHasNext,
   searchHasPrevious,
   searchTotalPages,
+  setText,
 }: searchSectionProps) => (
   <>
     {searchAllVenues.length > 0 ? (
       <section className="mx-5 mb-15">
-        <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
-          Search: '{searchText}'
-        </h2>
+        <div className="flex justify-between items-center font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+          <h2>Search: '{searchText}'</h2>
+          <button
+            onClick={() => setText('')}
+            className="text-xl font-semi-bold transition scale-95 hover:scale-100 cursor-pointer"
+          >
+            clear search
+          </button>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
           {searchAllVenues.map((venue) => (
             <VenueCard venue={venue} key={venue.id} />
