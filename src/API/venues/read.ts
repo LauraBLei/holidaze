@@ -2,7 +2,12 @@ import { Venue } from '../../Types/common';
 import { userInfo } from '../../utilities/localstorage';
 import { API } from '../endpoints';
 import { headers } from '../headers';
-
+interface readVenuesProps {
+  page: number;
+  limit: number;
+  setVenues: (input: Venue[]) => void;
+  setTotalCount: (input: number) => void;
+}
 /**
  * Fetches a list of venues from the API and updates the state with the result.
  *
@@ -11,19 +16,23 @@ import { headers } from '../headers';
  * @throws {Error} If the request fails, an error is logged to the console.
  */
 
-export const ReadVenues = async (setVenues: (input: Venue[]) => void) => {
+export const ReadVenues = async ({ page, limit, setVenues, setTotalCount }: readVenuesProps) => {
+  const params = new URLSearchParams({
+    sort: 'created',
+    sortOrder: 'desc',
+    page: page.toString(),
+    limit: limit.toString(),
+  });
   try {
-    const response = await fetch(
-      `${API.VENUES}?sort=created&sortOrder=desc&_owner=true&_bookings=true`,
-      {
-        method: 'GET',
-        headers: headers(),
-      },
-    );
+    const response = await fetch(`${API.VENUES}?${params}`, {
+      method: 'GET',
+      headers: headers(),
+    });
     if (response.ok) {
       const venues = await response.json();
 
       setVenues(venues.data);
+      setTotalCount(venues.meta.totalCount);
     }
   } catch (error) {
     throw new Error(`${error}`);
