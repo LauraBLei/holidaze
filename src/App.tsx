@@ -9,6 +9,7 @@ import { lazy, Suspense } from 'react';
 import SkeletonLoaderVenue from './Components/loading/SkeletonLoaderVenue';
 import SkeletonLoaderHome from './Components/loading/SkeletonLoaderHome';
 import SkeletonLoaderProfile from './Components/loading/SkeletonLoaderProfile';
+import { ErrorPage } from './pages/error';
 
 const HomePage = lazy(() => import('./pages/home'));
 const VenuePage = lazy(() => import('./pages/venue'));
@@ -60,6 +61,22 @@ const AppRoutes = () => {
             element={
               <Suspense fallback={null}>
                 <CreatePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/error"
+            element={
+              <Suspense fallback={null}>
+                <ErrorPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={null}>
+                <ErrorPage />
               </Suspense>
             }
           />
