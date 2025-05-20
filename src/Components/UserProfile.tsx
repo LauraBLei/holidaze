@@ -11,7 +11,6 @@ import { readUserBookings } from '../API/booking/userBooking';
 import { Pagination } from './pagination';
 import { ReadUserVenues } from '../API/venues/read';
 
-
 interface BuildUserProps {
   profile: Profile;
 }
@@ -123,7 +122,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         </section>
         <section
           id="Bookings"
-          className={`w-full${profile.name === storedName ? 'grid' : 'hidden'}`}
+          className={`w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
         >
           <h2
             className={`border-b-[1px] border-brand-grey mb-5 py-2 font-bold text-lg md:text-2xl self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
