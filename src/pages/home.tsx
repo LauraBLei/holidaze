@@ -75,7 +75,9 @@ const HomePage = () => {
       transition={{ duration: 0.5 }}
       className="w-full flex flex-col items-center justify"
     >
-      <div className="max-w-[1440px] w-full ">
+
+
+      <div className="max-w-[1440px] w-full font primary">
         <Search setSearchText={setSearchText} />
         {searchText &&
           SearchSection({
@@ -88,6 +90,7 @@ const HomePage = () => {
             setSearchPage: setSearchPage,
             setText: setSearchText,
           })}
+
         <section className="mx-5">
           <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
             All Venues

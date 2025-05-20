@@ -43,7 +43,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
   return (
     <ul className={className}>
       <li
-        className={`flex items-center  cursor-pointer md:hidden ${user ? 'block' : 'hidden'} `}
+        className={`flex font-primary items-center  cursor-pointer md:hidden ${user ? 'block' : 'hidden'} `}
         onClick={onClick}
       >
         <Link
