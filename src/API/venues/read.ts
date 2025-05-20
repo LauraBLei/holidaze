@@ -1,4 +1,5 @@
 import { Venue } from '../../Types/common';
+import { userInfo } from '../../utilities/localstorage';
 import { API } from '../endpoints';
 import { headers } from '../headers';
 
@@ -52,6 +53,43 @@ export const ReadVenue = async (id: string, setVenue: (input: Venue) => void) =>
       if (venue.data) {
         document.title = `HAL - ${venue.data.name}`;
       }
+    }
+  } catch (error) {
+    throw new Error(`${error}`);
+  }
+};
+
+interface readUserVenuesProps {
+  page: number;
+  limit: number;
+  setVenues: (input: Venue[]) => void;
+  setTotalCount: (input: number) => void;
+}
+
+export const ReadUserVenues = async ({
+  page,
+  limit,
+  setVenues,
+  setTotalCount,
+}: readUserVenuesProps) => {
+  const params = new URLSearchParams({
+    sort: 'created',
+    sortOrder: 'desc',
+    page: page.toString(),
+    limit: limit.toString(),
+    _owner: 'true',
+  });
+  const user = userInfo();
+  try {
+    const response = await fetch(`${API.PROFILES}/${user.name}/venues?${params}`, {
+      method: 'GET',
+      headers: headers(),
+    });
+    if (response.ok) {
+      const venues = await response.json();
+
+      setVenues(venues.data);
+      setTotalCount(venues.meta.totalCount);
     }
   } catch (error) {
     throw new Error(`${error}`);
