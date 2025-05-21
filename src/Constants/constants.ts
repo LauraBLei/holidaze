@@ -5,7 +5,7 @@ export const accessToken = storedUserData?.accessToken || '';
 export const storedName = storedUserData?.name || '';
 export const storedBio = storedUserData?.bio || '';
 export const storedBanner = storedUserData?.banner?.url || '';
-export const storedPFP = storedUserData?.avatar?.url || '';
+export const storedAvatar = storedUserData?.avatar?.url || '';
 export const storedVenueManager = storedUserData?.venueManager;
 
 export const fadeOutOnlyVariants = {
