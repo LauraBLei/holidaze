@@ -1,33 +1,98 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Layout } from './Components/layout';
-import { HomePage } from './pages/home';
-import { VenuePage } from './pages/venue';
-import { ProfilePage } from './pages/profile';
-import { ManagerPage } from './pages/manager';
-import { EditPage } from './pages/edit';
-import { CreatePage } from './pages/create';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Layout } from './Components/AppLayout';
 import './index.css';
 import './fonts.css';
 import { DataProvider } from './context/common';
+import { AnimatePresence } from 'framer-motion';
+
+import { lazy, Suspense } from 'react';
+import SkeletonLoaderVenue from './Components/loading/SkeletonLoaderVenue';
+import SkeletonLoaderHome from './Components/loading/SkeletonLoaderHome';
+import SkeletonLoaderProfile from './Components/loading/SkeletonLoaderProfile';
+import { ErrorPage } from './pages/error';
+
+const HomePage = lazy(() => import('./pages/home'));
+const VenuePage = lazy(() => import('./pages/venue'));
+const ProfilePage = lazy(() => import('./pages/profile'));
+const EditPage = lazy(() => import('./pages/edit'));
+const CreatePage = lazy(() => import('./pages/create'));
+
+const AppRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Layout />}>
+          <Route
+            index
+            element={
+              <Suspense fallback={<SkeletonLoaderHome />}>
+                <HomePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/venues"
+            element={
+              <Suspense fallback={<SkeletonLoaderVenue />}>
+                <VenuePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Suspense fallback={<SkeletonLoaderProfile />}>
+                <ProfilePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/edit"
+            element={
+              <Suspense fallback={null}>
+                <EditPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/create"
+            element={
+              <Suspense fallback={null}>
+                <CreatePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/error"
+            element={
+              <Suspense fallback={null}>
+                <ErrorPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={null}>
+                <ErrorPage />
+              </Suspense>
+            }
+          />
+        </Route>
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 function App() {
   return (
-    <>
-      <DataProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<HomePage />} />
-              <Route path="/venues" element={<VenuePage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/manager" element={<ManagerPage />} />
-              <Route path="/edit" element={<EditPage />} />
-              <Route path="/create" element={<CreatePage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </DataProvider>
-    </>
+    <DataProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </DataProvider>
   );
 }
 

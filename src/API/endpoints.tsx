@@ -6,7 +6,7 @@ export enum API {
   AUTH_REGISTER = `${API.AUTH}/register`,
   HOLIDAZE_API = `${API.BASE}/holidaze`,
   VENUES = `${API.HOLIDAZE_API}/venues`,
-  VENUES_SEARCH = `${API.HOLIDAZE_API}/search`,
+  VENUES_SEARCH = `${API.VENUES}/search`,
   PROFILES = `${API.HOLIDAZE_API}/profiles`,
   BOOKINGS = `${API.HOLIDAZE_API}/bookings`,
 }
