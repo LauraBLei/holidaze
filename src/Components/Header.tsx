@@ -32,7 +32,7 @@ export default function Header() {
   return (
     <header className="flex w-full h-[90px] md:h-[120px]">
       <nav className="flex items-center justify-between w-full mx-5 md:mx-10 font-primary">
-        <Link to="/" className="cursor-pointer hover:scale-105 transition">
+        <Link to="/" className="cursor-pointer md:hover:scale-105 transition">
           <img src={logo} alt="holidaze-logo" className="h-12 md:h-20" />
         </Link>
 
