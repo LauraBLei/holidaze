@@ -15,18 +15,24 @@ import {
 } from '../utilities/validation/validation';
 import { runVenueValidations } from '../utilities/validation/runVenueValidations';
 import { Check, ParkingSquare, PawPrint, Plus, Utensils, Wifi } from 'lucide-react';
+import { TextCounter } from '../Components/TextCounter';
 
 /**
- * The EditPage component allows the user to edit an existing venue's details, including media, name, description,
- * pricing, location, and amenities. The page includes form validation and submission, as well as a media gallery
- * for managing images.
+ * EditPage Component
  *
- * - The page renders the current venue data retrieved from `localStorage`.
- * - The form includes fields for basic info, pricing & guests, location, and amenities.
- * - Users can add/remove images, check/uncheck amenities, and submit the updated venue data.
- * - On successful submission, the page navigates to the updated venue's detail page.
+ * Renders a form for editing an existing venue. The form allows users to:
+ * - View and update media (image URLs)
+ * - Modify venue details including name, description, pricing, guests, and location
+ * - Toggle available amenities (WiFi, parking, pets, breakfast)
  *
- * @returns {JSX.Element} The rendered form for editing the venue.
+ * Features:
+ * - Loads initial venue data from `localStorage`
+ * - Validates input fields and media before submission
+ * - Displays success or error messages based on the result
+ * - On success, navigates to the updated venue's detail page
+ *
+ * @component
+ * @returns {JSX.Element} The form UI for editing a venue
  */
 
 const EditPage = () => {
@@ -41,6 +47,7 @@ const EditPage = () => {
   const [media, setMedia] = useState<Media[]>(venue?.media || []);
   const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
   const [imageInput, setImageInput] = useState('');
+  const [textCount, setTextCount] = useState<number>(venue?.description?.length || 0);
   const [formData, setFormData] = useState({
     venueName: venue?.name || '',
     description: venue?.description || '',
@@ -88,6 +95,10 @@ const EditPage = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (name === 'description') {
+      setTextCount(value.length);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -121,230 +132,186 @@ const EditPage = () => {
       exit="exit"
       className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary"
     >
-      <form
-        className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary"
-        onSubmit={handleSubmit}
-      >
-        <div className="mx-5 flex flex-col mb-10 gap-12 md:gap-28">
-          <div className="h-full flex flex-col gap-4 mt-10">
-            {media.length > 0 && (
-              <GalleryComponent media={media} onRemoveImage={handleRemoveImage} isEditable={true} />
-            )}
-          </div>
-
-          {/* Basic info */}
-          <section className="flex flex-col gap-4">
-            <h2 className="create-edit-titles">Basic info</h2>
-
-            <InputField
-              id="image"
-              name="image"
-              labelText="URL - Media"
-              type="url"
-              value={imageInput}
-              placeholder="https://example.com/image.jpg"
-              icon={<Plus size={24} />}
-              onChange={(e) => setImageInput(e.target.value)}
-              onButtonClick={handleAddImage}
-            />
-
-            {formStatus.validationErrors?.image && (
-              <p className="error-message">{formStatus.validationErrors.image}</p>
-            )}
-            {formStatus.successMessages?.image && (
-              <div className="success-message">{formStatus.successMessages.image}</div>
-            )}
-
-            <InputField
-              id="venueName"
-              name="venueName"
-              type="text"
-              labelText="Name of venue"
-              placeholder="Name of the venue"
-              value={formData.venueName}
-              onChange={handleChange}
-            />
-
-            {formStatus.validationErrors?.venueName && (
-              <p className="error-message">{formStatus.validationErrors.venueName}</p>
-            )}
-
-            <InputField
-              id="description"
-              name="description"
-              type="text"
-              labelText="Description"
-              placeholder="Write a description of the venue"
-              textarea
-              value={formData.description}
-              onChange={handleChange}
-            />
-
-            {formStatus.validationErrors?.description && (
-              <p className="error-message">{formStatus.validationErrors.description}</p>
-            )}
-          </section>
-
-          {/* Pricing & Guests */}
-          <section className="flex flex-col gap-4">
-            <h2 className="create-edit-titles">Pricing & Guests</h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="flex flex-col gap-2">
-                <InputField
-                  id="price"
-                  name="price"
-                  labelText="Price"
-                  type="number"
-                  placeholder="Enter price"
-                  className="input text-center"
-                  value={formData.price}
-                  onChange={handleChange}
+      <section className="w-full flex flex-col items-center justify-center">
+        <h1 className="headlineOne mt-7 md:mt-16">Edit your Venue</h1>
+        <form
+          className="max-w-[1000px] w-full h-full flex flex-col justify-center font-primary"
+          onSubmit={handleSubmit}
+        >
+          <div className="mx-5 flex flex-col mb-10 gap-12 md:gap-28">
+            <div className="h-full flex flex-col gap-4 mt-10">
+              {media.length > 0 && (
+                <GalleryComponent
+                  media={media}
+                  onRemoveImage={handleRemoveImage}
+                  isEditable={true}
                 />
-                {formStatus.validationErrors?.price && (
-                  <p className="error-message">{formStatus.validationErrors.price}</p>
-                )}
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <InputField
-                  id="maxGuests"
-                  name="maxGuests"
-                  labelText="Max Guests"
-                  type="number"
-                  placeholder="Add number of guests"
-                  step={1}
-                  className="input text-center"
-                  value={formData.maxGuests}
-                  onChange={handleChange}
-                />
-                {formStatus.validationErrors?.maxGuests && (
-                  <p className="error-message">{formStatus.validationErrors.maxGuests}</p>
-                )}
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <InputField
-                  id="rating"
-                  name="rating"
-                  labelText="Rating"
-                  type="number"
-                  placeholder="Venue rating (1–5)"
-                  min={0}
-                  max={5}
-                  step={0.5}
-                  className="input text-center"
-                  value={formData.rating}
-                  onChange={handleChange}
-                />
-                {formStatus.validationErrors?.rating && (
-                  <p className="error-message">{formStatus.validationErrors.rating}</p>
-                )}
-              </div>
+              )}
             </div>
-          </section>
 
-          {/* Location */}
-          <section className="flex flex-col gap-4">
-            <h2 className="create-edit-titles">Location</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <InputField
-                id="address"
-                name="address"
-                labelText="Address"
-                type="text"
-                placeholder="Imaginary street 123"
-                className="input"
-                value={formData.address}
-                onChange={handleChange}
-              />
+            {/* Basic info */}
+            <section className="flex flex-col gap-4">
+              <h2 className="create-edit-titles">Basic info</h2>
 
               <InputField
-                id="city"
-                name="city"
-                labelText="City"
-                type="text"
-                placeholder="Bergen"
-                className="input"
-                value={formData.city}
-                onChange={handleChange}
+                id="image"
+                name="image"
+                labelText="URL - Media"
+                type="url"
+                value={imageInput}
+                placeholder="https://example.com/image.jpg"
+                icon={<Plus size={24} />}
+                onChange={(e) => setImageInput(e.target.value)}
+                onButtonClick={handleAddImage}
               />
 
-              <InputField
-                id="zip"
-                name="zip"
-                labelText="Zip-Code"
-                type="text"
-                placeholder="1010"
-                className="input"
-                value={formData.zip}
-                onChange={handleChange}
-              />
+              {formStatus.validationErrors?.image && (
+                <p className="error-message">{formStatus.validationErrors.image}</p>
+              )}
+              {formStatus.successMessages?.image && (
+                <div className="success-message">{formStatus.successMessages.image}</div>
+              )}
 
-              <InputField
-                id="country"
-                name="country"
-                labelText="Country"
-                type="text"
-                placeholder="Dreamland"
-                className="input"
-                value={formData.country}
-                onChange={handleChange}
-              />
-            </div>
-          </section>
-
-          {/* Amenities */}
-          <section className="flex flex-col gap-4">
-            <h2 className="create-edit-titles">Amenities</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { id: 'pets', label: 'Pets', icon: <PawPrint size={24} /> },
-                { id: 'parking', label: 'Parking', icon: <ParkingSquare size={24} /> },
-                { id: 'breakfast', label: 'Breakfast', icon: <Utensils size={24} /> },
-                { id: 'wifi', label: 'Free Wifi', icon: <Wifi size={24} /> },
+                {
+                  id: 'venueName',
+                  labelText: 'Name of venue *',
+                  placeholder: 'Name of the venue',
+                  type: 'text',
+                },
+                {
+                  id: 'description',
+                  labelText: 'Description *',
+                  placeholder: 'Write a description of the venue',
+                  type: 'text',
+                  textarea: true,
+                  counter: true,
+                },
               ].map((item) => (
-                <div className="flex w-full p-2 rounded" key={item.id}>
-                  <label htmlFor={item.id} className="amenities-label">
-                    <input
-                      type="checkbox"
-                      id={item.id}
-                      name={item.id}
-                      className="sr-only peer"
-                      checked={amenitiesChecked[item.id as keyof typeof amenitiesChecked]}
-                      onChange={() => handleAmenities(item.id as keyof typeof amenitiesChecked)}
-                    />
-                    <div className="flex items-center gap-2">
-                      {item.icon}
-                      <span className="text-base">{item.label}</span>
-                    </div>
-
-                    <span className="amenities-checkbox">
-                      <Check size={18} className="text-white" />
-                    </span>
-                  </label>
+                <div key={item.id} className="flex flex-col gap-2">
+                  <InputField
+                    id={item.id}
+                    name={item.id}
+                    type={item.type}
+                    labelText={item.labelText}
+                    placeholder={item.placeholder}
+                    value={formData[item.id as keyof typeof formData] || ''}
+                    onChange={handleChange}
+                    textarea={item.textarea}
+                  />
+                  {formStatus.validationErrors?.[item.id] && (
+                    <p className="error-message">{formStatus.validationErrors[item.id]}</p>
+                  )}
+                  {item.counter && <TextCounter count={textCount} maxCharacters={1000} />}
                 </div>
               ))}
-            </div>
-          </section>
+            </section>
 
-          <div className="flex flex-col items-center justify-center gap-5">
-            <button type="submit" className="button transition font-bold">
-              Save Changes
-            </button>
-            {formStatus.success && (
-              <div id="createSuccess" className="success-message">
-                {formStatus.success}
+            {/* Pricing & Guests */}
+            <section className="flex flex-col gap-4">
+              <h2 className="create-edit-titles">Pricing & Guests</h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {[
+                  { id: 'price', label: 'Price *', placeholder: 'Enter price' },
+                  { id: 'maxGuests', label: 'Max Guests *', placeholder: 'Add number of guests' },
+                  { id: 'rating', label: 'Rating', placeholder: '1010' },
+                ].map((item) => (
+                  <div className="flex flex-col gap-2">
+                    <InputField
+                      id={item.id}
+                      name={item.id}
+                      labelText={item.label}
+                      type="text"
+                      placeholder={item.placeholder}
+                      className="input"
+                      value={formData[item.id as keyof typeof formData]}
+                      onChange={handleChange}
+                    />
+                    {formStatus.validationErrors?.[item.id] && (
+                      <p className="error-message">{formStatus.validationErrors[item.id]}</p>
+                    )}
+                  </div>
+                ))}
               </div>
-            )}
-            {formStatus.submitError && (
-              <div id="createError" className="error-message">
-                {formStatus.submitError}
+            </section>
+
+            {/* Location */}
+            <section className="flex flex-col gap-4">
+              <h2 className="create-edit-titles">Location</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { id: 'address', label: 'Address', placeholder: 'Imaginary street 123' },
+                  { id: 'city', label: 'City', placeholder: 'Bergen' },
+                  { id: 'zip', label: 'Zip-Code', placeholder: '1010' },
+                  { id: 'country', label: 'Country', placeholder: 'Dreamland' },
+                ].map((item) => (
+                  <InputField
+                    id={item.id}
+                    name={item.id}
+                    labelText={item.label}
+                    type="text"
+                    placeholder={item.placeholder}
+                    className="input"
+                    value={formData[item.id as keyof typeof formData]}
+                    onChange={handleChange}
+                  />
+                ))}
               </div>
-            )}
+            </section>
+
+            {/* Amenities */}
+            <section className="flex flex-col gap-4">
+              <h2 className="create-edit-titles">Amenities</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { id: 'pets', label: 'Pets', icon: <PawPrint size={24} /> },
+                  { id: 'parking', label: 'Parking', icon: <ParkingSquare size={24} /> },
+                  { id: 'breakfast', label: 'Breakfast', icon: <Utensils size={24} /> },
+                  { id: 'wifi', label: 'Free Wifi', icon: <Wifi size={24} /> },
+                ].map((item) => (
+                  <div className="flex w-full p-2 rounded" key={item.id}>
+                    <label htmlFor={item.id} className="amenities-label">
+                      <input
+                        type="checkbox"
+                        id={item.id}
+                        name={item.id}
+                        className="sr-only peer"
+                        checked={amenitiesChecked[item.id as keyof typeof amenitiesChecked]}
+                        onChange={() => handleAmenities(item.id as keyof typeof amenitiesChecked)}
+                      />
+                      <div className="flex items-center gap-2">
+                        {item.icon}
+                        <span className="text-base">{item.label}</span>
+                      </div>
+
+                      <span className="amenities-checkbox">
+                        <Check size={18} className="text-white" />
+                      </span>
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <div className="flex flex-col items-center justify-center gap-5">
+              <button type="submit" className="button transition font-bold">
+                Save Changes
+              </button>
+              {formStatus.success && (
+                <div id="createSuccess" className="success-message">
+                  {formStatus.success}
+                </div>
+              )}
+              {formStatus.submitError && (
+                <div id="createError" className="error-message">
+                  {formStatus.submitError}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </section>
     </motion.div>
   );
 };
