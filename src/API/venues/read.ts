@@ -1,5 +1,5 @@
 import { Venue } from '../../Types/common';
-import { userInfo } from '../../utilities/localstorage';
+
 import { API } from '../endpoints';
 import { headers } from '../headers';
 interface readVenuesProps {
@@ -73,6 +73,7 @@ interface readUserVenuesProps {
   limit: number;
   setVenues: (input: Venue[]) => void;
   setTotalCount: (input: number) => void;
+  name: string;
 }
 
 export const ReadUserVenues = async ({
@@ -80,6 +81,7 @@ export const ReadUserVenues = async ({
   limit,
   setVenues,
   setTotalCount,
+  name,
 }: readUserVenuesProps) => {
   const params = new URLSearchParams({
     sort: 'created',
@@ -88,9 +90,9 @@ export const ReadUserVenues = async ({
     limit: limit.toString(),
     _owner: 'true',
   });
-  const user = userInfo();
+
   try {
-    const response = await fetch(`${API.PROFILES}/${user.name}/venues?${params}`, {
+    const response = await fetch(`${API.PROFILES}/${name}/venues?${params}`, {
       method: 'GET',
       headers: headers(),
     });

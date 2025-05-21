@@ -56,6 +56,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
       limit: limit,
       setVenues: setVenues,
       setTotalCount: setVenueTotalCount,
+      name: profile.name,
     });
   }, [venuePage]);
 
