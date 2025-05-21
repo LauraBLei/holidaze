@@ -22,7 +22,9 @@ export default function SkeletonLoaderHome() {
         </div>
       </div>
       <section className="max-w-[1440px] w-full">
-        <h1 className="headlineOne mb-5 md:mb-8">All Venues</h1>
+        <h1 className="headlineOne text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+          All Venues
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
           <SkeletonLoaderVenueCard />
           <SkeletonLoaderVenueCard />
