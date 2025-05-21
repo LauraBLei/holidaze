@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ReadVenues } from '../API/venues/read';
 import { VenueCard } from '../Components/VenueCard';
-import { Venue } from '../Types/common';
+import { APIVenueData, Venue } from '../Types/common';
 import { Search } from '../Components/Search';
 import SkeletonLoaderHome from '../Components/loading/SkeletonLoaderHome';
 import { motion } from 'framer-motion';
@@ -24,16 +24,14 @@ import { Pagination } from '../Components/pagination';
  */
 
 const HomePage = () => {
-  const [allVenues, setAllVenues] = useState<Venue[]>([]);
-  const [searchAllVenues, setSearchAllVenues] = useState<Venue[]>([]);
+  const [venueData, setVenueData] = useState<APIVenueData>();
+  const [searchData, setSearchData] = useState<APIVenueData>();
   const [searchPage, setSearchPage] = useState<number>(1);
-  const [searchTotalCount, setSearchTotalCount] = useState(0);
   const [venuePage, setVenuePage] = useState<number>(1);
-  const [venueTotalCount, setVenueTotalCount] = useState<number>(0);
   const [searchText, setSearchText] = useState<string>('');
   const limit = 12;
-  const searchTotalPages = Math.ceil(searchTotalCount / limit);
-  const venueTotalPages = Math.ceil(venueTotalCount / limit);
+  const searchTotalPages = searchData ? Math.ceil(searchData.meta.totalCount / limit) : 0;
+  const venueTotalPages = venueData ? Math.ceil(venueData?.meta.totalCount / limit) : 0;
   const searchHasNext = searchPage < searchTotalPages;
   const searchHasPrevious = searchPage > 1;
   const venueHasNext = venuePage < venueTotalPages;
@@ -47,8 +45,7 @@ const HomePage = () => {
     ReadVenues({
       page: venuePage,
       limit: limit,
-      setVenues: setAllVenues,
-      setTotalCount: setVenueTotalCount,
+      setAPIData: setVenueData,
     });
   }, [venuePage]);
 
@@ -56,13 +53,12 @@ const HomePage = () => {
     searchVenues({
       page: searchPage,
       limit: limit,
-      setVenues: setSearchAllVenues,
-      setTotalCount: setSearchTotalCount,
+      setAPIData: setSearchData,
       text: searchText,
     });
   }, [searchPage, searchText]);
 
-  if (allVenues.length === 0) {
+  if (venueData?.data.length === 0) {
     return <SkeletonLoaderHome />;
   }
 
@@ -80,8 +76,9 @@ const HomePage = () => {
         <div className="mx-5 2xl:mx-0">
           <Search setSearchText={setSearchText} />
           {searchText &&
+            searchData &&
             SearchSection({
-              searchAllVenues: searchAllVenues,
+              searchAllVenues: searchData.data,
               searchHasNext: searchHasNext,
               searchHasPrevious: searchHasPrevious,
               searchPage: searchPage,
@@ -97,9 +94,8 @@ const HomePage = () => {
             </h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
-              {allVenues.map((venue) => (
-                <VenueCard venue={venue} key={venue.id} />
-              ))}
+              {venueData &&
+                venueData.data.map((venue) => <VenueCard venue={venue} key={venue.id} />)}
             </div>
             <Pagination
               page={venuePage}

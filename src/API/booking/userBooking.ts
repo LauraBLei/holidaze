@@ -1,20 +1,15 @@
-import { Booking } from '../../Types/common';
+import { APIBookingData } from '../../Types/common';
 import { API } from '../endpoints';
 import { headers, storedUserData } from '../headers';
 
 interface readUserBookingsProps {
   page: number;
   limit: number;
-  setBookings: (input: Booking[]) => void;
-  setTotalCount: (input: number) => void;
+
+  setAPIData: (input: APIBookingData) => void;
 }
 
-export const readUserBookings = async ({
-  page,
-  limit,
-  setBookings,
-  setTotalCount,
-}: readUserBookingsProps) => {
+export const readUserBookings = async ({ page, limit, setAPIData }: readUserBookingsProps) => {
   const params = new URLSearchParams({
     sort: 'created',
     sortOrder: 'desc',
@@ -31,10 +26,7 @@ export const readUserBookings = async ({
     });
     if (response.ok) {
       const bookings = await response.json();
-      console.log('API:', bookings);
-
-      setBookings(bookings.data);
-      setTotalCount(bookings.meta.totalCount);
+      setAPIData(bookings);
     }
   } catch (error) {
     console.log(error);
