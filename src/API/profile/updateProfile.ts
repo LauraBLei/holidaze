@@ -1,5 +1,11 @@
 import { API } from '../endpoints';
-import { storedBanner, storedBio, storedPFP, accessToken } from '../../Constants/constants';
+import {
+  storedBanner,
+  storedBio,
+  storedPFP,
+  accessToken,
+  storedVenueManager,
+} from '../../Constants/constants';
 /**
  * Updates the user's profile information including bio, avatar, banner, and venue manager status.
  *
@@ -27,7 +33,7 @@ export async function HandleUpdateProfile(formdata: FormData) {
       url: formdata?.get('banner') || storedBanner,
       alt: '',
     },
-    venueManager: formdata.get('venueManager') === 'true',
+    venueManager: formdata.get('venueManager') === 'true' || storedVenueManager,
   };
 
   const response = await fetch(`${API.PROFILES}/${profileId}`, {
