@@ -158,12 +158,7 @@ const VenuePage = () => {
               <p>{venue.owner ? venue.owner.name : ''}</p>
             </Link>
           ) : (
-            <div
-              className="flex items-center gap-2 border-y-2 border-brand-grey py-2 cursor-pointer"
-              onClick={() => {
-                window.alert('You need to be logged in to view user profile');
-              }}
-            >
+            <div className="flex items-center gap-2 border-y-2 border-brand-grey py-2">
               <div className="w-[41px] h-[41px] rounded-full overflow-hidden">
                 <img
                   className="object-cover w-full h-full"
