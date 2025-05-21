@@ -36,8 +36,6 @@ interface BookingCardProps {
  */
 
 export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
-  console.log('bookingCard:', booking);
-
   return (
     <Link
       to={`/venues?id=${booking.venue.id}`}

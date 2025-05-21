@@ -1,7 +1,8 @@
 import loadingImage from '/loading-image.png';
 import { Venue } from '../Types/common';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Star } from 'lucide-react';
+import { storedName } from '../Constants/constants';
 
 interface VenueCardProps {
   venue: Venue;
@@ -17,8 +18,14 @@ interface VenueCardProps {
  */
 
 export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
+  const location = useLocation();
+  const isOnProfilePage = location.pathname === '/profile';
+
   return (
-    <Link to={`/venues?id=${venue.id}`} className="lg:hover:scale-105 transition duration-150">
+    <Link
+      to={`/venues?id=${venue.id}`}
+      className="lg:hover:scale-105 transition duration-150 font-primary"
+    >
       <article className="flex flex-col h-full w-full">
         <div className="w-full h-52 rounded-xl overflow-hidden">
           <img
@@ -37,6 +44,12 @@ export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
           </div>
           <div className="flex flex-col justify-between h-full">
             <p className="text-sm line-clamp-3">{venue.description}</p>
+            {venue.owner?.name === storedName && isOnProfilePage && (
+              <div className="flex gap-5 text-sm my-2">
+                <p>Bookings:</p>
+                <p>{venue._count?.bookings}</p>
+              </div>
+            )}
             <div className="mt-auto text-sm font-bold">{venue.price}$ / night</div>
           </div>
         </div>

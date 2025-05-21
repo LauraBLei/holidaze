@@ -34,7 +34,7 @@ export type Venue = {
   media: Media[];
   location: Location;
   owner?: User;
-  count?: {
+  _count?: {
     bookings: number;
   };
   price: number;
