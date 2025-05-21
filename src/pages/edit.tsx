@@ -155,34 +155,37 @@ const EditPage = () => {
               <div className="success-message">{formStatus.successMessages.image}</div>
             )}
 
-            <InputField
-              id="venueName"
-              name="venueName"
-              type="text"
-              labelText="Name of venue"
-              placeholder="Name of the venue"
-              value={formData.venueName}
-              onChange={handleChange}
-            />
-
-            {formStatus.validationErrors?.venueName && (
-              <p className="error-message">{formStatus.validationErrors.venueName}</p>
-            )}
-
-            <InputField
-              id="description"
-              name="description"
-              type="text"
-              labelText="Description"
-              placeholder="Write a description of the venue"
-              textarea
-              value={formData.description}
-              onChange={handleChange}
-            />
-
-            {formStatus.validationErrors?.description && (
-              <p className="error-message">{formStatus.validationErrors.description}</p>
-            )}
+            {[
+              {
+                id: 'venueName',
+                labelText: 'Name of venue *',
+                placeholder: 'Name of the venue',
+                type: 'text',
+              },
+              {
+                id: 'description',
+                labelText: 'Description *',
+                placeholder: 'Write a description of the venue',
+                type: 'text',
+                textarea: true,
+              },
+            ].map((item) => (
+              <div key={item.id} className="flex flex-col gap-2">
+                <InputField
+                  id={item.id}
+                  name={item.id}
+                  type={item.type}
+                  labelText={item.labelText}
+                  placeholder={item.placeholder}
+                  value={formData[item.id as keyof typeof formData] || ''}
+                  onChange={handleChange}
+                  textarea={item.textarea}
+                />
+                {formStatus.validationErrors?.[item.id] && (
+                  <p className="error-message">{formStatus.validationErrors[item.id]}</p>
+                )}
+              </div>
+            ))}
           </section>
 
           {/* Pricing & Guests */}
@@ -190,57 +193,27 @@ const EditPage = () => {
             <h2 className="create-edit-titles">Pricing & Guests</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="flex flex-col gap-2">
-                <InputField
-                  id="price"
-                  name="price"
-                  labelText="Price"
-                  type="number"
-                  placeholder="Enter price"
-                  className="input text-center"
-                  value={formData.price}
-                  onChange={handleChange}
-                />
-                {formStatus.validationErrors?.price && (
-                  <p className="error-message">{formStatus.validationErrors.price}</p>
-                )}
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <InputField
-                  id="maxGuests"
-                  name="maxGuests"
-                  labelText="Max Guests"
-                  type="number"
-                  placeholder="Add number of guests"
-                  step={1}
-                  className="input text-center"
-                  value={formData.maxGuests}
-                  onChange={handleChange}
-                />
-                {formStatus.validationErrors?.maxGuests && (
-                  <p className="error-message">{formStatus.validationErrors.maxGuests}</p>
-                )}
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <InputField
-                  id="rating"
-                  name="rating"
-                  labelText="Rating"
-                  type="number"
-                  placeholder="Venue rating (1–5)"
-                  min={0}
-                  max={5}
-                  step={0.5}
-                  className="input text-center"
-                  value={formData.rating}
-                  onChange={handleChange}
-                />
-                {formStatus.validationErrors?.rating && (
-                  <p className="error-message">{formStatus.validationErrors.rating}</p>
-                )}
-              </div>
+              {[
+                { id: 'price', label: 'Price *', placeholder: 'Enter price' },
+                { id: 'maxGuests', label: 'Max Guests *', placeholder: 'Add number of guests' },
+                { id: 'rating', label: 'Rating', placeholder: '1010' },
+              ].map((item) => (
+                <div className="flex flex-col gap-2">
+                  <InputField
+                    id={item.id}
+                    name={item.id}
+                    labelText={item.label}
+                    type="text"
+                    placeholder={item.placeholder}
+                    className="input"
+                    value={formData[item.id as keyof typeof formData]}
+                    onChange={handleChange}
+                  />
+                  {formStatus.validationErrors?.[item.id] && (
+                    <p className="error-message">{formStatus.validationErrors[item.id]}</p>
+                  )}
+                </div>
+              ))}
             </div>
           </section>
 
@@ -248,49 +221,23 @@ const EditPage = () => {
           <section className="flex flex-col gap-4">
             <h2 className="create-edit-titles">Location</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <InputField
-                id="address"
-                name="address"
-                labelText="Address"
-                type="text"
-                placeholder="Imaginary street 123"
-                className="input"
-                value={formData.address}
-                onChange={handleChange}
-              />
-
-              <InputField
-                id="city"
-                name="city"
-                labelText="City"
-                type="text"
-                placeholder="Bergen"
-                className="input"
-                value={formData.city}
-                onChange={handleChange}
-              />
-
-              <InputField
-                id="zip"
-                name="zip"
-                labelText="Zip-Code"
-                type="text"
-                placeholder="1010"
-                className="input"
-                value={formData.zip}
-                onChange={handleChange}
-              />
-
-              <InputField
-                id="country"
-                name="country"
-                labelText="Country"
-                type="text"
-                placeholder="Dreamland"
-                className="input"
-                value={formData.country}
-                onChange={handleChange}
-              />
+              {[
+                { id: 'address', label: 'Address', placeholder: 'Imaginary street 123' },
+                { id: 'city', label: 'City', placeholder: 'Bergen' },
+                { id: 'zip', label: 'Zip-Code', placeholder: '1010' },
+                { id: 'country', label: 'Country', placeholder: 'Dreamland' },
+              ].map((item) => (
+                <InputField
+                  id={item.id}
+                  name={item.id}
+                  labelText={item.label}
+                  type="text"
+                  placeholder={item.placeholder}
+                  className="input"
+                  value={formData[item.id as keyof typeof formData]}
+                  onChange={handleChange}
+                />
+              ))}
             </div>
           </section>
 

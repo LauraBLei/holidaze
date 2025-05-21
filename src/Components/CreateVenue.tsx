@@ -116,32 +116,35 @@ export const CreateVenueForm = () => {
             )}
           </div>
 
-          <div className="flex flex-col gap-2">
-            <InputField
-              id="venueName"
-              name="venueName"
-              type="text"
-              labelText="Name of venue *"
-              placeholder="Name of the venue"
-            />
-            {formStatus.validationErrors?.venueName && (
-              <p className="error-message">{formStatus.validationErrors.venueName}</p>
-            )}
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <InputField
-              id="description"
-              name="description"
-              type="text"
-              labelText="Description *"
-              placeholder="Write a description of the venue"
-              textarea
-            />
-            {formStatus.validationErrors?.description && (
-              <p className="error-message">{formStatus.validationErrors.description}</p>
-            )}
-          </div>
+          {[
+            {
+              id: 'venueName',
+              labelText: 'Name of venue *',
+              placeholder: 'Name of the venue',
+              type: 'text',
+            },
+            {
+              id: 'description',
+              labelText: 'Description *',
+              placeholder: 'Write a description of the venue',
+              type: 'text',
+              textarea: true,
+            },
+          ].map((item) => (
+            <div key={item.id} className="flex flex-col gap-2">
+              <InputField
+                id={item.id}
+                name={item.id}
+                type={item.type}
+                labelText={item.labelText}
+                placeholder={item.placeholder}
+                textarea={item.textarea}
+              />
+              {formStatus.validationErrors?.[item.id] && (
+                <p className="error-message">{formStatus.validationErrors[item.id]}</p>
+              )}
+            </div>
+          ))}
         </section>
 
         {/* Pricing & Guests */}
@@ -149,54 +152,25 @@ export const CreateVenueForm = () => {
           <h2 className="create-edit-titles">Pricing & Guests</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="flex flex-col gap-2">
-              <InputField
-                id="price"
-                name="price"
-                labelText="Price *"
-                type="number"
-                placeholder="Enter price"
-                className="input text-center"
-              />
-
-              {formStatus.validationErrors?.price && (
-                <p className="error-message">{formStatus.validationErrors.price}</p>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <InputField
-                id="maxGuests"
-                name="maxGuests"
-                labelText="Max Guests *"
-                type="number"
-                placeholder="Add number of guests"
-                step={1}
-                className="input text-center"
-              />
-
-              {formStatus.validationErrors?.maxGuests && (
-                <p className="error-message">{formStatus.validationErrors.maxGuests}</p>
-              )}
-            </div>
-
-            <div>
-              <InputField
-                id="rating"
-                name="rating"
-                labelText="Rating"
-                type="number"
-                placeholder="Venue rating (1–5)"
-                min={0}
-                max={5}
-                step={0.5}
-                className="input text-center"
-              />
-            </div>
-
-            {formStatus.validationErrors?.rating && (
-              <p className="error-message">{formStatus.validationErrors.rating}</p>
-            )}
+            {[
+              { id: 'price', label: 'Price *', placeholder: 'Enter price' },
+              { id: 'maxGuests', label: 'Max Guests *', placeholder: 'Add number of guests' },
+              { id: 'rating', label: 'Rating', placeholder: '1010' },
+            ].map((item) => (
+              <div className="flex flex-col gap-2">
+                <InputField
+                  id={item.id}
+                  name={item.id}
+                  labelText={item.label}
+                  type="text"
+                  placeholder={item.placeholder}
+                  className="input"
+                />
+                {formStatus.validationErrors?.[item.id] && (
+                  <p className="error-message">{formStatus.validationErrors[item.id]}</p>
+                )}
+              </div>
+            ))}
           </div>
         </section>
 
@@ -204,141 +178,58 @@ export const CreateVenueForm = () => {
         <section className="flex flex-col gap-4">
           <h2 className="create-edit-titles">Location</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <InputField
-              id="address"
-              name="address"
-              labelText="Address"
-              type="text"
-              placeholder="Imaginary street 123"
-              className="input"
-            />
-
-            <InputField
-              id="city"
-              name="city"
-              labelText="City"
-              type="text"
-              placeholder="Bergen"
-              className="input"
-            />
-
-            <InputField
-              id="zip-code"
-              name="zip-code"
-              labelText="Zip-Code"
-              type="text"
-              placeholder="1010"
-              className="input"
-            />
-
-            <InputField
-              id="country"
-              name="country"
-              labelText="Country"
-              type="text"
-              placeholder="Dreamland"
-              className="input"
-            />
+            {[
+              { id: 'address', label: 'Address', placeholder: 'Imaginary street 123' },
+              { id: 'city', label: 'City', placeholder: 'Bergen' },
+              { id: 'zip', label: 'Zip-Code', placeholder: '1010' },
+              { id: 'country', label: 'Country', placeholder: 'Dreamland' },
+            ].map((item) => (
+              <InputField
+                id={item.id}
+                name={item.id}
+                labelText={item.label}
+                type="text"
+                placeholder={item.placeholder}
+                className="input"
+              />
+            ))}
           </div>
         </section>
 
         {/* Amenities */}
         <section className="flex flex-col gap-4">
-          <h2 className="create-edit-titles">Amenities</h2>
+          <h2 className="create-edit-titles">Amenities map</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="flex w-full p-2 rounded">
-              <label htmlFor="pets" className="amenities-label">
-                <input
-                  type="checkbox"
-                  id="pets"
-                  name="pets"
-                  className="sr-only peer"
-                  checked={amenitiesChecked.pets}
-                  onChange={() => handleAmenities('pets')}
-                />
-                <div className="flex items-center gap-2">
-                  <PawPrint size={24} />
-                  <span className="text-base">Pets</span>
-                </div>
+            {[
+              { id: 'pets', label: 'Pets', icon: <PawPrint size={24} /> },
+              { id: 'parking', label: 'Parking', icon: <ParkingSquare size={24} /> },
+              { id: 'breakfast', label: 'Breakfast', icon: <Utensils size={24} /> },
+              { id: 'wifi', label: 'Free Wifi', icon: <Wifi size={24} /> },
+            ].map((item) => (
+              <div className="flex w-full p-2 rounded" key={item.id}>
+                <label htmlFor={item.id} className="amenities-label">
+                  <input
+                    type="checkbox"
+                    id={item.id}
+                    name={item.id}
+                    className="sr-only peer"
+                    checked={amenitiesChecked[item.id as keyof typeof amenitiesChecked]}
+                    onChange={() => handleAmenities(item.id as keyof typeof amenitiesChecked)}
+                  />
+                  <div className="flex items-center gap-2">
+                    {item.icon}
+                    <span className="text-base">{item.label}</span>
+                  </div>
 
-                <span className="amenities-checkbox">
-                  {amenitiesChecked.pets && (
-                    <Check size={18} className="text-white peer-checked:bg-black" />
-                  )}
-                </span>
-              </label>
-            </div>
-
-            <div className="flex w-full p-2 rounded">
-              <label htmlFor="parking" className="amenities-label">
-                <input
-                  type="checkbox"
-                  id="parking"
-                  name="parking"
-                  className="sr-only peer"
-                  checked={amenitiesChecked.parking}
-                  onChange={() => handleAmenities('parking')}
-                />
-                <div className="flex items-center gap-2">
-                  <ParkingSquare size={24} />
-                  <span className="text-base">Parking</span>
-                </div>
-
-                <span className="amenities-checkbox">
-                  {amenitiesChecked.parking && (
-                    <Check size={18} className="text-white peer-checked:bg-black" />
-                  )}
-                </span>
-              </label>
-            </div>
-
-            <div className="flex w-full p-2 rounded">
-              <label htmlFor="breakfast" className="amenities-label">
-                <input
-                  type="checkbox"
-                  id="breakfast"
-                  name="breakfast"
-                  className="sr-only peer"
-                  checked={amenitiesChecked.breakfast}
-                  onChange={() => handleAmenities('breakfast')}
-                />
-                <div className="flex items-center gap-2">
-                  <Utensils size={24} />
-                  <span className="text-base">Breakfast</span>
-                </div>
-
-                <span className="amenities-checkbox">
-                  {amenitiesChecked.breakfast && (
-                    <Check size={18} className="text-white peer-checked:bg-black" />
-                  )}
-                </span>
-              </label>
-            </div>
-
-            <div className="flex w-full p-2 rounded">
-              <label htmlFor="wifi" className="amenities-label">
-                <input
-                  type="checkbox"
-                  id="wifi"
-                  name="wifi"
-                  className="sr-only peer"
-                  checked={amenitiesChecked.wifi}
-                  onChange={() => handleAmenities('wifi')}
-                />
-                <div className="flex items-center gap-2">
-                  <Wifi size={24} />
-                  <span className="text-base">Free Wifi</span>
-                </div>
-
-                <span className="amenities-checkbox">
-                  {amenitiesChecked.wifi && (
-                    <Check size={18} className="text-white peer-checked:bg-black" />
-                  )}
-                </span>
-              </label>
-            </div>
+                  <span className="amenities-checkbox">
+                    <Check size={18} className="text-white" />
+                  </span>
+                </label>
+              </div>
+            ))}
           </div>
         </section>
+
         <div className="flex flex-col items-center justify-center gap-5">
           <button type="submit" className="button transition font-bold">
             Create venue
