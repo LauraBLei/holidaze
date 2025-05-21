@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { HandleUpdateProfile } from '../API/profile/updateProfile';
-import { storedPFP, storedVenueManager } from '../Constants/constants';
+import { storedAvatar, storedVenueManager } from '../Constants/constants';
 import { InputField } from './InputField';
 import { Profile } from '../Types/common';
 
@@ -11,7 +11,7 @@ interface EditProfileProps {
 }
 
 export const EditProfile = ({ isOpen, onClose, profile }: EditProfileProps) => {
-  const [previewAvatar, setPreviewAvatar] = useState(storedPFP);
+  const [previewAvatar, setPreviewAvatar] = useState(storedAvatar);
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);

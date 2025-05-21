@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { userInfo } from '../utilities/localstorage';
 
 import { Booking } from '../Types/common';
 import { handleSubmitBooking } from '../UI/venue/booking';
+import { storedUserData } from '../Constants/constants';
 
 /**
  * BookingForm component allows users to select check-in and check-out dates,
@@ -33,7 +33,7 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
   const [checkIn, setCheckIn] = useState<Date | null>(null);
   const [checkOut, setCheckOut] = useState<Date | null>(null);
   const [guests, setGuests] = useState(1);
-  const user = userInfo();
+  const user = storedUserData;
 
   const excludeDateIntervals = bookings.map((b) => ({
     start: new Date(b.dateFrom).setHours(0, 0, 0, 0),

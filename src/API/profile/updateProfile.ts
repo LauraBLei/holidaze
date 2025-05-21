@@ -2,7 +2,7 @@ import { API } from '../endpoints';
 import {
   storedBanner,
   storedBio,
-  storedPFP,
+  storedAvatar,
   accessToken,
   storedVenueManager,
 } from '../../Constants/constants';
@@ -26,7 +26,7 @@ export async function HandleUpdateProfile(formdata: FormData) {
   const payload = {
     bio: formdata?.get('bio') || storedBio,
     avatar: {
-      url: formdata?.get('avatar') || storedPFP,
+      url: formdata?.get('avatar') || storedAvatar,
       alt: '',
     },
     banner: {

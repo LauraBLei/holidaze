@@ -1,7 +1,6 @@
 import { APIBookingData } from '../../Types/common';
-import { userInfo } from '../../utilities/localstorage';
 import { API } from '../endpoints';
-import { headers } from '../headers';
+import { headers, storedUserData } from '../headers';
 
 interface readUserBookingsProps {
   page: number;
@@ -18,7 +17,7 @@ export const readUserBookings = async ({ page, limit, setAPIData }: readUserBook
     limit: limit.toString(),
     _venue: 'true',
   });
-  const user = userInfo();
+  const user = storedUserData;
 
   try {
     const response = await fetch(`${API.PROFILES}/${user.name}/bookings?${params.toString()}`, {
