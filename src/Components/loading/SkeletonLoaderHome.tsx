@@ -14,32 +14,36 @@ import SkeletonLoaderVenueCard from './SkeletonLoaderVenueCard';
 
 export default function SkeletonLoaderHome() {
   return (
-    <div className=" w-full flex flex-col items-center justify">
-      <div role="search" className="pt-10 mb-16 w-full flex justify-center items-center">
-        <div className="max-w-[650px] w-full relative animate-pulse">
-          <div className="w-full h-12 bg-gray-200 rounded"></div>
-          <div className="w-12 h-12 bg-gray-300 rounded absolute top-0 right-0"></div>
+    <div className="w-full flex flex-col items-center justify">
+      <div className="max-w-[1440px] w-full font primary">
+        <div className="mx-5 2xl:mx-0">
+          <div role="search" className="pt-10 mb-16 w-full flex justify-center items-center">
+            <div className="max-w-[650px] w-full relative animate-pulse">
+              <div className="w-full h-12 bg-gray-200 rounded"></div>
+              <div className="w-12 h-12 bg-gray-300 rounded absolute top-0 right-0"></div>
+            </div>
+          </div>
+          <section className="max-w-[1440px] ">
+            <h1 className="headlineOne text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+              All Venues
+            </h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+              <SkeletonLoaderVenueCard />
+            </div>
+          </section>
         </div>
       </div>
-      <section className="max-w-[1440px] w-full">
-        <h1 className="headlineOne text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
-          All Venues
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-          <SkeletonLoaderVenueCard />
-        </div>
-      </section>
     </div>
   );
 }
