@@ -193,7 +193,7 @@ const CreatePage = () => {
                   { id: 'maxGuests', label: 'Max Guests *', placeholder: 'Add number of guests' },
                   { id: 'rating', label: 'Rating', placeholder: '1010' },
                 ].map((item) => (
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2" key={item.id}>
                     <InputField
                       id={item.id}
                       name={item.id}
@@ -220,14 +220,16 @@ const CreatePage = () => {
                   { id: 'zip', label: 'Zip-Code', placeholder: '1010' },
                   { id: 'country', label: 'Country', placeholder: 'Dreamland' },
                 ].map((item) => (
-                  <InputField
-                    id={item.id}
-                    name={item.id}
-                    labelText={item.label}
-                    type="text"
-                    placeholder={item.placeholder}
-                    className="input"
-                  />
+                  <div className="flex flex-col gap-2" key={item.id}>
+                    <InputField
+                      id={item.id}
+                      name={item.id}
+                      labelText={item.label}
+                      type="text"
+                      placeholder={item.placeholder}
+                      className="input"
+                    />
+                  </div>
                 ))}
               </div>
             </section>
