@@ -56,6 +56,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
       limit: limit,
       setVenues: setVenues,
       setTotalCount: setVenueTotalCount,
+      name: profile.name,
     });
   }, [venuePage]);
 
@@ -91,7 +92,11 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
                     <UserRoundPen className="text-lg md:text-2xl" />
                   </div>
                 )}
-                <EditProfile isOpen={showUpdateModal} onClose={() => setShowUpdateModal(false)} />
+                <EditProfile
+                  isOpen={showUpdateModal}
+                  onClose={() => setShowUpdateModal(false)}
+                  profile={profile}
+                />
               </div>
               <p className="text-base md:text-lg rounded text-gray-500 italic">
                 {profile.bio ? profile.bio : 'This user has no bio yet'}
