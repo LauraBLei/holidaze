@@ -33,12 +33,12 @@ interface ConfirmProps {
 export const ConfirmDialog: React.FC<ConfirmProps> = ({ message, onConfirm, onCancel }) => {
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm text-center space-y-4">
+      <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm md:max-w-md text-center space-y-4">
         <p className="text-lg font-semibold">{message}</p>
         <div className="flex justify-center gap-4">
           <button
             onClick={onCancel}
-            className="bg-white border-2 border-brand-grey  hover:bg-brand-orange hover:border-brand-orange text-black font-medium py-2 px-4 rounded font-primary cursor-pointer scale-95 hover:scale-100 transition"
+            className="bg-white border-2 border-brand-grey  hover:bg-error-red hover:border-error-red text-black font-medium py-2 px-4 rounded font-primary cursor-pointer scale-95 hover:scale-100 transition"
           >
             Cancel
           </button>
