@@ -4,8 +4,7 @@ import { headers } from '../headers';
 interface readVenuesProps {
   page: number;
   limit: number;
-  setVenues: (input: Venue[]) => void;
-  setTotalCount: (input: number) => void;
+  setAPIData: (input: APIVenueData) => void;
 }
 /**
  * Fetches a list of venues from the API and updates the state with the result.
@@ -15,7 +14,7 @@ interface readVenuesProps {
  * @throws {Error} If the request fails, an error is logged to the console.
  */
 
-export const ReadVenues = async ({ page, limit, setVenues, setTotalCount }: readVenuesProps) => {
+export const ReadVenues = async ({ page, limit, setAPIData }: readVenuesProps) => {
   const params = new URLSearchParams({
     sort: 'created',
     sortOrder: 'desc',
@@ -30,8 +29,7 @@ export const ReadVenues = async ({ page, limit, setVenues, setTotalCount }: read
     if (response.ok) {
       const venues = await response.json();
 
-      setVenues(venues.data);
-      setTotalCount(venues.meta.totalCount);
+      setAPIData(venues);
     }
   } catch (error) {
     throw new Error(`${error}`);
