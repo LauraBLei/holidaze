@@ -1,22 +1,15 @@
-import { Venue } from '../../Types/common';
+import { APIVenueData } from '../../Types/common';
 import { API } from '../endpoints';
 import { headers } from '../headers';
 
 interface readVenuesProps {
   page: number;
   limit: number;
-  setVenues: (input: Venue[]) => void;
-  setTotalCount: (input: number) => void;
+  setAPIData: (input: APIVenueData) => void;
   text: string;
 }
 
-export const searchVenues = async ({
-  page,
-  limit,
-  setVenues,
-  setTotalCount,
-  text,
-}: readVenuesProps) => {
+export const searchVenues = async ({ page, limit, setAPIData, text }: readVenuesProps) => {
   if (!text) {
     return;
   }
@@ -35,8 +28,7 @@ export const searchVenues = async ({
 
     if (response.ok) {
       const venues = await response.json();
-      setVenues(venues.data);
-      setTotalCount(venues.meta.totalCount);
+      setAPIData(venues);
     }
   } catch (error) {
     console.log(error);

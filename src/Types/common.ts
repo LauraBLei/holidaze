@@ -5,6 +5,26 @@ export type Media = {
   alt: string;
 };
 
+export type APIMeta = {
+  currentPage: number;
+  isFirstPage: boolean;
+  isLastPage: boolean;
+  nextPage: number;
+  pageCount: number;
+  previousPage: number;
+  totalCount: number;
+};
+
+export type APIVenueData = {
+  data: Venue[];
+  meta: APIMeta;
+};
+
+export type APIBookingData = {
+  data: Booking[];
+  meta: APIMeta;
+};
+
 export type Profile = {
   name: string;
   email: string;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Booking, Profile, Venue } from '../Types/common';
+import { APIBookingData, APIVenueData, Profile } from '../Types/common';
 import { VenueCard } from './VenueCard';
 import { BiSolidCalendarStar } from 'react-icons/bi';
 import { EditProfile } from './EditProfile';
@@ -27,15 +27,14 @@ interface BuildUserProps {
 
 export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [bookings, setBookings] = useState<Booking[]>([]);
   const [bookingPage, setBookingPage] = useState<number>(1);
-  const [bookingsTotalCount, setBookingsTotalCount] = useState(0);
-  const [venues, setVenues] = useState<Venue[]>([]);
   const [venuePage, setVenuePage] = useState<number>(1);
-  const [venueTotalCount, setVenueTotalCount] = useState<number>(0);
+  const [venueData, setVenueData] = useState<APIVenueData>();
+  const [bookingData, setBookingData] = useState<APIBookingData>();
+
   const limit = 8;
-  const bookingTotalPages = Math.ceil(bookingsTotalCount / limit);
-  const venueTotalPages = Math.ceil(venueTotalCount / limit);
+  const bookingTotalPages = bookingData ? Math.ceil(bookingData?.meta.totalCount / limit) : 0;
+  const venueTotalPages = venueData ? Math.ceil(venueData?.meta.totalCount / limit) : 0;
   const bookingHasNext = bookingPage < bookingTotalPages;
   const bookingHasPrevious = bookingPage > 1;
   const venueHasNext = venuePage < venueTotalPages;
@@ -45,8 +44,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
     readUserBookings({
       page: bookingPage,
       limit: limit,
-      setBookings,
-      setTotalCount: setBookingsTotalCount,
+      setAPIData: setBookingData,
     });
   }, [bookingPage]);
 
@@ -54,8 +52,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
     ReadUserVenues({
       page: venuePage,
       limit: limit,
-      setVenues: setVenues,
-      setTotalCount: setVenueTotalCount,
+      setAPIData: setVenueData,
       name: profile.name,
     });
   }, [venuePage]);
@@ -111,8 +108,8 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
             {profile.name == storedName ? 'Your venues' : 'Venues By User'}{' '}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full">
-            {venues.length > 0 ? (
-              venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
+            {venueData && venueData.data?.length > 0 ? (
+              venueData.data.map((venue) => <VenueCard key={venue.id} venue={venue} />)
             ) : (
               <p className="text-gray-500 italic">Oops! No information here yet!</p>
             )}
@@ -139,8 +136,8 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
           <div
             className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
           >
-            {bookings.length > 0 ? (
-              bookings.map((booking) => <BookingCard key={booking.id} booking={booking} />)
+            {bookingData && bookingData?.data.length > 0 ? (
+              bookingData.data.map((booking) => <BookingCard key={booking.id} booking={booking} />)
             ) : (
               <p className="text-gray-500 italic">Oops! No information here yet!</p>
             )}
