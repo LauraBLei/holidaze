@@ -17,6 +17,7 @@ import {
   StatusMessage,
 } from '../utilities/validation/validation';
 import { Check, ParkingSquare, PawPrint, Plus, Utensils, Wifi } from 'lucide-react';
+import { TextCounter } from '../Components/TextCounter';
 
 /**
  * CreatePage Component
@@ -40,6 +41,7 @@ const CreatePage = () => {
   const [media, setMedia] = useState<Media[]>([]);
   const [imageInput, setImageInput] = useState('');
   const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
+  const [textCount, setTextCount] = useState<number>(0);
   const [amenitiesChecked, setAmenitiesChecked] = useState<Meta>({
     pets: false,
     parking: false,
@@ -159,6 +161,7 @@ const CreatePage = () => {
                   placeholder: 'Write a description of the venue',
                   type: 'text',
                   textarea: true,
+                  counter: true,
                 },
               ].map((item) => (
                 <div key={item.id} className="flex flex-col gap-2">
@@ -169,10 +172,13 @@ const CreatePage = () => {
                     labelText={item.labelText}
                     placeholder={item.placeholder}
                     textarea={item.textarea}
+                    onChange={(e) => setTextCount(e.target.value.length)}
                   />
+
                   {formStatus.validationErrors?.[item.id] && (
                     <p className="error-message">{formStatus.validationErrors[item.id]}</p>
                   )}
+                  {item.counter && <TextCounter count={textCount} maxCharacters={1000} />}
                 </div>
               ))}
             </section>

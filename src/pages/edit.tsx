@@ -15,6 +15,7 @@ import {
 } from '../utilities/validation/validation';
 import { runVenueValidations } from '../utilities/validation/runVenueValidations';
 import { Check, ParkingSquare, PawPrint, Plus, Utensils, Wifi } from 'lucide-react';
+import { TextCounter } from '../Components/TextCounter';
 
 /**
  * EditPage Component
@@ -46,6 +47,7 @@ const EditPage = () => {
   const [media, setMedia] = useState<Media[]>(venue?.media || []);
   const [formStatus, setFormStatus] = useState<StatusMessage>(defaultStatus);
   const [imageInput, setImageInput] = useState('');
+  const [textCount, setTextCount] = useState<number>(venue?.description?.length || 0);
   const [formData, setFormData] = useState({
     venueName: venue?.name || '',
     description: venue?.description || '',
@@ -93,6 +95,10 @@ const EditPage = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (name === 'description') {
+      setTextCount(value.length);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -179,6 +185,7 @@ const EditPage = () => {
                   placeholder: 'Write a description of the venue',
                   type: 'text',
                   textarea: true,
+                  counter: true,
                 },
               ].map((item) => (
                 <div key={item.id} className="flex flex-col gap-2">
@@ -195,6 +202,7 @@ const EditPage = () => {
                   {formStatus.validationErrors?.[item.id] && (
                     <p className="error-message">{formStatus.validationErrors[item.id]}</p>
                   )}
+                  {item.counter && <TextCounter count={textCount} maxCharacters={1000} />}
                 </div>
               ))}
             </section>
