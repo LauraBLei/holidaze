@@ -2,8 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { HandleUpdateProfile } from '../API/profile/updateProfile';
 import { storedPFP, storedVenueManager } from '../Constants/constants';
 import { InputField } from './InputField';
+import { Profile } from '../Types/common';
 
-export const EditProfile = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+interface EditProfileProps {
+  isOpen: boolean;
+  onClose: () => void;
+  profile: Profile;
+}
+
+export const EditProfile = ({ isOpen, onClose, profile }: EditProfileProps) => {
   const [previewAvatar, setPreviewAvatar] = useState(storedPFP);
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -39,17 +46,34 @@ export const EditProfile = ({ isOpen, onClose }: { isOpen: boolean; onClose: () 
       onClose();
       setIsClosing(false);
     }, 300);
+    setPreviewAvatar(profile.avatar.url);
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
     if (isValidImageUrl(url)) {
       setPreviewAvatar(url);
+    } else {
+      document.getElementById('invalidAvatarUrl')?.classList.remove('hidden');
+      setPreviewAvatar(profile.avatar.url);
+      e.target.value = '';
+      setTimeout(() => {
+        document.getElementById('invalidAvatarUrl')?.classList.add('hidden');
+      }, 5000);
     }
   };
 
-  const isValidImageUrl = (url: string) =>
-    /\.(jpeg|jpg|gif|png|webp|svg)$/.test(url) && url.startsWith('http');
+  // const isValidImageUrl = (url: string) =>
+  //   /\.(jpeg|jpg|gif|png|webp|svg)$/.test(url) && url.startsWith('http');
+
+  const isValidImageUrl = (url: string) => {
+    try {
+      const parsed = new URL(url);
+      return /\.(jpeg|jpg|gif|png|webp|svg)(\?.*)?$/.test(parsed.pathname);
+    } catch {
+      return false;
+    }
+  };
 
   if (!isOpen && !isClosing) return null;
 
@@ -105,7 +129,9 @@ export const EditProfile = ({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             labelText="Avatar url"
             labelClass="sr-only"
           />
-
+          <p id="invalidAvatarUrl" className="error-message hidden">
+            url not valid!
+          </p>
           <InputField
             id="banner"
             type="url"

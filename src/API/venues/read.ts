@@ -1,5 +1,4 @@
 import { Venue } from '../../Types/common';
-
 import { API } from '../endpoints';
 import { headers } from '../headers';
 interface readVenuesProps {
