@@ -1,5 +1,6 @@
 export const storedUser = localStorage.getItem('User');
-export const storedUserData = JSON.parse(storedUser || '{}');
+export const storedUserData = storedUser ? JSON.parse(storedUser) : '';
+
 export const accessToken = storedUserData?.accessToken || '';
 export const storedName = storedUserData?.name || '';
 export const storedBio = storedUserData?.bio || '';

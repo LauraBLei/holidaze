@@ -4,14 +4,13 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ReadVenue } from '../API/venues/read';
 import { Venue } from '../Types/common';
 import { GalleryComponent } from '../Components/GalleryComponent';
-import { userInfo } from '../utilities/localstorage';
 import StarRating from '../Components/StarRating';
 import { DescriptionCrop } from '../Components/DescriptionCrop';
 import { BookingForm } from '../Components/BookingForm';
 import { CommonContext } from '../Types/context';
 import { deleteVenue } from '../API/venues/delete';
 import { motion } from 'framer-motion';
-import { fadeOutOnlyVariants } from '../Constants/constants';
+import { fadeOutOnlyVariants, storedUserData } from '../Constants/constants';
 import {
   Check,
   MapPin,
@@ -45,7 +44,8 @@ const VenuePage = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id') ?? ``;
   const [venue, setVenue] = useState<Venue>();
-  const user = userInfo();
+  const user = storedUserData;
+
   const { OpenLogin, confirm } = useContext(CommonContext);
   const navigate = useNavigate();
 
@@ -143,7 +143,7 @@ const VenuePage = () => {
           <p>{venue.maxGuests} Guests</p>
           <StarRating rating={venue.rating ? venue.rating : 1} />
 
-          {userInfo() ? (
+          {storedUserData ? (
             <Link
               to={`/profile?username=${venue.owner ? venue.owner.name : ''}`}
               className="flex items-center gap-2 border-y-2 border-brand-grey py-2 cursor-pointer"
