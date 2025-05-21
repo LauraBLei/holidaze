@@ -1,6 +1,19 @@
-export default function LoadingVenuePage() {
+/**
+ * SkeletonLoaderVenue component displays a skeleton loader for a venue page.
+ * This is used while the venue page content (such as gallery, price, booking form,
+ * location, and amenities) is loading. It includes placeholders for different sections
+ * of the venue page layout.
+ *
+ * @component
+ * @example
+ * return <SkeletonLoaderVenue />;
+ *
+ * @returns {JSX.Element} The SkeletonLoaderVenue component with skeleton loaders for each section
+ */
+
+export default function SkeletonLoaderVenue() {
   return (
-    <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center md:justify-evenly gap-5 max-w-[1600px] animate-pulse">
+    <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center  lg:justify-between gap-5 max-w-[1440px] animate-pulse">
       {/* Left column */}
       <div className="max-w-[700px] w-full mb-5 md:mb-10 flex flex-col gap-10">
         {/* Gallery placeholder */}

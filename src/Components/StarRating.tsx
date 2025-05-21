@@ -1,4 +1,4 @@
-import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from 'react-icons/io';
+import { Star } from 'lucide-react';
 
 /**
  * Props for the StarRating component.
@@ -14,21 +14,24 @@ interface StarRatingProps {
 /**
  * StarRating is a React functional component that visually represents a star-based rating.
  *
- * It displays up to 5 stars using full, half, and empty star icons from `react-icons`.
- * - Full stars are shown for each whole number in the rating.
- * - A half star is shown if the rating includes a fractional component.
- * - Empty stars fill in the remainder up to 5.
+ * It displays up to 5 stars using icons from the `lucide-react` library.
+ * - Full stars are rendered for each whole number in the rating.
+ * - A half star is simulated using a clipped full star layered over an outlined star.
+ * - Empty stars are shown using unfilled `Star` icons.
+ *
+ * The half star is visually represented using CSS `clipPath` to fill only half of a star.
  *
  * Example usage:
- * ```jsx
+ * ```tsx
  * <StarRating rating={3.5} />
  * ```
  *
  * @param {StarRatingProps} props - Component props.
- * @param {number} props.rating - A number representing the rating (e.g., 4.5).
+ * @param {number} props.rating - A number from 0 to 5, possibly including halves (e.g., 4.5).
  *
- * @returns {JSX.Element} A flex container with star icons representing the rating.
+ * @returns {JSX.Element} A flex container with star icons indicating the given rating.
  */
+
 export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
   const maxStars = 5;
   const fullStars = Math.floor(rating);
@@ -41,7 +44,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
       {Array(fullStars)
         .fill(0)
         .map((_, i) => (
-          <IoIosStar
+          <Star
             className="w-[18px] md:w-[25px] h-auto"
             key={`full-${i}`}
             fill="currentColor"
@@ -49,25 +52,25 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
           />
         ))}
 
-      {/* Half Star */}
+      {/* Half Star (simulated) */}
       {hasHalfStar && (
-        <IoIosStarHalf
-          className="w-[18px] md:w-[25px] h-auto"
-          key="half"
-          fill="currentColor"
-          stroke="currentColor"
-        />
+        <div className="relative w-[18px] md:w-[25px] h-auto">
+          <Star
+            key="half"
+            className="absolute top-0 left-0"
+            fill="currentColor"
+            stroke="currentColor"
+            style={{ clipPath: 'inset(0 50% 0 0)' }} // Half-filled
+          />
+          <Star className="absolute top-0 left-0" stroke="currentColor" />
+        </div>
       )}
 
       {/* Empty Stars */}
       {Array(emptyStars)
         .fill(0)
         .map((_, i) => (
-          <IoIosStarOutline
-            className="w-[18px] md:w-[25px] h-auto"
-            key={`empty-${i}`}
-            stroke="currentColor"
-          />
+          <Star className="w-[18px] md:w-[25px] h-auto" key={`empty-${i}`} stroke="currentColor" />
         ))}
     </div>
   );

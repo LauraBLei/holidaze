@@ -1,15 +1,28 @@
+import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useState } from 'react';
-import { userInfo } from '../utilities/localstorage';
 
-import { bookVenue } from '../API/booking/book';
+import { Booking } from '../Types/common';
+import { handleSubmitBooking } from '../UI/venue/booking';
+import { storedUserData } from '../Constants/constants';
 
-interface Booking {
-  dateFrom: string;
-  dateTo: string;
-}
-
+/**
+ * BookingForm component allows users to select check-in and check-out dates,
+ * choose the number of guests, and submit the booking for a venue.
+ * It validates the booking dates to ensure there are no conflicts with existing bookings.
+ *
+ * @component
+ * @example
+ * const bookings = [{ dateFrom: '2025-05-15', dateTo: '2025-05-20' }];
+ * return <BookingForm maxGuests={4} bookings={bookings} id="venue123" />;
+ *
+ * @param {Object} props - Component props.
+ * @param {number} props.maxGuests - The maximum number of guests allowed for the venue.
+ * @param {Array} props.bookings - A list of existing bookings, with start and end dates.
+ * @param {string} props.id - The ID of the venue being booked.
+ *
+ * @returns {JSX.Element} A form component that allows users to book a venue.
+ */
 interface BookingFormProps {
   maxGuests: number;
   bookings: Booking[];
@@ -20,34 +33,17 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
   const [checkIn, setCheckIn] = useState<Date | null>(null);
   const [checkOut, setCheckOut] = useState<Date | null>(null);
   const [guests, setGuests] = useState(1);
-  const user = userInfo();
+  const user = storedUserData;
 
   const excludeDateIntervals = bookings.map((b) => ({
-    start: new Date(b.dateFrom),
-    end: new Date(b.dateTo),
+    start: new Date(b.dateFrom).setHours(0, 0, 0, 0),
+    end: new Date(b.dateTo).setHours(0, 0, 0, 0),
   }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!checkIn || !checkOut) return alert('Select both dates');
-    if (checkIn >= checkOut) return alert('Checkout must be after check-in');
-
-    const hasConflict = bookings.some((booking) => {
-      const existingStart = new Date(booking.dateFrom);
-      const existingEnd = new Date(booking.dateTo);
-
-      return checkIn < existingEnd && checkOut > existingStart;
-    });
-    if (hasConflict) {
-      document.getElementById('bookingErrorDates')?.classList.remove('hidden');
-      setTimeout(() => {
-        document.getElementById('bookingErrorDates')?.classList.add('hidden');
-      }, 5000);
-      return;
-    }
-
-    await bookVenue({ checkIn, checkOut, guests, venueId: id });
+    await handleSubmitBooking(checkIn, checkOut, guests, id, bookings);
   };
 
   return (
@@ -56,12 +52,17 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
         <label className="input flex flex-col flex-1/2 text-xs">
           CHECK-IN
           <DatePicker
+            id="checkIn"
+            name="checkIn"
             selected={checkIn}
             onChange={setCheckIn}
             selectsStart
             startDate={checkIn}
             endDate={checkOut}
-            excludeDateIntervals={excludeDateIntervals}
+            excludeDateIntervals={excludeDateIntervals.map((interval) => ({
+              start: new Date(interval.start),
+              end: new Date(interval.end),
+            }))}
             minDate={new Date()}
             className="text-base"
             placeholderText="Select check-in date"
@@ -71,12 +72,17 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
         <label className="input flex flex-col flex-1/2 text-xs">
           CHECK-OUT
           <DatePicker
+            id="checkOut"
+            name="checkOut"
             selected={checkOut}
             onChange={setCheckOut}
             selectsEnd
             startDate={checkIn}
             endDate={checkOut}
-            excludeDateIntervals={excludeDateIntervals}
+            excludeDateIntervals={excludeDateIntervals.map((interval) => ({
+              start: new Date(interval.start),
+              end: new Date(interval.end),
+            }))}
             minDate={checkIn || new Date()}
             className="text-base"
             placeholderText="Select checkout date"
@@ -87,6 +93,8 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
       <label className="input flex flex-col text-xs">
         GUESTS
         <select
+          id="guests"
+          name="guests"
           value={guests}
           onChange={(e) => setGuests(Number(e.target.value))}
           className="text-base"

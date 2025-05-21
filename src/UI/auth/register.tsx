@@ -1,31 +1,19 @@
-import { HandleRegister } from '../../API/auth/register';
+import { fetchRegister } from '../../API/auth/register';
 
-export const handleRegisterSubmit = (formdata: FormData) => {
-  const password = formdata.get('password');
-  const confirmPassword = formdata.get('confirmPassword');
+/**
+ * Handles user registration form submission by extracting necessary fields
+ * from the FormData and calling the register API.
+ *
+ * @param {FormData} formdata - The form data containing registration fields.
+ * @returns Resolves when registration API call is complete.
+ */
+export const handleRegisterSubmit = async (formdata: FormData): Promise<void> => {
   const name = formdata.get('name');
   const email = formdata.get('email');
+  const password = formdata.get('password');
   const isVenueManager = formdata.get('isVenueManager') === `true`;
-  const emailPattern = /^[\w\-.]+@(stud\.)?noroff\.no$/;
-
-  const emailString = email?.toString() || '';
-  if (!emailPattern.test(emailString)) {
-    document.getElementById('wrongEmailPattern')?.classList.remove('hidden');
-    setTimeout(() => {
-      document.getElementById('wrongEmailPattern')?.classList.add('hidden');
-    }, 5000);
-    return;
-  }
-
-  if (password !== confirmPassword) {
-    document.getElementById('passwordError')?.classList.remove('hidden');
-    setTimeout(() => {
-      document.getElementById('passwordError')?.classList.add('hidden');
-    }, 5000);
-    return;
-  }
 
   if (name && email && password) {
-    HandleRegister({ name, email, password, isVenueManager });
+    await fetchRegister({ name, email, password, isVenueManager });
   }
 };

@@ -1,43 +1,64 @@
-import React, { useState } from 'react';
-import { Profile } from '../Types/common';
+import React, { useEffect, useState } from 'react';
+import { APIBookingData, APIVenueData, Profile } from '../Types/common';
 import { VenueCard } from './VenueCard';
 import { BiSolidCalendarStar } from 'react-icons/bi';
-import { FaUserEdit } from 'react-icons/fa';
-import { UpdateProfileModal } from './updateProfile';
+import { EditProfile } from './EditProfile';
+import { Link } from 'react-router-dom';
+import { BookingCard } from './BookingCard';
+import { storedName, storedVenueManager } from '../Constants/constants';
+import { UserRoundPen } from 'lucide-react';
+import { readUserBookings } from '../API/booking/userBooking';
+import { Pagination } from './pagination';
+import { ReadUserVenues } from '../API/venues/read';
 
 interface BuildUserProps {
   profile: Profile;
 }
 
-const storedUser = localStorage.getItem('User');
-const storedUserData = JSON.parse(storedUser || '{}');
-const storedUserName = storedUserData.name;
+/**
+ * The BuildUser component displays the user's profile information, including the profile picture, banner,
+ * bio, venues, and bookings. It allows the user to edit their profile if it is their own account.
+ *
+ * @param {Object} props - The component's props.
+ * @param {Profile} props.profile - The profile data to be displayed.
+ *
+ * @returns {JSX.Element} The rendered profile page with user details, venues, and bookings.
+ */
 
 export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
-  // const [venues, setVenues] = useState<Venue[]>([]);
-  // const [bookings, setBookings] = useState<Booking[]>([]);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [bookingPage, setBookingPage] = useState<number>(1);
+  const [venuePage, setVenuePage] = useState<number>(1);
+  const [venueData, setVenueData] = useState<APIVenueData>();
+  const [bookingData, setBookingData] = useState<APIBookingData>();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await fetchProfile();
-  //     if (data?.venues && data?.bookings) {
-  //       setVenues(data.venues);
-  //       setBookings(data.bookings);
-  //     } else if (data?.bookings) {
-  //       setBookings(data.bookings);
-  //     } else if (data?.venues) {
-  //       setVenues(data.venues);
-  //     } else {
-  //       console.warn('No venues found on profile');
-  //     }
-  //   };
+  const limit = 8;
+  const bookingTotalPages = bookingData ? Math.ceil(bookingData?.meta.totalCount / limit) : 0;
+  const venueTotalPages = venueData ? Math.ceil(venueData?.meta.totalCount / limit) : 0;
+  const bookingHasNext = bookingPage < bookingTotalPages;
+  const bookingHasPrevious = bookingPage > 1;
+  const venueHasNext = venuePage < venueTotalPages;
+  const venueHasPrevious = venuePage > 1;
 
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    readUserBookings({
+      page: bookingPage,
+      limit: limit,
+      setAPIData: setBookingData,
+    });
+  }, [bookingPage]);
+
+  useEffect(() => {
+    ReadUserVenues({
+      page: venuePage,
+      limit: limit,
+      setAPIData: setVenueData,
+      name: profile.name,
+    });
+  }, [venuePage]);
 
   return (
-    <div className="w-full flex flex-col items-center gap-14 md:gap-20 lg:gap-24">
+    <div className="w-full flex flex-col items-center gap-14 md:gap-20 lg:gap-24 font-primary">
       <div className="max-w-[1440px] w-full flex flex-col items-center md:items-start">
         <img
           src={profile.banner.url}
@@ -55,50 +76,106 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <h1 className="text-lg md:text-2xl rounded">{profile.name}</h1>
-                  {profile.venueManager ? (
+                  {storedVenueManager ? (
                     <BiSolidCalendarStar className="text-lg md:text-2xl" />
                   ) : null}
                 </div>
-                {profile.name === storedUserName && (
+                {profile.name === storedName && (
                   <div
                     onClick={() => setShowUpdateModal(true)}
                     className="edit-container items-center flex gap-2.5 cursor-pointer"
                   >
                     <p>Edit User</p>
-                    <FaUserEdit className="text-lg md:text-2xl" />
+                    <UserRoundPen className="text-lg md:text-2xl" />
                   </div>
                 )}
-                <UpdateProfileModal
+                <EditProfile
                   isOpen={showUpdateModal}
                   onClose={() => setShowUpdateModal(false)}
+                  profile={profile}
                 />
               </div>
-              <p className="text-base md:text-lg rounded italic">
+              <p className="text-base md:text-lg rounded text-gray-500 italic">
                 {profile.bio ? profile.bio : 'This user has no bio yet'}
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center items-center flex-col">
-        {profile.venues.length > 0 ? (
-          <h2 className="font-bold text-lg md:text-2xl ">Venues By User </h2>
-        ) : null}
-        <div className="max-w-[850px] w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
-          {profile.venues.length > 0
-            ? profile.venues.map((venue) => <VenueCard key={venue.id} venue={venue} />)
-            : null}
-        </div>
-        {profile.bookings.length > 0 ? (
-          <h2 className="font-bold text-lg md:text-2xl ">Bookings by user </h2>
-        ) : null}
-        <div className="max-w-[850px] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-8 lg:gap-10 mx-5">
-          {profile.bookings.length > 0
-            ? profile.bookings.map((booking) => (
-                <VenueCard key={booking.id} venue={booking.venue} />
-              ))
-            : null}
-        </div>
+      <div className="w-full flex justify-center items-center max-w-[1440px] flex-col gap-10 px-5 2xl:px-0">
+        <section id="UserVenues" className="w-full">
+          <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+            {profile.name == storedName ? 'Your venues' : 'Venues By User'}{' '}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full">
+            {venueData && venueData.data?.length > 0 ? (
+              venueData.data.map((venue) => <VenueCard key={venue.id} venue={venue} />)
+            ) : (
+              <p className="text-gray-500 italic">Oops! No information here yet!</p>
+            )}
+          </div>{' '}
+          {venueTotalPages > 1 && (
+            <Pagination
+              page={venuePage}
+              setPage={setVenuePage}
+              hasNext={venueHasNext}
+              hasPrevious={venueHasPrevious}
+              totalPages={venueTotalPages}
+            />
+          )}
+        </section>
+        <section
+          id="Bookings"
+          className={`w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
+        >
+          <h2
+            className={`border-b-[1px] border-brand-grey mb-5 py-2 font-bold text-lg md:text-2xl self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
+          >
+            Your Bookings
+          </h2>
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
+          >
+            {bookingData && bookingData?.data.length > 0 ? (
+              bookingData.data.map((booking) => <BookingCard key={booking.id} booking={booking} />)
+            ) : (
+              <p className="text-gray-500 italic">Oops! No information here yet!</p>
+            )}
+          </div>
+          {bookingTotalPages > 1 && (
+            <Pagination
+              page={bookingPage}
+              setPage={setBookingPage}
+              hasNext={bookingHasNext}
+              hasPrevious={bookingHasPrevious}
+              totalPages={bookingTotalPages}
+            />
+          )}
+        </section>
+        <section id="PrevBookings" className="w-full">
+          <h2
+            className={`border-b-[1px] border-brand-grey mb-5 py-2 font-bold text-lg md:text-2xl self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
+          >
+            Your Previous Bookings
+          </h2>
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
+          >
+            {profile.bookings.length > 0 ? (
+              [...profile.bookings]
+                .filter((booking) => new Date(booking.dateTo) < new Date()) // Only past bookings
+                .sort((a, b) => new Date(b.dateFrom).getTime() - new Date(a.dateFrom).getTime()) // Sort newest first
+                .map((booking) => <BookingCard key={booking.id} booking={booking} />)
+            ) : (
+              <p className="text-gray-500 italic">Oops! No information here yet!</p>
+            )}
+          </div>
+        </section>
+        {!(profile.venues.length || profile.bookings.length) && (
+          <Link to="/" className="button text-center mt-10">
+            Back To Homepage
+          </Link>
+        )}
       </div>
     </div>
   );

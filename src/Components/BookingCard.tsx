@@ -1,47 +1,78 @@
-import { IoIosStar } from 'react-icons/io';
 import loadingImage from '/loading-image.png';
+import { Booking } from '../Types/common';
+import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface BookingCardProps {
-  image: string;
-  imageAlt: string;
-  title: string;
-  rating: number;
-  description: string;
-  reservationDate: string;
-  guestAmount: number;
-  price: number;
+  booking: Booking;
 }
 
-export const BookingCard: React.FC<BookingCardProps> = ({
-  image,
-  imageAlt,
-  title,
-  rating,
-  description,
-  reservationDate,
-  guestAmount,
-  price,
-}) => {
+/**
+ * BookingCard component displays a card for a booking, showing venue image, name, rating,
+ * description, reservation dates, number of guests, and price per night.
+ *
+ * @component
+ * @example
+ * const booking = {
+ *   dateFrom: "2025-06-10T00:00:00Z",
+ *   dateTo: "2025-06-15T00:00:00Z",
+ *   guests: 4,
+ *   venue: {
+ *     name: "Cozy Mountain Retreat",
+ *     description: "A peaceful mountain getaway.",
+ *     rating: 4.5,
+ *     price: 150,
+ *     media: [
+ *       { url: "/path/to/image.jpg", alt: "Venue image" }
+ *     ]
+ *   }
+ * };
+ *
+ * return <BookingCard booking={booking} />;
+ *
+ * @param {Object} props - Component props.
+ * @param {Booking} props.booking - The booking object containing all relevant venue and reservation details.
+ * @returns {JSX.Element} A card component displaying the booking details.
+ */
+
+export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
   return (
-    <article className="flex flex-col  md:max-w-[280px] w-full gap-[20px] animate-pulse">
-      <img
-        className="cardImage h-[200px]  rounded-xl object-cover"
-        src={image ? image : loadingImage}
-        alt={imageAlt}
-      />
-      <div className="title-rating-container flex justify-between items-center">
-        <h3 className=" h-[27px] w-[60%] rounded text-base font-bold"> {title} </h3>
-        <div className="flex ratingWrapper gap-2 items-center">
-          <IoIosStar fill="#000000" stroke="#000000" />
-          <p className="text-xs">{rating}</p>
+    <Link
+      to={`/venues?id=${booking.venue.id}`}
+      className="lg:hover:scale-105 transition duration-150"
+    >
+      <article className="flex flex-col h-full w-full">
+        <div className="w-full h-52 rounded-xl overflow-hidden">
+          <img
+            className="w-full h-full object-cover"
+            src={booking.venue.media[0] ? booking.venue.media[0].url : loadingImage}
+            alt={booking.venue.media[0] ? booking.venue.media[0].alt : 'Image not found'}
+          />
         </div>
-      </div>
-      <p className=" w-full rounded text-sm line-clamp-3">{description}</p>
-      <div className="flex date-and-guests-wrapper">
-        <p>{reservationDate}</p>
-        <p>{guestAmount} guests</p>
-      </div>
-      <div className=" w-[35%] h-[27px] rounded text-sm font-bold">{price}$ / night</div>
-    </article>
+
+        <div className="flex flex-col min-h-[160px] gap-5">
+          <div className="title-rating-container flex justify-between items-center gap-8 mt-3">
+            <h3 className="text-base font-bold line-clamp-1"> {booking.venue.name} </h3>
+            <div className="flex gap-2 items-center">
+              <Star fill="#000000" stroke="#000000" className="h-4" />
+              <p className="text-sm">{booking.venue.rating}</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-between h-full gap-5">
+            <p className=" w-full rounded text-sm line-clamp-1">{booking.venue.description}</p>
+            <p className="text-sm">
+              {new Date(booking.dateFrom).toLocaleDateString('en-GB')} <span>-</span>{' '}
+              {new Date(booking.dateTo).toLocaleDateString('en-GB')}
+            </p>
+
+            <div className="flex justify-between items-center mt-auto">
+              <span className="text-sm font-bold">{booking.venue.price}$ / night</span>
+              <p>{booking.guests} guest(s)</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </Link>
   );
 };

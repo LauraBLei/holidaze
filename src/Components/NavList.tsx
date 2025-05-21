@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
-import { BiSolidCalendarStar } from 'react-icons/bi';
-import { BsHouseAddFill } from 'react-icons/bs';
-import { IoPerson } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { CommonContext } from '../Types/context';
 import { storedName } from '../Constants/constants';
-import { LuLogOut } from 'react-icons/lu';
+import { HousePlus, LogOut, UserRound } from 'lucide-react';
 
 /**
  * NavList component renders a responsive navigation menu for the Holidaze app.
@@ -44,7 +41,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
   return (
     <ul className={className}>
       <li
-        className={`flex items-center  cursor-pointer md:hidden ${user ? 'block' : 'hidden'} `}
+        className={`flex font-primary items-center justify-center  cursor-pointer md:hidden ${user ? 'block' : 'hidden'} `}
         onClick={onClick}
       >
         <Link
@@ -62,19 +59,10 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         </Link>
       </li>
       <li
-        className={`flex scale-95 hover:scale-100 transition items-center gap-2.5 cursor-pointer ${user.venueManager ? 'block' : 'hidden'}`}
-        onClick={onClick}
-      >
-        <BiSolidCalendarStar className="text-2xl" />
-        <Link to="/manager" className="text-sm md:text-base font-bold ">
-          Manager
-        </Link>
-      </li>
-      <li
         className={`scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user.venueManager ? 'block' : 'hidden'} `}
         onClick={onClick}
       >
-        <BsHouseAddFill className="text-2xl" />
+        <HousePlus className="text-2xl" />
         <Link to="/create" className="text-sm md:text-base font-bold ">
           New Venue
         </Link>
@@ -84,7 +72,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         className={` scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user ? 'hidden' : 'block'} `}
         onClick={() => OpenLogin()}
       >
-        <IoPerson className="text-2xl" />
+        <UserRound className="text-2xl" />
         <span className="text-sm md:text-base font-bold">Login</span>
       </li>
       <li
@@ -110,11 +98,11 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
       <li
         className={`scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user ? 'block' : 'hidden'} `}
         onClick={() => {
-          localStorage.removeItem('User');
+          localStorage.clear();
           window.location.href = '/';
         }}
       >
-        <LuLogOut className="text-2xl" />
+        <LogOut className="text-2xl" />
         <span className="text-sm md:text-base font-bold md:hidden">Log Out</span>
       </li>
     </ul>
