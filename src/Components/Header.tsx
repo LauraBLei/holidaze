@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '/holidaze-logo.png';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavList } from './NavList';
 import { Menu, X } from 'lucide-react';
 
@@ -16,6 +16,7 @@ export default function Header() {
   const [animateOut, setAnimateOut] = useState(false);
   const userData = localStorage.getItem('User');
   const user = userData ? JSON.parse(userData) : '';
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     if (isMenuOpen) {
@@ -28,6 +29,22 @@ export default function Header() {
       setMenuOpen(true);
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        if (isMenuOpen) toggleMenu();
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   return (
     <header className="flex w-full h-[90px] md:h-[120px]">
@@ -46,6 +63,7 @@ export default function Header() {
 
         {(isMenuOpen || animateOut) && (
           <div
+            ref={menuRef}
             className={`${
               animateOut ? 'animate-slide-bounce-out' : 'animate-slide-in'
             } md:hidden absolute right-0 top-0 max-w-96 w-full h-96 bg-[var(--color-brand-orange)] shadow-lg p-2 z-50 flex flex-col items-end rounded-bl-full`}
