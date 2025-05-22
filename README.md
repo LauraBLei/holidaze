@@ -18,13 +18,13 @@ This was our second and last project exam.
 Holidaze is a accommodation booking site where your can browse venues book venues and manage venues.
 
 #### Visitor
-As a visitor on Holidaze you are able to browse and search trough venues and look at a spesific venue. 
+- As a visitor on Holidaze you are able to browse and search trough venues and look at a spesific venue. 
 
 #### Customer
-As a customer you are able to browse and search through venues and book a venue. The booked venue will display at the customers profile. The customer can also update the bio, avatar and banner for the profile.
+- As a customer you are able to browse and search through venues and book a venue. The booked venue will display at the customers profile. The customer can also update the bio, avatar and banner for the profile.
 
 #### Venue Manager
-As a venue manager you are able to do everything a customer are able too. But as a venue manager you can also create new venues . The venues you manage will display in your profile, and you will be able to view how many bookings there is for that venue. For more info on who and when the bookings are you can click that specfic venue.
+- As a venue manager you are able to do everything a customer are able too. But as a venue manager you can also create new venues . The venues you manage will display in your profile, and you will be able to view how many bookings there is for that venue. For more info on who and when the bookings are you can click that specfic venue.
 
 
 ## This projects user stories
