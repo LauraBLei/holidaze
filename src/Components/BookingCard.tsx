@@ -1,6 +1,6 @@
 import loadingImage from '/loading-image.png';
 import { Booking } from '../Types/common';
-import { Star, Trash2 } from 'lucide-react';
+import { Star, Trash2, UsersRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CommonContext } from '../Types/context';
@@ -93,7 +93,9 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, oldBooking })
 
             <div className="flex justify-between items-center mt-auto">
               <span className="text-sm font-bold">{booking.venue.price}$ / night</span>
-              <p>{booking.guests} guest(s)</p>
+              <p className="flex gap-2 items-center">
+                {booking.guests} <UsersRound className="h-4" />
+              </p>
             </div>
             <div className="text-sm font-bold flex justify-between">
               <span>
