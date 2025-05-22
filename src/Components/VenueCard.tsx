@@ -43,7 +43,7 @@ export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
             </div>
           </div>
           <div className="flex flex-col justify-between h-full">
-            <p className="text-sm line-clamp-3">{venue.description}</p>
+            <p className="text-sm line-clamp-3 break-all">{venue.description}</p>
             {venue.owner?.name === storedName && isOnProfilePage && (
               <div className="flex gap-5 text-sm my-2">
                 <p>Bookings:</p>
