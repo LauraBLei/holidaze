@@ -36,6 +36,14 @@ interface BookingCardProps {
  */
 
 export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
+  const dateFrom = new Date(booking.dateFrom);
+  const dateTo = new Date(booking.dateTo);
+  const millisecondsPerDay = 1000 * 60 * 60 * 24;
+  const numberOfNights = Math.max(
+    Math.ceil((dateTo.getTime() - dateFrom.getTime()) / millisecondsPerDay),
+    1,
+  );
+  const totalCost = booking.venue.price * numberOfNights;
   return (
     <Link
       to={`/venues?id=${booking.venue.id}`}
@@ -69,6 +77,12 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
             <div className="flex justify-between items-center mt-auto">
               <span className="text-sm font-bold">{booking.venue.price}$ / night</span>
               <p>{booking.guests} guest(s)</p>
+            </div>
+            <div className="text-sm font-semibold flex justify-between">
+              <span>Total: {totalCost}$</span>
+              <span>
+                {numberOfNights} night{numberOfNights > 1 ? 's' : ''}
+              </span>
             </div>
           </div>
         </div>
