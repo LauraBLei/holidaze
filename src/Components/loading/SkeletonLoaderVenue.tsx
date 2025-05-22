@@ -13,7 +13,7 @@
 
 export default function SkeletonLoaderVenue() {
   return (
-    <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center  lg:justify-between gap-5 max-w-[1440px] animate-pulse">
+    <div className="font-primary w-full h-full px-5 flex flex-wrap lg:flex-nowrap justify-center  lg:justify-between gap-5 max-w-[1440px] animate-pulse pt-5 lg:mt-10">
       {/* Left column */}
       <div className="max-w-[700px] w-full mb-5 md:mb-10 flex flex-col gap-10">
         {/* Gallery placeholder */}
