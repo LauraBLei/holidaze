@@ -95,7 +95,7 @@ const CreatePage = () => {
   };
 
   useEffect(() => {
-    document.title = 'HAL - New Venue';
+    document.title = 'Holidaze - New Venue';
   }, []);
 
   return (

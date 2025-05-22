@@ -57,7 +57,7 @@ export const ReadVenue = async (id: string, setVenue: (input: Venue) => void) =>
       const venue = await response.json();
       setVenue(venue.data);
       if (venue.data) {
-        document.title = `HAL - ${venue.data.name}`;
+        document.title = `Holidaze - ${venue.data.name}`;
       }
     }
   } catch (error) {
