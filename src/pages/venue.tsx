@@ -130,14 +130,14 @@ const VenuePage = () => {
                 className="flex gap-2 items-center scale-95 hover:scale-100 transition"
                 onClick={() => localStorage.setItem('editVenue', JSON.stringify(venue))}
               >
-                <span>Edit Venue</span>
+                <span>Edit</span>
                 <Pencil className="h-4" />
               </Link>
               <button
                 onClick={() => handleDeleteClick()}
                 className="flex gap-2 items-center cursor-pointer scale-95 hover:scale-100 transition"
               >
-                <span>Delete Venue</span> <Trash2 className="h-4" />
+                <span>Delete</span> <Trash2 className="h-4" />
               </button>
             </div>
           </div>
