@@ -23,7 +23,7 @@ export const Search: React.FC<InputProps> = ({ setSearchText }: InputProps): JSX
   return (
     <form
       role="search"
-      className="pt-10 mb-16 w-full flex justify-center items-center"
+      className="pt-10 mb-5 lg:mb-16 w-full flex justify-center items-center"
       onSubmit={(e) => {
         handleSearch(e);
       }}
