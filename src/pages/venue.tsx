@@ -95,6 +95,7 @@ const VenuePage = () => {
               maxGuests={venue.maxGuests ? venue.maxGuests : 0}
               bookings={venue.bookings ? venue.bookings : []}
               id={venue.id ? venue.id : ''}
+              price={venue.price}
             />
             <div className={`text-center my-10 ${!user ? 'block' : 'hidden'}`}>
               <button
