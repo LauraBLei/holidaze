@@ -56,8 +56,9 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, oldBooking })
     });
   };
 
-  const handleDeleteBooking = () => {
-    deleteBooking(booking.id);
+  const handleDeleteBooking = async () => {
+    await deleteBooking(booking.id);
+
     window.location.reload();
   };
 
@@ -95,7 +96,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, oldBooking })
               <span className="text-sm font-bold">{booking.venue.price}$ / night</span>
               <p>{booking.guests} guest(s)</p>
             </div>
-            <div className="text-sm font-semibold flex justify-between">
+            <div className="text-sm font-bold flex justify-between">
               <span>Total: {totalCost}$</span>
               <span>
                 {numberOfNights} night{numberOfNights > 1 ? 's' : ''}
