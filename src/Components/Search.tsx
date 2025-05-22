@@ -39,6 +39,7 @@ export const Search: React.FC<InputProps> = ({ setSearchText }: InputProps): JSX
         />
         <button
           type="submit"
+          aria-label="Search"
           className="w-12 h-12 flex items-center justify-center absolute top-0 right-0 cursor-pointer"
         >
           <SearchIcon size={20} />
