@@ -213,18 +213,32 @@ const EditPage = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { id: 'price', label: 'Price *', placeholder: 'Enter price' },
-                  { id: 'maxGuests', label: 'Max Guests *', placeholder: 'Add number of guests' },
-                  { id: 'rating', label: 'Rating', placeholder: '1010' },
+                  { id: 'price', label: 'Price *', placeholder: 'Enter price', type: 'number' },
+                  {
+                    id: 'maxGuests',
+                    label: 'Max Guests *',
+                    placeholder: 'Add number of guests',
+                    type: 'number',
+                  },
+                  {
+                    id: 'rating',
+                    label: 'Rating',
+                    placeholder: '1-5',
+                    type: 'number',
+                    step: 0.5,
+                    max: 5,
+                  },
                 ].map((item) => (
                   <div className="flex flex-col gap-2" key={item.id}>
                     <InputField
                       id={item.id}
                       name={item.id}
                       labelText={item.label}
-                      type="text"
+                      type={item.type}
                       placeholder={item.placeholder}
                       className="input"
+                      step={item.step}
+                      max={item.max}
                       value={formData[item.id as keyof typeof formData]}
                       onChange={handleChange}
                     />
