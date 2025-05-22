@@ -73,7 +73,7 @@ const HomePage = () => {
     >
       <div className="max-w-[1440px] w-full font primary">
         <div className="mx-5 2xl:mx-0">
-          <Search setSearchText={setSearchText} />
+          <Search setSearchText={setSearchText} searchText={searchText} />
           {searchText &&
             searchData &&
             SearchSection({
@@ -133,11 +133,11 @@ const SearchSection = ({
   <>
     {searchAllVenues.length > 0 ? (
       <section className=" mb-15">
-        <div className="flex justify-between items-center font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+        <div className="flex justify-between items-center font-bold text-base md:text-xl self-start border-b-[1px] border-brand-grey mb-5 py-2 flex-wrap">
           <h2>Search: '{searchText}'</h2>
           <button
             onClick={() => setText('')}
-            className="text-lg font-bold transition scale-95 hover:scale-100 cursor-pointer"
+            className="text-base  transition scale-95 hover:scale-100 cursor-pointer bg-error-red py-2 px-4 rounded-lg"
           >
             Clear Search
           </button>
@@ -157,7 +157,7 @@ const SearchSection = ({
       </section>
     ) : (
       <section className=" mb-15">
-        <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+        <h2 className="font-bold text-base md:text-xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
           Search: '{searchText}'
         </h2>
         <p>No venues found!</p>
