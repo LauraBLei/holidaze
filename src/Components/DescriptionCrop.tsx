@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { applyBreakWordClass } from '../utilities/breakWords';
+import { breakWords } from '../utilities/breakWords';
 
 interface DescriptionProps {
   text: string;
@@ -23,7 +23,7 @@ export const DescriptionCrop = ({ text }: DescriptionProps) => {
   const isLong = text.length > limit;
   const displayedText = expanded || !isLong ? text : text.slice(0, limit) + '...';
 
-  const longWord = applyBreakWordClass(text);
+  const longWord = breakWords(text);
 
   return (
     <div className="space-y-2">

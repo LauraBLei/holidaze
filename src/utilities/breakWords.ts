@@ -1,4 +1,4 @@
-export function applyBreakWordClass(text: string) {
+export function breakWords(text: string) {
   const words = text?.split(' ') ?? [];
   const hasLongWord = words.some((word) => word.length > 30);
 

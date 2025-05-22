@@ -3,7 +3,7 @@ import { Venue } from '../Types/common';
 import { Link, useLocation } from 'react-router-dom';
 import { Star } from 'lucide-react';
 import { storedName } from '../Constants/constants';
-import { applyBreakWordClass } from '../utilities/breakWords';
+import { breakWords } from '../utilities/breakWords';
 
 interface VenueCardProps {
   venue: Venue;
@@ -21,7 +21,7 @@ interface VenueCardProps {
 export const VenueCard: React.FC<VenueCardProps> = ({ venue }) => {
   const location = useLocation();
   const isOnProfilePage = location.pathname === '/profile';
-  const longWord = applyBreakWordClass(venue.description);
+  const longWord = breakWords(venue.description);
   return (
     <Link
       to={`/venues?id=${venue.id}`}
