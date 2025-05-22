@@ -95,6 +95,7 @@ const VenuePage = () => {
               maxGuests={venue.maxGuests ? venue.maxGuests : 0}
               bookings={venue.bookings ? venue.bookings : []}
               id={venue.id ? venue.id : ''}
+              price={venue.price}
             />
             <div className={`text-center my-10 ${!user ? 'block' : 'hidden'}`}>
               <button
@@ -171,8 +172,8 @@ const VenuePage = () => {
           )}
 
           <div className="flex gap-2 items-center border-b-2 border-brand-grey py-3">
-            <MapPin className="w-[25px] h-full" />
-            <p>
+            <MapPin className="w-[25px] h-full shrink-0" />
+            <p className="break-all">
               {venue.location.address}, {venue.location.zip}, {venue.location.city},{' '}
               {venue.location.country}
             </p>

@@ -137,7 +137,9 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
             className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
           >
             {bookingData && bookingData?.data.length > 0 ? (
-              bookingData.data.map((booking) => <BookingCard key={booking.id} booking={booking} />)
+              bookingData.data.map((booking) => (
+                <BookingCard oldBooking={false} key={booking.id} booking={booking} />
+              ))
             ) : (
               <p className="text-gray-500 italic">Oops! No information here yet!</p>
             )}
@@ -165,7 +167,9 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
               [...profile.bookings]
                 .filter((booking) => new Date(booking.dateTo) < new Date()) // Only past bookings
                 .sort((a, b) => new Date(b.dateFrom).getTime() - new Date(a.dateFrom).getTime()) // Sort newest first
-                .map((booking) => <BookingCard key={booking.id} booking={booking} />)
+                .map((booking) => (
+                  <BookingCard oldBooking={true} key={booking.id} booking={booking} />
+                ))
             ) : (
               <p className="text-gray-500 italic">Oops! No information here yet!</p>
             )}

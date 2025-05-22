@@ -1,5 +1,5 @@
 import { SearchIcon } from 'lucide-react';
-import React, { JSX } from 'react';
+import React, { FormEvent, JSX } from 'react';
 
 interface InputProps {
   setSearchText: (input: string) => void;
@@ -14,15 +14,18 @@ interface InputProps {
  */
 
 export const Search: React.FC<InputProps> = ({ setSearchText }: InputProps): JSX.Element => {
+  const handleSearch = (e: FormEvent) => {
+    e.preventDefault();
+    const formdata = new FormData(e.currentTarget as HTMLFormElement);
+    const searchText = formdata.get('search')?.toString() || '';
+    setSearchText(searchText);
+  };
   return (
     <form
       role="search"
       className="pt-10 mb-16 w-full flex justify-center items-center"
       onSubmit={(e) => {
-        e.preventDefault();
-        const formdata = new FormData(e.currentTarget as HTMLFormElement);
-        const searchText = formdata.get('search')?.toString() || '';
-        setSearchText(searchText);
+        handleSearch(e);
       }}
     >
       <div className="max-w-[650px] w-full relative">
@@ -34,9 +37,12 @@ export const Search: React.FC<InputProps> = ({ setSearchText }: InputProps): JSX
           className=" w-full h-12 border pl-4 rounded"
           placeholder="Search for venues..."
         />
-        <div className="w-12 h-12 flex items-center justify-center absolute top-0 right-0">
+        <button
+          type="submit"
+          className="w-12 h-12 flex items-center justify-center absolute top-0 right-0 cursor-pointer"
+        >
           <SearchIcon size={20} />
-        </div>
+        </button>
       </div>
     </form>
   );

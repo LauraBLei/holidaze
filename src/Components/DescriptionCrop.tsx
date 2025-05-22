@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { applyBreakWordClass } from '../utilities/breakWords';
+import { useRef, useState } from 'react';
+import { breakWords } from '../utilities/breakWords';
 
 interface DescriptionProps {
   text: string;
@@ -23,15 +23,13 @@ export const DescriptionCrop = ({ text }: DescriptionProps) => {
   const isLong = text.length > limit;
   const displayedText = expanded || !isLong ? text : text.slice(0, limit) + '...';
 
-  useEffect(() => {
-    if (paragraphRef.current) {
-      applyBreakWordClass(paragraphRef.current);
-    }
-  }, [displayedText]);
+  const longWord = breakWords(text);
 
   return (
     <div className="space-y-2">
-      <p ref={paragraphRef}>{displayedText}</p>
+      <p ref={paragraphRef} className={`${longWord ? 'break-all' : 'break-word'}`}>
+        {displayedText}
+      </p>
       {isLong && (
         <button
           className="text-black underline text-sm cursor-pointer"
