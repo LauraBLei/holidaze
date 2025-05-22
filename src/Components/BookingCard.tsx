@@ -86,7 +86,6 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, oldBooking })
           </div>
 
           <div className="flex flex-col justify-between h-full gap-5">
-            <p className=" w-full rounded text-sm line-clamp-1">{booking.venue.description}</p>
             <p className="text-sm">
               {new Date(booking.dateFrom).toLocaleDateString('en-GB')} <span>-</span>{' '}
               {new Date(booking.dateTo).toLocaleDateString('en-GB')}
@@ -97,9 +96,8 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, oldBooking })
               <p>{booking.guests} guest(s)</p>
             </div>
             <div className="text-sm font-bold flex justify-between">
-              <span>Total: {totalCost}$</span>
               <span>
-                {numberOfNights} night{numberOfNights > 1 ? 's' : ''}
+                Total: {totalCost}$ / {numberOfNights} night{numberOfNights > 1 ? 's' : ''}
               </span>
               {!oldBooking && (
                 <button
