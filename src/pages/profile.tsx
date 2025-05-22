@@ -31,7 +31,7 @@ const ProfilePage = () => {
   const [page, setPage] = useState(<SkeletonLoaderProfile />);
 
   useEffect(() => {
-    document.title = `HAL - ${username}`;
+    document.title = `Holidaze - ${username}`;
     const loadProfile = async () => {
       const data = await fetchProfile();
 

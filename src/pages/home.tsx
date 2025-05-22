@@ -38,7 +38,7 @@ const HomePage = () => {
   const venueHasPrevious = venuePage > 1;
 
   useEffect(() => {
-    document.title = 'HAL - Holidaze';
+    document.title = 'Holidaze';
   }, []);
 
   useEffect(() => {
