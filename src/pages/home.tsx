@@ -73,7 +73,7 @@ const HomePage = () => {
     >
       <div className="max-w-[1440px] w-full font primary">
         <div className="mx-5 2xl:mx-0">
-          <Search setSearchText={setSearchText} />
+          <Search setSearchText={setSearchText} searchText={searchText} />
           {searchText &&
             searchData &&
             SearchSection({

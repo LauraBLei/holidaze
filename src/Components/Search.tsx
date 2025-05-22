@@ -3,6 +3,7 @@ import React, { FormEvent, JSX } from 'react';
 
 interface InputProps {
   setSearchText: (input: string) => void;
+  searchText: string;
 }
 
 /**
@@ -13,7 +14,10 @@ interface InputProps {
  * @returns {JSX.Element} The rendered search input with a search icon.
  */
 
-export const Search: React.FC<InputProps> = ({ setSearchText }: InputProps): JSX.Element => {
+export const Search: React.FC<InputProps> = ({
+  setSearchText,
+  searchText,
+}: InputProps): JSX.Element => {
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     const formdata = new FormData(e.currentTarget as HTMLFormElement);
@@ -34,6 +38,7 @@ export const Search: React.FC<InputProps> = ({ setSearchText }: InputProps): JSX
           id="search"
           name="search"
           type="text"
+          value={searchText}
           className=" w-full h-12 border pl-4 rounded"
           placeholder="Search for venues..."
         />
