@@ -75,7 +75,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
             <div className="flex flex-col gap-4 justify-center mx-5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <h1 className="text-lg md:text-2xl rounded">{profile.name}</h1>
+                  <h1 className="text-lg md:text-2xl rounded dark:text-white">{profile.name}</h1>
                   {storedVenueManager ? (
                     <BiSolidCalendarStar className="text-lg md:text-2xl" />
                   ) : null}
@@ -85,8 +85,8 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
                     onClick={() => setShowUpdateModal(true)}
                     className="edit-container items-center flex gap-2.5 cursor-pointer"
                   >
-                    <p>Edit User</p>
-                    <UserRoundPen className="text-lg md:text-2xl" />
+                    <p className="dark:text-white">Edit User</p>
+                    <UserRoundPen className="text-lg md:text-2xl dark:text-white" />
                   </div>
                 )}
                 <EditProfile
@@ -95,7 +95,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
                   profile={profile}
                 />
               </div>
-              <p className="text-base md:text-lg rounded text-gray-500 italic">
+              <p className="text-base md:text-lg rounded text-gray-500 dark:text-gray-300 italic">
                 {profile.bio ? profile.bio : 'This user has no bio yet'}
               </p>
             </div>

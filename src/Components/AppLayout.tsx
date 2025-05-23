@@ -13,10 +13,10 @@ import { AuthModal } from './AuthModal.tsx';
 
 export const Layout = () => {
   return (
-    <div className="flex flex-col w-full min-h-screen">
+    <div className="flex flex-col w-full min-h-screen dark:bg-dark">
       <AuthModal />
       <Header />
-      <main className="flex flex-col items-center w-full flex-grow">
+      <main className="flex flex-col items-center w-full flex-grow ">
         <Outlet />
       </main>
       <Footer />

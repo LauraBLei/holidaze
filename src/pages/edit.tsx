@@ -270,6 +270,7 @@ const EditPage = () => {
                       className="input"
                       value={formData[item.id as keyof typeof formData]}
                       onChange={handleChange}
+                      autoComplete="off"
                     />
                   </div>
                 ))}
@@ -279,7 +280,7 @@ const EditPage = () => {
             {/* Amenities */}
             <section className="flex flex-col gap-4">
               <h2 className="create-edit-titles">Amenities</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 dark:text-white">
                 {[
                   { id: 'pets', label: 'Pets', icon: <PawPrint size={24} /> },
                   { id: 'parking', label: 'Parking', icon: <ParkingSquare size={24} /> },

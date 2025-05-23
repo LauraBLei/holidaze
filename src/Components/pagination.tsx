@@ -39,7 +39,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         Previous
       </button>
 
-      <span className="font-medium text-sm md:text-base text-nowrap text-gray-700">
+      <span className="font-medium text-sm md:text-base text-nowrap text-gray-700 dark:text-white">
         Page {page}
         {totalPages && ` of ${totalPages}`}
       </span>

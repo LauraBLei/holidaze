@@ -18,9 +18,9 @@ interface CounterProps {
 
 export const TextCounter = ({ count, maxCharacters }: CounterProps) => {
   return (
-    <div className="flex justify-end px-5 font-primary text-base">
+    <div className="flex justify-end px-5 font-primary text-base dark:text-white">
       <span>
-        {count}/{maxCharacters}
+        {count} / {maxCharacters}
       </span>
     </div>
   );

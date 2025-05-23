@@ -240,6 +240,7 @@ const CreatePage = () => {
                       type="text"
                       placeholder={item.placeholder}
                       className="input"
+                      autoComplete="off"
                     />
                   </div>
                 ))}
@@ -249,7 +250,7 @@ const CreatePage = () => {
             {/* Amenities */}
             <section className="flex flex-col gap-4">
               <h2 className="create-edit-titles">Amenities map</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 dark:text-white">
                 {[
                   { id: 'pets', label: 'Pets', icon: <PawPrint size={24} /> },
                   { id: 'parking', label: 'Parking', icon: <ParkingSquare size={24} /> },

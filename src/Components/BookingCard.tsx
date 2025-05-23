@@ -65,7 +65,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, oldBooking })
   return (
     <Link
       to={`/venues?id=${booking.venue.id}`}
-      className="lg:hover:scale-105 transition duration-150"
+      className="lg:hover:scale-105 transition duration-150 dark:text-white"
     >
       <article className="flex flex-col h-full w-full">
         <div className="w-full h-52 rounded-xl overflow-hidden">
@@ -80,7 +80,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, oldBooking })
           <div className="title-rating-container flex justify-between items-center gap-8 mt-3">
             <h3 className="text-base font-bold line-clamp-1"> {booking.venue.name} </h3>
             <div className="flex gap-2 items-center">
-              <Star fill="#000000" stroke="#000000" className="h-4" />
+              <Star className="h-4 starColor" />
               <p className="text-sm">{booking.venue.rating}</p>
             </div>
           </div>
@@ -109,7 +109,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, oldBooking })
                     onDeleteBooking();
                   }}
                 >
-                  <Trash2 className="h-4 transition text-black hover:text-error-red cursor-pointer" />
+                  <Trash2 className="h-4 transition text-black hover:text-error-red cursor-pointer dark:text-white" />
                 </button>
               )}
             </div>

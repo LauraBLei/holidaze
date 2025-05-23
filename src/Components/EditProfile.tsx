@@ -111,7 +111,7 @@ export const EditProfile = ({ isOpen, onClose, profile }: EditProfileProps) => {
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
         className={`bg-white w-full md:max-w-[750px] max-h-[750px] h-auto py-10 gap-10 px-5 flex flex-col justify-center items-center
-          rounded-xl transition-all duration-500 ease-in-out transform ${isVisible ? 'scale-100' : 'scale-95'}`}
+          rounded-xl transition-all duration-500 ease-in-out transform dark:bg-dark ${isVisible ? 'scale-100' : 'scale-95'}`}
       >
         <div className="w-full flex justify-end px-5">
           <p
@@ -121,7 +121,7 @@ export const EditProfile = ({ isOpen, onClose, profile }: EditProfileProps) => {
             X
           </p>
         </div>
-        <h1 className="text-2xl">Update Profile</h1>
+        <h1 className="text-2xl dark:text-white">Update Profile</h1>
 
         <img
           src={previewAvatar}

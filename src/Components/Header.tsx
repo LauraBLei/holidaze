@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import logo from '/holidaze-logo.png';
+import logoLight from '/logo-light.png';
+import logoDark from '/logo-dark.png';
 import { useEffect, useRef, useState } from 'react';
 import { NavList } from './NavList';
 import { Menu, X } from 'lucide-react';
+import { useDarkMode } from '../context/darkModeContext';
 
 /**
  * Header component displays the website's navigation, logo, and a hamburger menu for mobile view.
@@ -17,6 +19,7 @@ export default function Header() {
   const userData = localStorage.getItem('User');
   const user = userData ? JSON.parse(userData) : '';
   const menuRef = useRef<HTMLDivElement>(null);
+  const { darkMode } = useDarkMode();
 
   const toggleMenu = () => {
     if (isMenuOpen) {
@@ -47,14 +50,18 @@ export default function Header() {
   }, [isMenuOpen]);
 
   return (
-    <header className="flex w-full h-[90px] md:h-[120px]">
+    <header className="flex w-full h-[90px] md:h-[120px] dark:text-white">
       <nav className="flex items-center justify-between w-full mx-5 md:mx-10 font-primary">
         <Link to="/" className="cursor-pointer md:hover:scale-105 transition">
-          <img src={logo} alt="holidaze-logo" className="h-12 md:h-20" />
+          {darkMode ? (
+            <img src={logoDark} alt="holidaze-logo" className="h-12 md:h-20" />
+          ) : (
+            <img src={logoLight} alt="holidaze-logo" className="h-12 md:h-20" />
+          )}
         </Link>
 
         <div className="hidden md:flex">
-          <NavList className={`flex ${user ? 'gap-10' : ''}`} />
+          <NavList className={`flex gap-5 items-center ${user ? 'gap-10' : ''}`} />
         </div>
 
         <div className="md:hidden self-center">

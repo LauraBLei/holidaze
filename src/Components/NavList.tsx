@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CommonContext } from '../Types/context';
 import { storedName } from '../Constants/constants';
-import { HousePlus, LogOut, UserRound } from 'lucide-react';
+import { HousePlus, LogOut, Moon, Sun, UserRound } from 'lucide-react';
+import { useDarkMode } from '../context/darkModeContext';
 
 /**
  * NavList component renders a responsive navigation menu for the Holidaze app.
@@ -37,6 +38,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
   const { OpenLogin } = useContext(CommonContext);
   const userData = localStorage.getItem('User');
   const user = userData ? JSON.parse(userData) : '';
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <ul className={className}>
@@ -75,6 +77,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         <UserRound className="text-2xl" />
         <span className="text-sm md:text-base font-bold">Login</span>
       </li>
+
       <li
         className={`scale-95 hover:scale-100 transition items-center gap-1 cursor-pointer hidden md:flex ${user ? 'flex' : 'hidden'} `}
         onClick={onClick}
@@ -95,10 +98,15 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           <span className="md:hidden">{user.name}</span>
         </Link>
       </li>
+      <li className="flex items-center">
+        <button className="cursor-pointer" onClick={toggleDarkMode}>
+          {darkMode ? <Moon /> : <Sun />}
+        </button>
+      </li>
       <li
         className={`scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user ? 'block' : 'hidden'} `}
         onClick={() => {
-          localStorage.clear();
+          localStorage.removeItem('User');
           window.location.href = '/';
         }}
       >
