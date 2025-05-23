@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { fadeOutOnlyVariants } from '../Constants/constants';
 import { searchVenues } from '../API/venues/search';
 import { Pagination } from '../Components/pagination';
+import banner from '/banner.jpg';
 
 /**
  * The HomePage component displays a list of all available venues. It fetches the venue data from an API on
@@ -69,9 +70,33 @@ const HomePage = () => {
       animate="animate"
       exit="exit"
       transition={{ duration: 0.5 }}
-      className="w-full flex flex-col items-center justify"
+      className="w-full flex flex-col items-center justify font-primary"
     >
-      <div className="max-w-[1440px] w-full font primary">
+      <div className="max-w-[1440px] w-full h-[400px] lg:h-[600px] overflow-hidden mb-10 relative">
+        <img
+          src={banner}
+          alt="brown wooden house near green trees and mountain under white clouds and blue sky during daytime"
+          className="w-full h-full object-cover"
+        />
+        <div
+          className="absolute text-white bottom-0 pl-5 pb-5 md:pl-10 md:pb-10 lg:pl-20 lg:pb-20 pr-5 flex gap-3 bg-shadow-image w-full h-full"
+          style={{
+            backgroundImage:
+              'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%)',
+          }}
+        >
+          <div className="self-end flex flex-col gap-1 lg:gap-3">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-widest">
+              Escape Everyday
+            </h1>
+            <p className="text-sm sm:text-base lg:text-xl italic">
+              Find your next cozy gateway to Holidaze
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-[1440px] w-full">
         <div className="mx-5 2xl:mx-0">
           <Search setSearchText={setSearchText} searchText={searchText} />
           {searchText &&
@@ -88,9 +113,9 @@ const HomePage = () => {
             })}
 
           <section>
-            <h1 className="headlineOne text-lg font-bold md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+            <h2 className="headlineOne text-lg font-bold md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
               All Venues
-            </h1>
+            </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
               {venueData &&
