@@ -113,9 +113,7 @@ const HomePage = () => {
             })}
 
           <section>
-            <h2 className="headlineOne text-lg font-bold md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
-              All Venues
-            </h2>
+            <h2 className="headlineTwo self-start">All Venues</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
               {venueData &&
@@ -158,7 +156,7 @@ const SearchSection = ({
   <>
     {searchAllVenues.length > 0 ? (
       <section className=" mb-15">
-        <div className="flex justify-between items-center font-bold text-base md:text-xl self-start border-b-[1px] border-brand-grey mb-5 py-2 flex-wrap">
+        <div className="flex justify-between items-center headlineTwo self-start flex-wrap">
           <h2>Search: '{searchText}'</h2>
           <button
             onClick={() => setText('')}
