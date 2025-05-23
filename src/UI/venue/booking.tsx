@@ -1,6 +1,22 @@
 import { bookVenue } from '../../API/booking/book';
 import { Booking } from '../../Types/common';
 
+/**
+ * Handles the booking submission logic including date validation and conflict checking.
+ *
+ * Validates check-in and check-out dates, ensures there are no overlapping bookings,
+ * and if all checks pass, submits a new booking request.
+ *
+ * @async
+ * @function handleSubmitBooking
+ * @param {Date | null} checkIn - The selected check-in date
+ * @param {Date | null} checkOut - The selected check-out date
+ * @param {number} guests - Number of guests for the booking
+ * @param {string} venueId - ID of the venue being booked
+ * @param {Booking[]} bookings - Existing bookings for the venue to check for conflicts
+ *
+ * @returns {Promise<void>} Resolves when the booking is handled. Alerts or displays UI errors if validation fails.
+ */
 export async function handleSubmitBooking(
   checkIn: Date | null,
   checkOut: Date | null,
