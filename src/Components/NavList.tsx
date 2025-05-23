@@ -59,11 +59,11 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         </Link>
       </li>
       <li
-        className={`scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user.venueManager ? 'block' : 'hidden'} `}
+        className={`scale-95 hover:scale-100 transition flex items-center cursor-pointer ${user.venueManager ? 'block' : 'hidden'} `}
         onClick={onClick}
       >
-        <HousePlus className="text-2xl" />
-        <Link to="/create" className="text-sm md:text-base font-bold ">
+        <Link to="/create" className="text-sm md:text-base font-bold flex items-center gap-2.5 ">
+          <HousePlus className="text-2xl" />
           New Venue
         </Link>
       </li>

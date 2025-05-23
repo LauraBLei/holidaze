@@ -27,7 +27,7 @@ export const DescriptionCrop = ({ text }: DescriptionProps) => {
 
   return (
     <div className="space-y-2">
-      <p ref={paragraphRef} className={`${longWord ? 'break-all' : 'break-word'}`}>
+      <p ref={paragraphRef} className={`${longWord ? 'break-all' : 'break-words'}`}>
         {displayedText}
       </p>
       {isLong && (

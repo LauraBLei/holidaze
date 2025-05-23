@@ -1,5 +1,5 @@
 import { SearchIcon } from 'lucide-react';
-import React, { FormEvent, JSX } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 
 interface InputProps {
   setSearchText: (input: string) => void;
@@ -7,30 +7,31 @@ interface InputProps {
 }
 
 /**
- * Search component that allows users to input a search query.
+ * Search component with debounced input handling to prevent excessive API calls.
  *
  * @component
- * @param {InputProps} props - Component props.
- * @returns {JSX.Element} The rendered search input with a search icon.
+ * @param {InputProps} props - Props containing state and setter for search text.
+ * @returns {JSX.Element}
  */
-
 export const Search: React.FC<InputProps> = ({
   setSearchText,
   searchText,
 }: InputProps): JSX.Element => {
-  const handleSearch = (e: FormEvent) => {
-    e.preventDefault();
-    const formdata = new FormData(e.currentTarget as HTMLFormElement);
-    const searchText = formdata.get('search')?.toString() || '';
-    setSearchText(searchText);
-  };
+  const [input, setInput] = useState(searchText);
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setSearchText(input);
+    }, 500);
+
+    return () => clearTimeout(delay);
+  }, [input, setSearchText]);
+
   return (
     <form
       role="search"
       className="pt-10 mb-5 lg:mb-16 w-full flex justify-center items-center"
-      onSubmit={(e) => {
-        handleSearch(e);
-      }}
+      onSubmit={(e) => e.preventDefault()}
     >
       <div className="max-w-[650px] w-full relative">
         <label htmlFor="search" className="sr-only"></label>
@@ -38,8 +39,9 @@ export const Search: React.FC<InputProps> = ({
           id="search"
           name="search"
           type="text"
-          value={searchText}
-          className=" w-full h-12 border pl-4 rounded-xl"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="w-full h-12 border pl-4 rounded"
           placeholder="Search for venues..."
         />
         <button

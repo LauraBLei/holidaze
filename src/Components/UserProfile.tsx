@@ -55,7 +55,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
       setAPIData: setVenueData,
       name: profile.name,
     });
-  }, [venuePage]);
+  }, [venuePage, profile.name]);
 
   return (
     <div className="w-full flex flex-col items-center gap-14 md:gap-20 lg:gap-24 font-primary">
@@ -103,27 +103,29 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         </div>
       </div>
       <div className="w-full flex justify-center items-center max-w-[1440px] flex-col gap-10 px-5 2xl:px-0">
-        <section id="UserVenues" className="w-full">
-          <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
-            {profile.name == storedName ? 'Your venues' : 'Venues By User'}{' '}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full">
-            {venueData && venueData.data?.length > 0 ? (
-              venueData.data.map((venue) => <VenueCard key={venue.id} venue={venue} />)
-            ) : (
-              <p className="text-gray-500 italic">Oops! No information here yet!</p>
+        {storedVenueManager === true && (
+          <section id="UserVenues" className="w-full">
+            <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+              {profile.name == storedName ? 'Your venues' : 'Venues By User'}{' '}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full">
+              {venueData && venueData.data?.length > 0 ? (
+                venueData.data.map((venue) => <VenueCard key={venue.id} venue={venue} />)
+              ) : (
+                <p className="text-gray-500 italic">Oops! No information here yet!</p>
+              )}
+            </div>{' '}
+            {venueTotalPages > 1 && (
+              <Pagination
+                page={venuePage}
+                setPage={setVenuePage}
+                hasNext={venueHasNext}
+                hasPrevious={venueHasPrevious}
+                totalPages={venueTotalPages}
+              />
             )}
-          </div>{' '}
-          {venueTotalPages > 1 && (
-            <Pagination
-              page={venuePage}
-              setPage={setVenuePage}
-              hasNext={venueHasNext}
-              hasPrevious={venueHasPrevious}
-              totalPages={venueTotalPages}
-            />
-          )}
-        </section>
+          </section>
+        )}
         <section
           id="Bookings"
           className={`w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
@@ -154,27 +156,25 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
             />
           )}
         </section>
-        <section id="PrevBookings" className="w-full">
-          <h2
-            className={`border-b-[1px] border-brand-grey mb-5 py-2 font-bold text-lg md:text-2xl self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
-          >
-            Your Previous Bookings
-          </h2>
-          <div
-            className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
-          >
-            {profile.bookings.length > 0 ? (
-              [...profile.bookings]
+        {profile.bookings.length > 0 && (
+          <section id="PrevBookings" className="w-full">
+            <h2
+              className={`border-b-[1px] border-brand-grey mb-5 py-2 font-bold text-lg md:text-2xl self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
+            >
+              Your Previous Bookings
+            </h2>
+            <div
+              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
+            >
+              {[...profile.bookings]
                 .filter((booking) => new Date(booking.dateTo) < new Date()) // Only past bookings
                 .sort((a, b) => new Date(b.dateFrom).getTime() - new Date(a.dateFrom).getTime()) // Sort newest first
                 .map((booking) => (
                   <BookingCard oldBooking={true} key={booking.id} booking={booking} />
-                ))
-            ) : (
-              <p className="text-gray-500 italic">Oops! No information here yet!</p>
-            )}
-          </div>
-        </section>
+                ))}
+            </div>
+          </section>
+        )}
         {!(profile.venues.length || profile.bookings.length) && (
           <Link to="/" className="button text-center mt-10">
             Back To Homepage

@@ -5,7 +5,23 @@ interface PaginationProps {
   hasPrevious?: boolean;
   totalPages?: number;
 }
-
+/**
+ * Pagination component for navigating between pages of data.
+ *
+ * It displays "Previous" and "Next" buttons and the current page number.
+ * It supports disabling navigation when at the first or last page,
+ * and optionally shows the total number of pages.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {number} props.page - The current page number
+ * @param {(page: number) => void} props.setPage - Function to update the current page
+ * @param {boolean} [props.hasNext=true] - Whether there is a next page
+ * @param {boolean} [props.hasPrevious=page > 1] - Whether there is a previous page
+ * @param {number} [props.totalPages] - The total number of pages (optional display)
+ *
+ * @returns {JSX.Element} Pagination UI with previous/next buttons and current page display
+ */
 export const Pagination: React.FC<PaginationProps> = ({
   page,
   setPage,
