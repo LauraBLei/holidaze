@@ -105,7 +105,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
       <div className="w-full flex justify-center items-center max-w-[1440px] flex-col gap-10 px-5 2xl:px-0">
         {storedVenueManager === true && (
           <section id="UserVenues" className="w-full">
-            <h2 className="font-bold text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
+            <h2 className="headlineTwo self-start ">
               {profile.name == storedName ? 'Your venues' : 'Venues By User'}{' '}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full">
@@ -131,7 +131,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
           className={`w-full ${profile.name === storedName ? 'grid' : 'hidden'}`}
         >
           <h2
-            className={`border-b-[1px] border-brand-grey mb-5 py-2 font-bold text-lg md:text-2xl self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
+            className={`headlineTwo self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
           >
             Your Bookings
           </h2>
@@ -159,7 +159,7 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
         {profile.bookings.length > 0 && (
           <section id="PrevBookings" className="w-full">
             <h2
-              className={`border-b-[1px] border-brand-grey mb-5 py-2 font-bold text-lg md:text-2xl self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
+              className={`headlineTwo self-start ${profile.name === storedName ? 'grid' : 'hidden'}`}
             >
               Your Previous Bookings
             </h2>
