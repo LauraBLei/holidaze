@@ -47,6 +47,6 @@ export const readUserBookings = async ({ page, limit, setAPIData }: readUserBook
       setAPIData(bookings);
     }
   } catch (error) {
-    console.log(error);
+    console.error('readUserBookings: Network or server error occurred.', error);
   }
 };

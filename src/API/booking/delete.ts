@@ -26,6 +26,6 @@ export const deleteBooking = async (id: string) => {
       return response;
     }
   } catch (error) {
-    console.log(error);
+    console.error('deleteBooking: Network or server error occurred.', error);
   }
 };

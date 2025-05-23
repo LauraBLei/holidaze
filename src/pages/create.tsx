@@ -80,8 +80,6 @@ const CreatePage = () => {
     try {
       const result = await handleCreateVenueSubmit(formdata, media);
       setSuccessMessage('Venue created successfully!', setFormStatus);
-      console.log('result', result.id);
-
       if (result && result.id) {
         setTimeout(() => {
           navigate(`/venues?id=${result.id}`);

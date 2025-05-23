@@ -54,6 +54,6 @@ export const searchVenues = async ({ page, limit, setAPIData, text }: readVenues
       setAPIData(venues);
     }
   } catch (error) {
-    console.log(error);
+    console.error('searchVenues: An unexpected error occurred.', error);
   }
 };
