@@ -39,7 +39,7 @@ export const Search: React.FC<InputProps> = ({
           name="search"
           type="text"
           value={searchText}
-          className=" w-full h-12 border pl-4 rounded"
+          className=" w-full h-12 border pl-4 rounded-xl"
           placeholder="Search for venues..."
         />
         <button
