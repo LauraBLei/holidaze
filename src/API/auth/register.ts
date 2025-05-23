@@ -1,20 +1,6 @@
 import { API } from '../endpoints';
 import { headers } from '../headers';
 
-/**
- * Handles user registration by sending a POST request with user details.
- *
- * Displays appropriate messages for success, existing user error, or general catch error.
- *
- * @param {Object} params - The registration form data.
- * @param {FormDataEntryValue} params.name - The name of the user.
- * @param {FormDataEntryValue} params.email - The user's email address.
- * @param {FormDataEntryValue} params.password - The user's password.
- * @param {boolean} params.isVenueManager - Whether the user is registering as a venue manager.
- * @returns {Promise<void>} Resolves when registration is handled (either success or error display).
- * @throws {Error} If the request fails due to network or server issues.
- */
-
 type RegisterForm = {
   name: FormDataEntryValue;
   email: FormDataEntryValue;

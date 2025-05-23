@@ -54,15 +54,18 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
 
       {/* Half Star (simulated) */}
       {hasHalfStar && (
-        <div className="relative w-[18px] md:w-[25px] h-auto">
+        <div className="relative">
           <Star
             key="half"
-            className="absolute top-0 left-0"
+            className="absolute top-0 left-0 w-[18px] md:w-[25px] h-auto"
             fill="currentColor"
             stroke="currentColor"
             style={{ clipPath: 'inset(0 50% 0 0)' }} // Half-filled
           />
-          <Star className="absolute top-0 left-0" stroke="currentColor" />
+          <Star
+            className="absolute top-0 left-0 w-[18px] md:w-[25px] h-auto"
+            stroke="currentColor"
+          />
         </div>
       )}
 

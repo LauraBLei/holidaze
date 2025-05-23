@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -27,12 +27,14 @@ interface BookingFormProps {
   maxGuests: number;
   bookings: Booking[];
   id: string;
+  price: number;
 }
 
-export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
+export const BookingForm = ({ maxGuests, bookings, id, price }: BookingFormProps) => {
   const [checkIn, setCheckIn] = useState<Date | null>(null);
   const [checkOut, setCheckOut] = useState<Date | null>(null);
   const [guests, setGuests] = useState(1);
+  const [totalCost, setTotalCost] = useState<number | null>(null);
   const user = storedUserData;
 
   const excludeDateIntervals = bookings.map((b) => ({
@@ -45,6 +47,19 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
 
     await handleSubmitBooking(checkIn, checkOut, guests, id, bookings);
   };
+
+  useEffect(() => {
+    if (checkIn && checkOut) {
+      const nights = (checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24);
+      if (nights > 0) {
+        setTotalCost(nights * price);
+      } else {
+        setTotalCost(null);
+      }
+    } else {
+      setTotalCost(null);
+    }
+  }, [checkIn, checkOut, price]);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col w-full gap-5 items-center">
@@ -106,6 +121,18 @@ export const BookingForm = ({ maxGuests, bookings, id }: BookingFormProps) => {
           ))}
         </select>
       </label>
+
+      {totalCost !== null && (
+        <p className="text-base md:text-lg font-bold text-brand-black w-full flex justify-between">
+          Total cost:{' '}
+          <span className="text-brand-primary">
+            {new Intl.NumberFormat('no-NO', {
+              style: 'currency',
+              currency: 'NOK',
+            }).format(totalCost)}
+          </span>
+        </p>
+      )}
 
       <button type="submit" className={`button mt-4 ${user ? 'block' : 'hidden'} `}>
         Book now

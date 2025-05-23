@@ -39,7 +39,6 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
     const formData = new FormData(e.currentTarget as HTMLFormElement);
 
     const isValid = runRegistrationValidations(formData, setFormStatus);
-    console.log('Validation result:', isValid);
     if (!isValid) return;
 
     try {

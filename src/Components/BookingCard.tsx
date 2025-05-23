@@ -1,10 +1,14 @@
 import loadingImage from '/loading-image.png';
 import { Booking } from '../Types/common';
-import { Star } from 'lucide-react';
+import { Star, Trash2, UsersRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CommonContext } from '../Types/context';
+import { deleteBooking } from '../API/booking/delete';
 
 interface BookingCardProps {
   booking: Booking;
+  oldBooking: boolean;
 }
 
 /**
@@ -35,7 +39,29 @@ interface BookingCardProps {
  * @returns {JSX.Element} A card component displaying the booking details.
  */
 
-export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
+export const BookingCard: React.FC<BookingCardProps> = ({ booking, oldBooking }) => {
+  const dateFrom = new Date(booking.dateFrom);
+  const dateTo = new Date(booking.dateTo);
+  const millisecondsPerDay = 1000 * 60 * 60 * 24;
+  const numberOfNights = Math.max(
+    Math.ceil((dateTo.getTime() - dateFrom.getTime()) / millisecondsPerDay),
+    1,
+  );
+  const totalCost = booking.venue.price * numberOfNights;
+  const { confirm } = useContext(CommonContext);
+  const onDeleteBooking = () => {
+    confirm({
+      message: 'Are you sure you want to delete this Booking?',
+      onConfirm: handleDeleteBooking,
+    });
+  };
+
+  const handleDeleteBooking = async () => {
+    await deleteBooking(booking.id);
+
+    window.location.reload();
+  };
+
   return (
     <Link
       to={`/venues?id=${booking.venue.id}`}
@@ -60,7 +86,6 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
           </div>
 
           <div className="flex flex-col justify-between h-full gap-5">
-            <p className=" w-full rounded text-sm line-clamp-1">{booking.venue.description}</p>
             <p className="text-sm">
               {new Date(booking.dateFrom).toLocaleDateString('en-GB')} <span>-</span>{' '}
               {new Date(booking.dateTo).toLocaleDateString('en-GB')}
@@ -68,7 +93,25 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
 
             <div className="flex justify-between items-center mt-auto">
               <span className="text-sm font-bold">{booking.venue.price}$ / night</span>
-              <p>{booking.guests} guest(s)</p>
+              <p className="flex gap-2 items-center">
+                {booking.guests} <UsersRound className="h-4" />
+              </p>
+            </div>
+            <div className="text-sm font-bold flex justify-between">
+              <span>
+                Total: {totalCost}$ / {numberOfNights} night{numberOfNights > 1 ? 's' : ''}
+              </span>
+              {!oldBooking && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onDeleteBooking();
+                  }}
+                >
+                  <Trash2 className="h-4 transition text-black hover:text-error-red cursor-pointer" />
+                </button>
+              )}
             </div>
           </div>
         </div>
