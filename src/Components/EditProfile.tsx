@@ -50,26 +50,33 @@ export const EditProfile = ({ isOpen, onClose, profile }: EditProfileProps) => {
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value;
+    const url = e.target.value.trim();
+
+    if (url === '') {
+      document.getElementById('invalidAvatarUrl')?.classList.add('hidden');
+      return;
+    }
+
     if (isValidImageUrl(url)) {
       setPreviewAvatar(url);
+      document.getElementById('invalidAvatarUrl')?.classList.add('hidden');
     } else {
       document.getElementById('invalidAvatarUrl')?.classList.remove('hidden');
-      setPreviewAvatar(profile.avatar.url);
-      e.target.value = '';
+
       setTimeout(() => {
+        setPreviewAvatar(profile.avatar.url);
+        e.target.value = '';
         document.getElementById('invalidAvatarUrl')?.classList.add('hidden');
-      }, 5000);
+      }, 3000);
     }
   };
-
-  // const isValidImageUrl = (url: string) =>
-  //   /\.(jpeg|jpg|gif|png|webp|svg)$/.test(url) && url.startsWith('http');
 
   const isValidImageUrl = (url: string) => {
     try {
       const parsed = new URL(url);
-      return /\.(jpeg|jpg|gif|png|webp|svg)(\?.*)?$/.test(parsed.pathname);
+      const hasImageExtension = /\.(jpeg|jpg|gif|png|webp|svg)(\?.*)?$/.test(parsed.pathname);
+      const looksLikeUnsplash = parsed.hostname.includes('unsplash.com');
+      return hasImageExtension || looksLikeUnsplash;
     } catch {
       return false;
     }
