@@ -79,17 +79,17 @@ const HomePage = () => {
           className="w-full h-full object-cover"
         />
         <div
-          className="absolute text-white bottom-0 pl-5 pb-5 lg:pl-10 lg:pb-10 flex gap-3 bg-shadow-image w-full h-full"
+          className="absolute text-white bottom-0 pl-5 pb-5 md:pl-10 md:pb-10 lg:pl-20 lg:pb-20 pr-5 flex gap-3 bg-shadow-image w-full h-full"
           style={{
             backgroundImage:
-              'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%)',
+              'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%)',
           }}
         >
           <div className="self-end flex flex-col gap-1 lg:gap-3">
-            <h1 className="text-xl sm:text-3xl lg:text-5xl font-bold tracking-widest">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-widest">
               Escape Everyday
             </h1>
-            <p className="text-base sm:text-xl lg:text-3xl italic">
+            <p className="text-sm sm:text-base lg:text-xl italic">
               Find your next cozy gateway to Holidaze
             </p>
           </div>
