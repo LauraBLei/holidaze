@@ -30,7 +30,7 @@ export const Search: React.FC<InputProps> = ({
   return (
     <form
       role="search"
-      className="pt-10 mb-5 lg:mb-16 w-full flex justify-center items-center dark:text-white"
+      className="mb-14 mt-18 w-full flex justify-center items-center dark:text-white"
       onSubmit={(e) => e.preventDefault()}
     >
       <div className="max-w-[650px] w-full relative">
@@ -41,7 +41,7 @@ export const Search: React.FC<InputProps> = ({
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="w-full h-12 border pl-4 rounded"
+          className="w-full h-12 border pl-4 rounded-xl"
           placeholder="Search for venues..."
         />
         <button
