@@ -56,7 +56,7 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
 
   return (
     <div className="flex flex-col items-center w-full overflow-y-auto max-h-[650px] md:max-h-[1000px]">
-      <div className="w-full flex justify-end px-5">
+      <div className="w-full flex justify-end px-5 dark:text-white">
         <p
           onClick={() => {
             onClose();
@@ -66,7 +66,9 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
           X
         </p>
       </div>
-      <h1 className="headlineOne mb-6 md:mb-16 mt-2 md:mt-3">Register an account</h1>
+      <h1 className="headlineOne mb-6 md:mb-16 mt-2 md:mt-3 dark:text-white">
+        Register an account
+      </h1>
       <form
         className="w-full flex flex-col gap-4 max-w-[425px] items-center"
         onSubmit={handleSubmit}
@@ -85,10 +87,10 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
             <button
               type="button"
               onClick={() => setIsVenueManager(false)}
-              className={`flex-1 z-10 py-2 md:py-3.5  font-medium text-base md:text-xl  ${
+              className={`flex-1 z-10 py-2 md:py-3.5  font-medium text-base md:text-xl ${
                 !isVenueManager
                   ? 'text-black cursor-auto'
-                  : 'text-black whitespace-nowrap cursor-pointer'
+                  : 'text-black whitespace-nowrap cursor-pointer dark:text-white'
               }`}
             >
               Customer
@@ -100,8 +102,8 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
               onClick={() => setIsVenueManager(true)}
               className={`flex-1 z-10 py-2 md:py-3.5  font-medium text-base md:text-xl whitespace-nowrap ${
                 isVenueManager
-                  ? 'text-black cursor-auto'
-                  : 'text-black whitespace-nowrap cursor-pointer'
+                  ? 'text-black cursor-auto '
+                  : 'text-black whitespace-nowrap cursor-pointer dark:text-white'
               } `}
             >
               Venue Manager
@@ -167,7 +169,7 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
         </button>
       </form>
       <button
-        className="transition scale-95 hover:scale-100 cursor-pointer mt-2 md:mt-4 font-primary"
+        className="transition scale-95 hover:scale-100 cursor-pointer mt-2 md:mt-4 font-primary dark:text-white"
         onClick={() => OpenLogin()}
       >
         Login

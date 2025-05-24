@@ -84,7 +84,7 @@ const VenuePage = () => {
           ) : (
             <img src="/loading-image.png" alt="Loading..." />
           )}
-          <div className="my-10">
+          <div className="my-10 dark:text-white">
             <p className="text-2xl">{venue.price} NOK</p>
             <p>Per night</p>
           </div>
@@ -118,7 +118,7 @@ const VenuePage = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-2 w-full md:max-w-[700px] md:min-w-[350px] lg:px-2">
+        <div className="flex flex-col gap-2 w-full md:max-w-[700px] md:min-w-[350px] lg:px-2 dark:text-white">
           <div className="flex justify-between items-center flex-wrap gap-10">
             <h1 className="headlineOne">{venue.name}</h1>
 
@@ -210,7 +210,7 @@ const VenuePage = () => {
         <section className="2-full mt-7 flex flex-col gap-5">
           <h2 className="headlineTwo">Bookings</h2>
           {venue.bookings && venue.bookings.length > 0 ? (
-            <div className="flex flex-wrap gap-5 w-full">
+            <div className="flex flex-wrap gap-5 w-full dark:text-white">
               {venue.bookings
                 .slice()
                 .sort((a, b) => new Date(b.dateFrom).getTime() - new Date(a.dateFrom).getTime())
@@ -267,9 +267,9 @@ export const AmenityItem = ({ value }: AmenityItemProps) => {
   return (
     <div>
       {value ? (
-        <Check className="w-[20px] md:w-[25px] h-auto text-black" />
+        <Check className="w-[20px] md:w-[25px] h-auto text-black dark:text-white" />
       ) : (
-        <X className="w-[20px] md:w-[25px] h-auto text-black" />
+        <X className="w-[20px] md:w-[25px] h-auto text-black dark:text-white" />
       )}
     </div>
   );

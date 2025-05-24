@@ -29,7 +29,7 @@ export const InputField = ({
 }: InputType) => (
   <div className="w-full flex flex-col gap-1">
     {labelText && id && (
-      <label htmlFor={id} className={labelClass}>
+      <label htmlFor={id} className={labelClass || 'dark:text-white'}>
         {labelText}
       </label>
     )}
@@ -38,13 +38,13 @@ export const InputField = ({
         <textarea
           id={id}
           {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
-          className="w-full h-36 border border-brand-grey p-3 rounded-xl focus:outline-brand-grey placeholder:text-sm"
+          className="w-full h-36 border border-brand-grey p-3 rounded-xl focus:outline-brand-grey placeholder:text-sm dark:text-white"
         />
       ) : (
         <input
           id={id}
           {...(rest as InputHTMLAttributes<HTMLInputElement>)}
-          className="input focus:border-0 focus:outline-1 focus:outline-brand-grey placeholder:text-sm"
+          className="input focus:border-0 focus:outline-1 focus:outline-brand-grey placeholder:text-sm dark:text-white"
         />
       )}
 

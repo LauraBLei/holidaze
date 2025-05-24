@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CommonContext } from '../Types/context';
 import { storedName } from '../Constants/constants';
-import { HousePlus, LogOut, UserRound } from 'lucide-react';
+import { HousePlus, LogOut, Moon, Sun, UserRound } from 'lucide-react';
+import { useDarkMode } from '../context/darkModeContext';
 
 /**
  * NavList component renders a responsive navigation menu for the Holidaze app.
@@ -37,6 +38,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
   const { OpenLogin } = useContext(CommonContext);
   const userData = localStorage.getItem('User');
   const user = userData ? JSON.parse(userData) : '';
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <ul className={className}>
@@ -62,8 +64,8 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         className={`scale-95 hover:scale-100 transition flex items-center cursor-pointer ${user.venueManager ? 'block' : 'hidden'} `}
         onClick={onClick}
       >
-        <Link to="/create" className="text-sm md:text-base font-bold flex items-center gap-2.5 ">
-          <HousePlus className="text-2xl" />
+        <Link to="/create" className="navText">
+          <HousePlus />
           New Venue
         </Link>
       </li>
@@ -73,16 +75,28 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         onClick={() => OpenLogin()}
       >
         <UserRound className="text-2xl" />
-        <span className="text-sm md:text-base font-bold">Login</span>
+        <span className="navText">Login</span>
       </li>
+      <li className="flex items-center md:hidden">
+        <button className="cursor-pointer" onClick={toggleDarkMode}>
+          {darkMode ? (
+            <span className="navText">
+              <Moon /> <span>Dark</span>
+            </span>
+          ) : (
+            <span className="navText">
+              <Sun /> <span>Light</span>
+            </span>
+          )}
+        </button>
+      </li>
+      {/* <div className="flex flex-col gap-2.5"></div> */}
+
       <li
         className={`scale-95 hover:scale-100 transition items-center gap-1 cursor-pointer hidden md:flex ${user ? 'flex' : 'hidden'} `}
         onClick={onClick}
       >
-        <Link
-          to={`/profile?username=${storedName}`}
-          className={`flex items-center gap-2.5 text-sm md:text-base font-bold `}
-        >
+        <Link to={`/profile?username=${storedName}`} className="navText">
           {user.avatar?.url && (
             <div className="w-14 h-14 md:w-10 md:h-10 overflow-hidden rounded-full">
               <img
@@ -95,14 +109,27 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           <span className="md:hidden">{user.name}</span>
         </Link>
       </li>
+      <li className="md:flex items-center hidden">
+        <button className="cursor-pointer" onClick={toggleDarkMode}>
+          {darkMode ? (
+            <span className="navText">
+              <Moon /> <span>Dark</span>
+            </span>
+          ) : (
+            <span className="navText">
+              <Sun /> <span>Light</span>
+            </span>
+          )}
+        </button>
+      </li>
       <li
         className={`scale-95 hover:scale-100 transition flex items-center gap-2.5 cursor-pointer ${user ? 'block' : 'hidden'} `}
         onClick={() => {
-          localStorage.clear();
+          localStorage.removeItem('User');
           window.location.href = '/';
         }}
       >
-        <LogOut className="text-2xl" />
+        <LogOut />
         <span className="text-sm md:text-base font-bold md:hidden">Log Out</span>
       </li>
     </ul>

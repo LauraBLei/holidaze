@@ -53,7 +53,7 @@ export const LoginModal = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="w-full flex justify-end px-5 ">
+      <div className="w-full flex justify-end px-5 dark:text-white">
         <p
           onClick={() => {
             onClose();
@@ -63,14 +63,16 @@ export const LoginModal = ({ onClose }: { onClose: () => void }) => {
           X
         </p>
       </div>
-      <h1 className="text-2xl">Log In</h1>
+      <h1 className="text-2xl dark:text-white">Log In</h1>
       <form
         className="w-full flex flex-col gap-4 max-w-[425px] items-center"
         onSubmit={handleSubmit}
       >
         <div id="Slider" className="w-full  mx-auto"></div>
 
-        {formStatus.success && <p className="success-message">{formStatus.success}</p>}
+        {formStatus.success && (
+          <p className="success-message dark:text-black">{formStatus.success}</p>
+        )}
         {formStatus.submitError && <p className="error-message">{formStatus.submitError}</p>}
 
         <InputField
@@ -102,7 +104,7 @@ export const LoginModal = ({ onClose }: { onClose: () => void }) => {
         </button>
       </form>
       <button
-        className="transition scale-95 hover:scale-100 cursor-pointer mt-4 font-primary"
+        className="transition scale-95 hover:scale-100 cursor-pointer mt-4 font-primary dark:text-white"
         onClick={() => OpenRegister()}
       >
         Register

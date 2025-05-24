@@ -64,7 +64,7 @@ export const AuthModal = () => {
           visible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
       >
-        <div ref={contentRef} className="pt-10 pb-16 px-5 ">
+        <div ref={contentRef} className="pt-10 pb-16 px-5 dark:bg-dark">
           {loginOpen ? (
             <LoginModal onClose={handleClose} />
           ) : registerOpen ? (

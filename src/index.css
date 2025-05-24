@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
 html,
 body {
   margin: 0;
@@ -11,6 +13,7 @@ body {
   --color-brand-orange: #ffb641;
   --color-error-green: #8bce9b;
   --color-error-red: #ff7f78;
+  --color-dark: #181818;
   --font-primary: 'Inter', 'ui-sans-serif', 'system-ui';
   --shadow-sm: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
@@ -53,7 +56,11 @@ body {
 }
 
 .button {
-  @apply bg-brand-orange font-primary w-full md:w-[300px] transition rounded-xl py-2.5 md:py-3 scale-95 hover:scale-100 hover:shadow-md cursor-pointer active:scale-95 text-lg md:text-xl;
+  @apply bg-brand-orange dark:text-black font-primary font-bold w-full md:w-[300px] transition rounded-xl py-2.5 md:py-3 scale-95 hover:scale-100 hover:shadow-md cursor-pointer active:scale-95 text-lg md:text-xl;
+}
+
+.starColor {
+  @apply fill-black stroke-black dark:fill-white dark:stroke-white;
 }
 
 .transition {
@@ -61,23 +68,23 @@ body {
 }
 
 .headlineOne {
-  @apply font-primary text-lg font-semibold md:font-light  md:text-3xl;
+  @apply font-primary text-lg font-semibold md:font-light md:text-3xl dark:text-white;
 }
 
 .headlineTwo {
-  @apply font-primary text-base md:text-2xl font-bold border-b-[1px]  border-brand-grey mb-5 py-2;
+  @apply font-primary text-base md:text-2xl font-bold border-b border-brand-grey mb-5 py-2 dark:text-white;
 }
 
 .text {
   @apply font-primary text-xs md:text-base;
 }
 
-.input {
-  @apply w-full p-3 rounded-xl border border-brand-grey font-primary;
+.navText {
+  @apply flex items-center gap-2.5 text-sm md:text-base font-bold;
 }
 
-.create-edit-titles {
-  @apply text-xl md:text-2xl lg:text-3xl pb-2 border-b border-brand-grey mb-2 md:mb-8 font-primary;
+.input {
+  @apply w-full p-3 rounded-xl border border-brand-grey font-primary;
 }
 
 .amenities-label {
@@ -85,7 +92,7 @@ body {
 }
 
 .amenities-checkbox {
-  @apply w-6 h-6 border-1 bg-white border-black rounded-md flex items-center justify-center peer-checked:bg-black;
+  @apply w-6 h-6 border-1 bg-white border-black dark:bg-dark dark:border-white rounded-md flex items-center justify-center peer-checked:bg-black dark:peer-checked:bg-brand-grey;
 }
 
 .error-message {
@@ -94,4 +101,31 @@ body {
 
 .success-message {
   @apply w-full p-3 rounded-xl bg-error-green font-primary;
+}
+
+/* Date picker */
+.dark .react-datepicker {
+  @apply bg-dark text-white;
+}
+
+.dark .react-datepicker__header {
+  @apply bg-dark border-b border-gray-400;
+}
+
+.dark .react-datepicker__current-month,
+.dark .react-datepicker__day-name {
+  @apply text-white;
+}
+
+.dark .react-datepicker__day {
+  @apply text-white;
+}
+
+.dark .react-datepicker__day--disabled {
+  @apply text-gray-500;
+}
+
+.dark .react-datepicker__day--selected,
+.dark .react-datepicker__day--keyboard-selected {
+  @apply bg-green-400 text-black;
 }
