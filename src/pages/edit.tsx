@@ -151,7 +151,7 @@ const EditPage = () => {
 
             {/* Basic info */}
             <section className="flex flex-col gap-4">
-              <h2 className="create-edit-titles">Basic info</h2>
+              <h2 className="headlineTwo">Basic info</h2>
 
               <InputField
                 id="image"
@@ -209,7 +209,7 @@ const EditPage = () => {
 
             {/* Pricing & Guests */}
             <section className="flex flex-col gap-4">
-              <h2 className="create-edit-titles">Pricing & Guests</h2>
+              <h2 className="headlineTwo">Pricing & Guests</h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
@@ -236,7 +236,6 @@ const EditPage = () => {
                       labelText={item.label}
                       type={item.type}
                       placeholder={item.placeholder}
-                      className="input"
                       step={item.step}
                       max={item.max}
                       value={formData[item.id as keyof typeof formData]}
@@ -252,7 +251,7 @@ const EditPage = () => {
 
             {/* Location */}
             <section className="flex flex-col gap-4">
-              <h2 className="create-edit-titles">Location</h2>
+              <h2 className="headlineTwo">Location</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { id: 'address', label: 'Address', placeholder: 'Imaginary street 123' },
@@ -267,7 +266,6 @@ const EditPage = () => {
                       labelText={item.label}
                       type="text"
                       placeholder={item.placeholder}
-                      className="input"
                       value={formData[item.id as keyof typeof formData]}
                       onChange={handleChange}
                       autoComplete="off"
@@ -279,7 +277,7 @@ const EditPage = () => {
 
             {/* Amenities */}
             <section className="flex flex-col gap-4">
-              <h2 className="create-edit-titles">Amenities</h2>
+              <h2 className="headlineTwo">Amenities</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 dark:text-white">
                 {[
                   { id: 'pets', label: 'Pets', icon: <PawPrint size={24} /> },
@@ -303,7 +301,7 @@ const EditPage = () => {
                       </div>
 
                       <span className="amenities-checkbox">
-                        <Check size={18} className="text-white" />
+                        <Check size={18} className="text-white dark:text-dark" />
                       </span>
                     </label>
                   </div>
