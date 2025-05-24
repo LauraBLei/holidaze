@@ -32,7 +32,7 @@ export const DescriptionCrop = ({ text }: DescriptionProps) => {
       </p>
       {isLong && (
         <button
-          className="text-black underline text-sm cursor-pointer"
+          className="text-black underline text-sm cursor-pointer dark:text-white"
           onClick={() => setExpanded(!expanded)}
         >
           {expanded ? 'See less' : 'See more'}

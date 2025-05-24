@@ -115,7 +115,7 @@ export const BookingForm = ({ maxGuests, bookings, id, price }: BookingFormProps
           name="guests"
           value={guests}
           onChange={(e) => setGuests(Number(e.target.value))}
-          className="text-base"
+          className="text-base dark:bg-dark"
         >
           {Array.from({ length: maxGuests }, (_, i) => (
             <option key={i} value={i + 1}>

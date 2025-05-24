@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { APIBookingData, APIVenueData, Profile } from '../Types/common';
 import { VenueCard } from './VenueCard';
-import { BiSolidCalendarStar } from 'react-icons/bi';
 import { EditProfile } from './EditProfile';
 import { Link } from 'react-router-dom';
 import { BookingCard } from './BookingCard';
 import { storedName, storedVenueManager } from '../Constants/constants';
-import { UserRoundPen } from 'lucide-react';
+import { BadgeCheck, UserRoundPen } from 'lucide-react';
 import { readUserBookings } from '../API/booking/userBooking';
 import { Pagination } from './pagination';
 import { ReadUserVenues } from '../API/venues/read';
@@ -74,10 +73,10 @@ export const BuildUser: React.FC<BuildUserProps> = ({ profile }) => {
           <div className="skeleton-bio flex flex-col justify-center w-full">
             <div className="flex flex-col gap-4 justify-center mx-5">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
+                <div className="flex flex-wrap items-center gap-5">
                   <h1 className="text-lg md:text-2xl rounded dark:text-white">{profile.name}</h1>
                   {storedVenueManager ? (
-                    <BiSolidCalendarStar className="text-lg md:text-2xl" />
+                    <BadgeCheck className="dark:text-white fill-green-400 dark:fill-green-700" />
                   ) : null}
                 </div>
                 {profile.name === storedName && (

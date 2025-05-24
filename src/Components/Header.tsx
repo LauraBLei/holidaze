@@ -75,10 +75,10 @@ export default function Header() {
               animateOut ? 'animate-slide-bounce-out' : 'animate-slide-in'
             } md:hidden absolute right-0 top-0 max-w-96 w-full h-96 bg-[var(--color-brand-orange)] shadow-lg p-2 z-50 flex flex-col items-end rounded-bl-full`}
           >
-            <div className="flex w-full justify-end pt-4">
+            <div className="flex w-full justify-end pt-4 dark:text-black">
               <div className="flex w-full items-center justify-center">
                 <NavList
-                  className={`flex ${user ? 'flex flex-col gap-4 mt-3 mr-[-80px]' : 'mt-16 mr-[-80px]'}`}
+                  className={`flex ${user ? 'flex flex-col gap-4 mt-3 mr-[-80px]' : 'mt-16 mr-[-80px] flex-col gap-4'}`}
                   onClick={toggleMenu}
                 />
               </div>
