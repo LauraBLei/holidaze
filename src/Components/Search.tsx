@@ -27,6 +27,10 @@ export const Search: React.FC<InputProps> = ({
     return () => clearTimeout(delay);
   }, [input, setSearchText]);
 
+  useEffect(() => {
+    setInput(searchText);
+  }, [searchText]);
+
   return (
     <form
       role="search"
@@ -34,7 +38,9 @@ export const Search: React.FC<InputProps> = ({
       onSubmit={(e) => e.preventDefault()}
     >
       <div className="max-w-[650px] w-full relative">
-        <label htmlFor="search" className="sr-only"></label>
+        <label htmlFor="search" className="sr-only">
+          Search
+        </label>
         <input
           id="search"
           name="search"
