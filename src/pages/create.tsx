@@ -1,4 +1,3 @@
-// import { CreateVenueForm } from '../Components/CreateVenue';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { fadeOutOnlyVariants } from '../Constants/constants';
@@ -123,7 +122,7 @@ const CreatePage = () => {
 
             {/* Basic info */}
             <section className="flex flex-col gap-4">
-              <h2 className="create-edit-titles">Basic info</h2>
+              <h2 className="headlineTwo">Basic info</h2>
 
               <div className="flex flex-col gap-2">
                 <InputField
@@ -183,7 +182,7 @@ const CreatePage = () => {
 
             {/* Pricing & Guests */}
             <section className="flex flex-col gap-4">
-              <h2 className="create-edit-titles">Pricing & Guests</h2>
+              <h2 className="headlineTwo">Pricing & Guests</h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
@@ -210,7 +209,6 @@ const CreatePage = () => {
                       labelText={item.label}
                       type={item.type}
                       placeholder={item.placeholder}
-                      className="input"
                       step={item.step}
                       max={item.max}
                     />
@@ -224,7 +222,7 @@ const CreatePage = () => {
 
             {/* Location */}
             <section className="flex flex-col gap-4">
-              <h2 className="create-edit-titles">Location</h2>
+              <h2 className="headlineTwo">Location</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { id: 'address', label: 'Address', placeholder: 'Imaginary street 123' },
@@ -239,7 +237,7 @@ const CreatePage = () => {
                       labelText={item.label}
                       type="text"
                       placeholder={item.placeholder}
-                      className="input"
+                      autoComplete="off"
                     />
                   </div>
                 ))}
@@ -248,8 +246,8 @@ const CreatePage = () => {
 
             {/* Amenities */}
             <section className="flex flex-col gap-4">
-              <h2 className="create-edit-titles">Amenities map</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <h2 className="headlineTwo">Amenities map</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 dark:text-white">
                 {[
                   { id: 'pets', label: 'Pets', icon: <PawPrint size={24} /> },
                   { id: 'parking', label: 'Parking', icon: <ParkingSquare size={24} /> },
@@ -272,7 +270,7 @@ const CreatePage = () => {
                       </div>
 
                       <span className="amenities-checkbox">
-                        <Check size={18} className="text-white" />
+                        <Check size={18} className="text-white dark:text-dark" />
                       </span>
                     </label>
                   </div>

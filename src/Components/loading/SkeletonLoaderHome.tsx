@@ -16,20 +16,18 @@ export default function SkeletonLoaderHome() {
   return (
     <div className="w-full flex flex-col items-center justify">
       <div className="max-w-[1440px] w-full font primary">
+        <div className="max-w-[1440px] w-full h-[400px] lg:h-[600px] overflow-hidden">
+          <div className="bg-brand-grey w-full h-full object-cover"></div>
+        </div>
         <div className="mx-5 2xl:mx-0">
-          <div className="max-w-[1440px] w-full h-[600px] overflow-hidden mb-10">
-            <div className="bg-brand-grey w-full h-full object-cover"></div>
-          </div>
-          <div role="search" className="pt-10 mb-16 w-full flex justify-center items-center">
+          <div role="search" className="mb-14 mt-18 w-full flex justify-center items-center">
             <div className="max-w-[650px] w-full relative animate-pulse">
               <div className="w-full h-12 bg-gray-200 rounded-xl"></div>
               <div className="w-12 h-12 bg-gray-300 rounded-xl absolute top-0 right-0"></div>
             </div>
           </div>
           <section className="max-w-[1440px] ">
-            <h1 className="headlineOne text-lg md:text-2xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
-              All Venues
-            </h1>
+            <h1 className="headlineTwo">All Venues</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10">
               <SkeletonLoaderVenueCard />
               <SkeletonLoaderVenueCard />

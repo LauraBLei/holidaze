@@ -27,21 +27,27 @@ export const Search: React.FC<InputProps> = ({
     return () => clearTimeout(delay);
   }, [input, setSearchText]);
 
+  useEffect(() => {
+    setInput(searchText);
+  }, [searchText]);
+
   return (
     <form
       role="search"
-      className="pt-10 mb-5 lg:mb-16 w-full flex justify-center items-center"
+      className="mb-14 mt-18 w-full flex justify-center items-center dark:text-white"
       onSubmit={(e) => e.preventDefault()}
     >
       <div className="max-w-[650px] w-full relative">
-        <label htmlFor="search" className="sr-only"></label>
+        <label htmlFor="search" className="sr-only">
+          Search
+        </label>
         <input
           id="search"
           name="search"
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="w-full h-12 border pl-4 rounded"
+          className="w-full h-12 border pl-4 rounded-xl"
           placeholder="Search for venues..."
         />
         <button

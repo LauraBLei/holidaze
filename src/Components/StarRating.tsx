@@ -44,12 +44,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
       {Array(fullStars)
         .fill(0)
         .map((_, i) => (
-          <Star
-            className="w-[18px] md:w-[25px] h-auto"
-            key={`full-${i}`}
-            fill="currentColor"
-            stroke="currentColor"
-          />
+          <Star className="w-[18px] md:w-[25px] h-auto starColor" key={`full-${i}`} />
         ))}
 
       {/* Half Star (simulated) */}
@@ -57,15 +52,10 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
         <div className="relative">
           <Star
             key="half"
-            className="absolute top-0 left-0 w-[18px] md:w-[25px] h-auto"
-            fill="currentColor"
-            stroke="currentColor"
+            className="absolute top-0 left-0 w-[18px] md:w-[25px] h-auto starColor"
             style={{ clipPath: 'inset(0 50% 0 0)' }} // Half-filled
           />
-          <Star
-            className="absolute top-0 left-0 w-[18px] md:w-[25px] h-auto"
-            stroke="currentColor"
-          />
+          <Star className="absolute top-0 left-0 w-[18px] md:w-[25px] h-auto dark:stroke-white" />
         </div>
       )}
 
@@ -73,7 +63,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
       {Array(emptyStars)
         .fill(0)
         .map((_, i) => (
-          <Star className="w-[18px] md:w-[25px] h-auto" key={`empty-${i}`} stroke="currentColor" />
+          <Star className="w-[18px] md:w-[25px] h-auto dark:stroke-white" key={`empty-${i}`} />
         ))}
     </div>
   );

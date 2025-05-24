@@ -3,6 +3,7 @@ import { HandleUpdateProfile } from '../API/profile/updateProfile';
 import { storedAvatar, storedVenueManager } from '../Constants/constants';
 import { InputField } from './InputField';
 import { Profile } from '../Types/common';
+import { X } from 'lucide-react';
 
 interface EditProfileProps {
   isOpen: boolean;
@@ -111,17 +112,17 @@ export const EditProfile = ({ isOpen, onClose, profile }: EditProfileProps) => {
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
         className={`bg-white w-full md:max-w-[750px] max-h-[750px] h-auto py-10 gap-10 px-5 flex flex-col justify-center items-center
-          rounded-xl transition-all duration-500 ease-in-out transform ${isVisible ? 'scale-100' : 'scale-95'}`}
+          rounded-xl transition-all duration-500 ease-in-out transform dark:bg-dark ${isVisible ? 'scale-100' : 'scale-95'}`}
       >
         <div className="w-full flex justify-end px-5">
           <p
             onClick={handleClose}
             className="font-bold font-primary text-2xl hover:scale-100 scale-90 transition cursor-pointer"
           >
-            X
+            <X className="dark:text-white" />
           </p>
         </div>
-        <h1 className="text-2xl">Update Profile</h1>
+        <h1 className="text-2xl dark:text-white">Update Profile</h1>
 
         <img
           src={previewAvatar}
@@ -167,7 +168,7 @@ export const EditProfile = ({ isOpen, onClose, profile }: EditProfileProps) => {
           />
 
           {!storedVenueManager && (
-            <select required name="venueManager" className="input">
+            <select required name="venueManager" className="input dark:text-white dark:bg-dark">
               <option value="true">Venue Manager</option>
               <option value="false">User</option>
             </select>

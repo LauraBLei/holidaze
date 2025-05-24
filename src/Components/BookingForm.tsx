@@ -62,7 +62,10 @@ export const BookingForm = ({ maxGuests, bookings, id, price }: BookingFormProps
   }, [checkIn, checkOut, price]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col w-full gap-5 items-center">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col w-full gap-5 items-center dark:text-white"
+    >
       <div className="w-full flex flex-col md:flex-row gap-5">
         <label className="input flex flex-col flex-1/2 text-xs">
           CHECK-IN
@@ -79,7 +82,7 @@ export const BookingForm = ({ maxGuests, bookings, id, price }: BookingFormProps
               end: new Date(interval.end),
             }))}
             minDate={new Date()}
-            className="text-base"
+            className="text-base dark:bg-dark dark:text-white"
             placeholderText="Select check-in date"
           />
         </label>
@@ -112,7 +115,7 @@ export const BookingForm = ({ maxGuests, bookings, id, price }: BookingFormProps
           name="guests"
           value={guests}
           onChange={(e) => setGuests(Number(e.target.value))}
-          className="text-base"
+          className="text-base dark:bg-dark"
         >
           {Array.from({ length: maxGuests }, (_, i) => (
             <option key={i} value={i + 1}>

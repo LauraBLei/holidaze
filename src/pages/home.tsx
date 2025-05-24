@@ -72,7 +72,7 @@ const HomePage = () => {
       transition={{ duration: 0.5 }}
       className="w-full flex flex-col items-center justify font-primary"
     >
-      <div className="max-w-[1440px] w-full h-[400px] lg:h-[600px] overflow-hidden mb-10 relative">
+      <div className="max-w-[1440px] w-full h-[400px] lg:h-[600px] overflow-hidden relative">
         <img
           src={banner}
           alt="brown wooden house near green trees and mountain under white clouds and blue sky during daytime"
@@ -160,7 +160,7 @@ const SearchSection = ({
           <h2>Search: '{searchText}'</h2>
           <button
             onClick={() => setText('')}
-            className="text-base  transition scale-95 hover:scale-100 cursor-pointer bg-error-red py-2 px-4 rounded-lg"
+            className="text-base transition scale-95 hover:scale-100 cursor-pointer bg-error-red py-2 px-4 rounded-lg dark:text-black"
           >
             Clear Search
           </button>
@@ -179,7 +179,7 @@ const SearchSection = ({
         />
       </section>
     ) : (
-      <section className=" mb-15">
+      <section className=" mb-15 dark:text-white">
         <h2 className="font-bold text-base md:text-xl self-start border-b-[1px] border-brand-grey mb-5 py-2">
           Search: '{searchText}'
         </h2>
