@@ -3,6 +3,7 @@ import { HandleUpdateProfile } from '../API/profile/updateProfile';
 import { storedAvatar, storedVenueManager } from '../Constants/constants';
 import { InputField } from './InputField';
 import { Profile } from '../Types/common';
+import { X } from 'lucide-react';
 
 interface EditProfileProps {
   isOpen: boolean;
@@ -118,7 +119,7 @@ export const EditProfile = ({ isOpen, onClose, profile }: EditProfileProps) => {
             onClick={handleClose}
             className="font-bold font-primary text-2xl hover:scale-100 scale-90 transition cursor-pointer"
           >
-            X
+            <X className="dark:text-white" />
           </p>
         </div>
         <h1 className="text-2xl dark:text-white">Update Profile</h1>
@@ -167,7 +168,7 @@ export const EditProfile = ({ isOpen, onClose, profile }: EditProfileProps) => {
           />
 
           {!storedVenueManager && (
-            <select required name="venueManager" className="input">
+            <select required name="venueManager" className="input dark:text-white dark:bg-dark">
               <option value="true">Venue Manager</option>
               <option value="false">User</option>
             </select>
