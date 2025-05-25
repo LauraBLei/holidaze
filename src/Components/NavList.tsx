@@ -77,7 +77,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
         <UserRound className="text-2xl" />
         <span className="navText">Login</span>
       </li>
-      <li className="flex items-center md:hidden">
+      <li className="flex items-center md:hidden scale-95 hover:scale-100 transition">
         <button className="cursor-pointer" onClick={toggleDarkMode}>
           {darkMode ? (
             <span className="navText">
@@ -108,7 +108,7 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           <span className="md:hidden">{user.name}</span>
         </Link>
       </li>
-      <li className="md:flex items-center hidden">
+      <li className="md:flex items-center hidden scale-95 hover:scale-100 transition">
         <button className="cursor-pointer" onClick={toggleDarkMode}>
           {darkMode ? (
             <span className="navText">
