@@ -96,11 +96,11 @@ body {
 }
 
 .error-message {
-  @apply w-full p-3 rounded-xl bg-error-red font-primary;
+  @apply w-full text-xs md:text-sm p-3 rounded-xl bg-error-red font-primary;
 }
 
 .success-message {
-  @apply w-full p-3 rounded-xl bg-error-green font-primary;
+  @apply w-full text-xs md:text-sm p-3 rounded-xl bg-error-green font-primary;
 }
 
 /* Date picker */
