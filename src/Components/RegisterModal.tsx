@@ -9,6 +9,7 @@ import {
 } from '../utilities/validation/validation';
 import { runRegistrationValidations } from '../utilities/validation/runRegistrationValidations';
 import { InputField } from './InputField';
+import { X } from 'lucide-react';
 
 /**
  * Registration modal component for users to create a new account.
@@ -63,7 +64,7 @@ export const RegisterModal = ({ onClose }: { onClose: () => void }): JSX.Element
           }}
           className="font-bold font-primary text-2xl hover:scale-100 scale-90 transition cursor-pointer"
         >
-          X
+          <X />
         </p>
       </div>
       <h1 className="headlineOne mb-6 md:mb-16 mt-2 md:mt-3 dark:text-white">

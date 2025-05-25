@@ -9,6 +9,7 @@ import {
 import { InputField } from './InputField';
 import { runLoginValidations } from '../utilities/validation/runLoginValidations';
 import { handleLoginSubmit } from '../UI/auth/login';
+import { X } from 'lucide-react';
 
 /**
  * Login modal component for users to sign in to their account.
@@ -60,7 +61,7 @@ export const LoginModal = ({ onClose }: { onClose: () => void }) => {
           }}
           className="font-bold  font-primary text-2xl hover:scale-100 scale-90 transition cursor-pointer"
         >
-          X
+          <X />
         </p>
       </div>
       <h1 className="text-2xl dark:text-white">Log In</h1>
