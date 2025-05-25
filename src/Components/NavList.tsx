@@ -90,7 +90,6 @@ export const NavList: React.FC<NavListProps> = ({ className, onClick }) => {
           )}
         </button>
       </li>
-      {/* <div className="flex flex-col gap-2.5"></div> */}
 
       <li
         className={`scale-95 hover:scale-100 transition items-center gap-1 cursor-pointer hidden md:flex ${user ? 'flex' : 'hidden'} `}
