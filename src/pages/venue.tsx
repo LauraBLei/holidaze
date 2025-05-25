@@ -243,7 +243,9 @@ const VenuePage = () => {
                 ))}
             </div>
           ) : (
-            <p className="text-brand-black font-primary">There are no bookings yet.</p>
+            <p className="text-brand-black font-primary dark:text-white">
+              There are no bookings yet.
+            </p>
           )}
         </section>
       )}
