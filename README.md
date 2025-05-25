@@ -1,7 +1,8 @@
 
 # Holidaze | Project Exam 2
 
-![image](https://github.com/user-attachments/assets/a25783d4-5264-4eb1-8da6-74da325df7df) 
+![image](https://github.com/user-attachments/assets/f1bcf103-2a46-482f-905a-09bf69a438d6)
+
 
 | GitHub name                               | Full name              | 
 | ----------------------------------------- | ---------------------- |
@@ -96,5 +97,3 @@ Holidaze is a accommodation booking site where your can browse venues book venue
    Banner image homepage - Photo by <a href="https://unsplash.com/@sichpicsss?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Matthew Sichkaruk</a> on <a href="https://unsplash.com/photos/brown-wooden-house-near-green-trees-and-mountain-under-white-clouds-and-blue-sky-during-daytime-hUUIPXXMTeM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
       
 
-
-![holidaze](https://github.com/user-attachments/assets/f0f6ff01-af44-46fe-b602-41d1911b562f)
