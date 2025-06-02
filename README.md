@@ -4,6 +4,12 @@
 ![image](https://github.com/user-attachments/assets/f1bcf103-2a46-482f-905a-09bf69a438d6)
 
 
+## Live Demo
+
+Check out the live version of Holidaze here:  
+[https://holidaze.leidev.net/](https://holidaze.leidev.net/)
+
+
 | GitHub name                               | Full name              | 
 | ----------------------------------------- | ---------------------- |
 | [HansiFED](https://github.com/HansiFED)   | Hans Willmar Berentsen |
@@ -24,30 +30,30 @@ Holidaze is a accommodation booking site where your can browse venues book venue
 #### Customer
 - As a customer you are able to browse and search through venues and book a venue. The booked venue will display at the customers profile. The customer can also update the bio, avatar and banner for the profile.
 
-#### Venue Manager
+#### venue Manager
 - As a venue manager you are able to do everything a customer are able too. But as a venue manager you can also create new venues . The venues you manage will display in your profile, and you will be able to view how many bookings there is for that venue. For more info on who and when the bookings are you can click that specfic venue.
 
 
 ## This projects user stories
 #### All users:
-- May view a list of Venues.
-- May search for a specific Venue.
-- May view a specific Venue page by id.
+- May view a list of venues.
+- May search for a specific venue.
+- May view a specific venue page by id.
 - May register as a customer with a stud.noroff.no email address and password.
-- May register as a Venue Manager with a stud.noroff.no email address and password.
-- May view a calendar with available dates for a Venue. Should dates be booked this must be indicated within the calendar.
+- May register as a venue Manager with a stud.noroff.no email address and password.
+- May view a calendar with available dates for a venue. Should dates be booked this must be indicated within the calendar.
 #### Customers:
 - May login and log out once registered.
-- May create a booking at a Venue.
+- May create a booking at a venue.
 - May view their upcoming bookings.
 - May update their avatar/profile picture
 
-#### Venue Managers:
+#### venue Managers:
 - May login and log out once registered.
-- May create a Venue.
-- May edit/update a Venue they manage.
-- May delete a Venue they manage.
-- May view upcoming bookings made at a Venue they manage.
+- May create a venue.
+- May edit/update a venue they manage.
+- May delete a venue they manage.
+- May view upcoming bookings made at a venue they manage.
 - May update their avatar/profile picture 
 
 ## Technologies
